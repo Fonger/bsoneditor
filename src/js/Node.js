@@ -1663,7 +1663,7 @@ Node.prototype.getDom = function() {
     var tdDrag = document.createElement('td');
     if (this.editable.field) {
       // create draggable area
-      if (this.parent) {
+      if (this.parent && this.parent.type === 'array') {
         var domDrag = document.createElement('button');
         domDrag.type = 'button';
         dom.drag = domDrag;
