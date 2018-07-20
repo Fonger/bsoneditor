@@ -29,6 +29,7 @@ function Node (editor, params) {
   this.expanded = false;
 
   if(params && (params instanceof Object)) {
+    this.justInserted = params.justInserted;
     this.setField(params.field, params.fieldEditable);
     this.setValue(params.value, params.type);
   }
@@ -1379,7 +1380,7 @@ Node.prototype._updateDomValue = function () {
 
     // visual styling when empty
     var isEmpty = (String(this.value) == '' && this.type != 'array' && this.type != 'object');
-    if (isEmpty) {
+    if (isEmpty && this.type === 'auto' && this.justInserted) {
       classNames.push('bsoneditor-empty');
     }
 
@@ -2495,8 +2496,12 @@ Node.prototype.onEvent = function (event) {
   if (target == domValue) {
     //noinspection FallthroughInSwitchStatementJS
     switch (type) {
+      case 'focus':
+        if (this.type === 'auto') this.justInserted = true;
+        break;
       case 'blur':
       case 'change':
+        this.justInserted = false;
         try {
           this.setError(null);
           this._getDomValue(false);
@@ -2512,6 +2517,7 @@ Node.prototype.onEvent = function (event) {
         break;
 
       case 'keydown':
+        this.justInserted = false;
         if (event.keyCode == 13 && ((!event.ctrlKey && !event.shiftKey && !event.altKey))) {
           event.preventDefault();
           target.blur();
@@ -2533,6 +2539,7 @@ Node.prototype.onEvent = function (event) {
 
       case 'input':
       case 'keyup':
+        this.justInserted = false;
         //this._debouncedGetDomValue(true); // TODO
         try {
           this.setError(null);
@@ -2547,6 +2554,7 @@ Node.prototype.onEvent = function (event) {
 
       case 'cut':
       case 'paste':
+        this.justInserted = false;
         setTimeout(function () {
           node._getDomValue(true);
           node._updateDomValue();
@@ -2561,6 +2569,10 @@ Node.prototype.onEvent = function (event) {
     switch (type) {
       case 'blur':
       case 'change':
+        if (this.justInserted && this.type === 'auto') {
+          this.justInserted = false;
+          this._updateDomValue();
+        }
         this._getDomField(true);
         this._updateDomField();
         if (this.field) {
@@ -2579,6 +2591,7 @@ Node.prototype.onEvent = function (event) {
         if (event.keyCode == 13 && ((!event.ctrlKey && !event.shiftKey && !event.altKey))) {
           event.preventDefault();
           target.blur();
+          this.justInserted = false;
         }
       case 'mousedown':
         this.editor.selection = this.editor.getDomSelection();
@@ -2591,6 +2604,7 @@ Node.prototype.onEvent = function (event) {
 
       case 'cut':
       case 'paste':
+        this.justInserted = false;
         setTimeout(function () {
           node._getDomField(true);
           node._updateDomField();
@@ -3051,7 +3065,8 @@ Node.prototype._onInsertBefore = function (field, value, type) {
   var newNode = new Node(this.editor, {
     field: (field != undefined) ? field : '',
     value: (value != undefined) ? value : '',
-    type: type
+    type: type,
+    justInserted: true
   });
   newNode.expand(true);
   this.parent.insertBefore(newNode, this);

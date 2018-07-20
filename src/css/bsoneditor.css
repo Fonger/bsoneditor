@@ -47,8 +47,12 @@ div.bsoneditor-field.bsoneditor-empty::after {
   content: "field";
 }
 
+div.bsoneditor-value.bsoneditor-empty::before {
+  content: "" !important;
+}
+
 div.bsoneditor-value.bsoneditor-empty::after {
-  content: "value";
+  content: "value" !important;
 }
 
 div.bsoneditor-value.bsoneditor-url,
