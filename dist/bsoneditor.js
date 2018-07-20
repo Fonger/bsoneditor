@@ -16411,7 +16411,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	              (this.type == 'objectId' ? ' bsoneditor-selected' : ''),
 	          title: titles.objectId,
 	          click: function () {
-	            node._onInsertBefore('', this.editor.options.bson.ObjectId.createFromHexString('000000000000000000000000'), 'objectId');
+	            node._onInsertBefore('', node.editor.options.bson.ObjectId.createFromHexString('000000000000000000000000'), 'objectId');
 	          }
 	        }
 	    ];
