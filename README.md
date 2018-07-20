@@ -1,10 +1,10 @@
 # JSON Editor
 
-[![Version](https://img.shields.io/npm/v/jsoneditor.svg)](https://www.npmjs.com/package/jsoneditor)
-[![Downloads](https://img.shields.io/npm/dm/jsoneditor.svg)](https://www.npmjs.com/package/jsoneditor)
+[![Version](https://img.shields.io/npm/v/bsoneditor.svg)](https://www.npmjs.com/package/bsoneditor)
+[![Downloads](https://img.shields.io/npm/dm/bsoneditor.svg)](https://www.npmjs.com/package/bsoneditor)
 ![Maintenance](https://img.shields.io/maintenance/yes/2018.svg)
-[![License](https://img.shields.io/github/license/josdejong/jsoneditor.svg)](https://github.com/josdejong/jsoneditor/blob/master/LICENSE)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjosdejong%2Fjsoneditor.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjosdejong%2Fjsoneditor?ref=badge_shield)
+[![License](https://img.shields.io/github/license/Fonger/bsoneditor.svg)](https://github.com/Fonger/bsoneditor/blob/master/LICENSE)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjosdejong%2Fbsoneditor.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjosdejong%2Fbsoneditor?ref=badge_shield)
 
 JSON Editor is a web-based tool to view, edit, format, and validate JSON.
 It has various modes such as a tree editor, a code editor, and a plain text
@@ -15,11 +15,11 @@ can be loaded as CommonJS module, AMD module, or as a regular javascript file.
 
 Supported browsers: Chrome, Firefox, Safari, Opera, Edge, Internet Explorer 11.
 
-<img alt="json editor" src="https://raw.github.com/josdejong/jsoneditor/master/misc/jsoneditor.png"> &nbsp; <img alt="code editor" src="https://raw.github.com/josdejong/jsoneditor/master/misc/codeeditor.png">
+<img alt="json editor" src="https://raw.github.com/Fonger/bsoneditor/master/misc/bsoneditor.png"> &nbsp; <img alt="code editor" src="https://raw.github.com/Fonger/bsoneditor/master/misc/codeeditor.png">
 
-Cross browser testing for JSONEditor is generously provided by <a href="https://www.browserstack.com" target="_blank">BrowserStack</a>
+Cross browser testing for BSONEditor is generously provided by <a href="https://www.browserstack.com" target="_blank">BrowserStack</a>
 
-<a href="https://www.browserstack.com" target="_blank"><img alt="BrowserStack" src="https://raw.github.com/josdejong/jsoneditor/master/misc/browserstack.png"></a>
+<a href="https://www.browserstack.com" target="_blank"><img alt="BrowserStack" src="https://raw.github.com/Fonger/bsoneditor/master/misc/browserstack.png"></a>
 
 ## Features
 
@@ -46,35 +46,35 @@ Cross browser testing for JSONEditor is generously provided by <a href="https://
 ## Documentation
 
 - Documentation:
-  - [API](https://github.com/josdejong/jsoneditor/tree/master/docs/api.md)
-  - [Usage](https://github.com/josdejong/jsoneditor/tree/master/docs/usage.md)
-  - [Shortcut keys](https://github.com/josdejong/jsoneditor/tree/master/docs/shortcut_keys.md)
-- [Examples](https://github.com/josdejong/jsoneditor/tree/master/examples)
-- [Source](https://github.com/josdejong/jsoneditor)
-- [History](https://github.com/josdejong/jsoneditor/blob/master/HISTORY.md)
+  - [API](https://github.com/Fonger/bsoneditor/tree/master/docs/api.md)
+  - [Usage](https://github.com/Fonger/bsoneditor/tree/master/docs/usage.md)
+  - [Shortcut keys](https://github.com/Fonger/bsoneditor/tree/master/docs/shortcut_keys.md)
+- [Examples](https://github.com/Fonger/bsoneditor/tree/master/examples)
+- [Source](https://github.com/Fonger/bsoneditor)
+- [History](https://github.com/Fonger/bsoneditor/blob/master/HISTORY.md)
 
 
 ## Install
 
 with npm (recommended):
 
-    npm install jsoneditor
+    npm install bsoneditor
 
 with bower:
 
-    bower install jsoneditor
+    bower install bsoneditor
 
 
 #### More
 
 
-There is a directive available for using JSONEditor in AngularJS:
+There is a directive available for using BSONEditor in AngularJS:
 
-[https://github.com/isonet/angular-jsoneditor](https://github.com/isonet/angular-jsoneditor)
+[https://github.com/isonet/angular-bsoneditor](https://github.com/isonet/angular-bsoneditor)
 
 Directive for Angular 5.x as well:
 
-[https://github.com/mariohmol/ang-jsoneditor](https://github.com/mariohmol/ang-jsoneditor)
+[https://github.com/mariohmol/ang-bsoneditor](https://github.com/mariohmol/ang-bsoneditor)
 
 
 ## Use
@@ -86,17 +86,17 @@ Directive for Angular 5.x as well:
     <!-- when using the mode "code", it's important to specify charset utf-8 -->
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 
-    <link href="jsoneditor/dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
-    <script src="jsoneditor/dist/jsoneditor.min.js"></script>
+    <link href="bsoneditor/dist/bsoneditor.min.css" rel="stylesheet" type="text/css">
+    <script src="bsoneditor/dist/bsoneditor.min.js"></script>
 </head>
 <body>
-    <div id="jsoneditor" style="width: 400px; height: 400px;"></div>
+    <div id="bsoneditor" style="width: 400px; height: 400px;"></div>
 
     <script>
         // create the editor
-        var container = document.getElementById("jsoneditor");
+        var container = document.getElementById("bsoneditor");
         var options = {};
-        var editor = new JSONEditor(container, options);
+        var editor = new BSONEditor(container, options);
 
         // set json
         var json = {
@@ -120,7 +120,7 @@ Directive for Angular 5.x as well:
 ## Build
 
 The code of the JSON Editor is located in the folder `./src`. To build 
-jsoneditor:
+bsoneditor:
 
 - Install dependencies:
 
@@ -134,7 +134,7 @@ jsoneditor:
   npm run build
   ```
 
-  This will generate the files `./jsoneditor.js`, `./jsoneditor.css`, and  
+  This will generate the files `./bsoneditor.js`, `./bsoneditor.css`, and  
   minified versions in the dist of the project.
 
 - To automatically build when a source file has changed:
@@ -143,27 +143,27 @@ jsoneditor:
   npm run watch
   ```
 
-  This will update `./jsoneditor.js` and `./jsoneditor.css` in the dist folder
+  This will update `./bsoneditor.js` and `./bsoneditor.css` in the dist folder
   on every change, but it will **NOT** update the minified versions as that's
   an expensive operation.
 
 
 ## Custom builds
 
-The source code of JSONEditor consists of CommonJS modules. JSONEditor can be bundled in a customized way using a module bundler like [browserify](http://browserify.org/) or [webpack](http://webpack.github.io/). First, install all dependencies of jsoneditor:
+The source code of BSONEditor consists of CommonJS modules. BSONEditor can be bundled in a customized way using a module bundler like [browserify](http://browserify.org/) or [webpack](http://webpack.github.io/). First, install all dependencies of bsoneditor:
 
     npm install
 
 To create a custom bundle of the source code using browserify:
 
-    browserify ./index.js -o ./jsoneditor.custom.js -s JSONEditor
+    browserify ./index.js -o ./bsoneditor.custom.js -s BSONEditor
 
 The Ace editor, used in mode `code`, accounts for about 75% of the total
 size of the library. To exclude the Ace editor from the bundle:
 
-    browserify ./index.js -o ./jsoneditor.custom.js -s JSONEditor -x brace -x brace/mode/json -x brace/ext/searchbox
+    browserify ./index.js -o ./bsoneditor.custom.js -s BSONEditor -x brace -x brace/mode/json -x brace/ext/searchbox
 
 To minify the generated bundle, use [uglifyjs](https://github.com/mishoo/UglifyJS2):
 
-    uglifyjs ./jsoneditor.custom.js -o ./jsoneditor.custom.min.js -m -c
+    uglifyjs ./bsoneditor.custom.js -o ./bsoneditor.custom.min.js -m -c
 

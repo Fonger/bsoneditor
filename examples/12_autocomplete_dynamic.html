@@ -1,15 +1,15 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title>JSONEditor | Dynamic Auto Complete</title>
+  <title>BSONEditor | Dynamic Auto Complete</title>
 
-  <link href="../dist/jsoneditor.css" rel="stylesheet" type="text/css">
-  <script src="../dist/jsoneditor.js"></script>
+  <link href="../dist/bsoneditor.css" rel="stylesheet" type="text/css">
+  <script src="../dist/bsoneditor.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
 
 
   <style type="text/css">
-    #jsoneditor {
+    #bsoneditor {
       width: 500px;
       height: 500px;
     }
@@ -26,11 +26,11 @@
   This example demonstrates how to autocomplete works, options available are dynamics and consist in all the strings found in the json
 </p>
 
-<div id="jsoneditor"></div>
+<div id="bsoneditor"></div>
 
 <script>
   // create the editor
-  var container = document.getElementById('jsoneditor');
+  var container = document.getElementById('bsoneditor');
   var options = {
     autocomplete: {
       applyTo:['value'],
@@ -60,7 +60,7 @@
     'object': {'a': 'b', 'c': 'd'},
     'string': 'Hello World'
   };
-  var editor = new JSONEditor(container, options, json);
+  var editor = new BSONEditor(container, options, json);
 </script>
 </body>
 </html>

@@ -9,10 +9,10 @@ If you're not sure which version to use, use the full version.
 
 Which files are needed when using the full version?
 
-- jsoneditor.min.js
-- jsoneditor.map (optional, for debugging purposes only)
-- jsoneditor.min.css
-- img/jsoneditor-icons.svg
+- bsoneditor.min.js
+- bsoneditor.map (optional, for debugging purposes only)
+- bsoneditor.min.css
+- img/bsoneditor-icons.svg
 
 
 ## Minimalist version
@@ -34,8 +34,8 @@ When to use the minimalist version?
 
 Which files are needed when using the minimalist version?
 
-- jsoneditor-minimalist.min.js
-- jsoneditor-minimalist.map (optional, for debugging purposes only)
-- jsoneditor.min.css
-- img/jsoneditor-icons.svg
+- bsoneditor-minimalist.min.js
+- bsoneditor-minimalist.map (optional, for debugging purposes only)
+- bsoneditor.min.css
+- img/bsoneditor-icons.svg
 

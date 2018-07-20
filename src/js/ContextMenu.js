@@ -34,18 +34,18 @@ function ContextMenu (items, options) {
 
   // create root element
   var root = document.createElement('div');
-  root.className = 'jsoneditor-contextmenu-root';
+  root.className = 'bsoneditor-contextmenu-root';
   dom.root = root;
 
   // create a container element
   var menu = document.createElement('div');
-  menu.className = 'jsoneditor-contextmenu';
+  menu.className = 'bsoneditor-contextmenu';
   dom.menu = menu;
   root.appendChild(menu);
 
   // create a list to hold the menu items
   var list = document.createElement('ul');
-  list.className = 'jsoneditor-menu';
+  list.className = 'bsoneditor-menu';
   menu.appendChild(list);
   dom.list = list;
   dom.items = []; // list with all buttons
@@ -65,7 +65,7 @@ function ContextMenu (items, options) {
       if (item.type == 'separator') {
         // create a separator
         var separator = document.createElement('div');
-        separator.className = 'jsoneditor-separator';
+        separator.className = 'bsoneditor-separator';
         li = document.createElement('li');
         li.appendChild(separator);
         list.appendChild(li);
@@ -98,24 +98,24 @@ function ContextMenu (items, options) {
         if (item.submenu) {
           // add the icon to the button
           var divIcon = document.createElement('div');
-          divIcon.className = 'jsoneditor-icon';
+          divIcon.className = 'bsoneditor-icon';
           button.appendChild(divIcon);
           var divText = document.createElement('div');
-          divText.className = 'jsoneditor-text' +
-              (item.click ? '' : ' jsoneditor-right-margin');
+          divText.className = 'bsoneditor-text' +
+              (item.click ? '' : ' bsoneditor-right-margin');
           divText.appendChild(document.createTextNode(item.text));
           button.appendChild(divText);
 
           var buttonSubmenu;
           if (item.click) {
             // submenu and a button with a click handler
-            button.className += ' jsoneditor-default';
+            button.className += ' bsoneditor-default';
 
             var buttonExpand = document.createElement('button');
             buttonExpand.type = 'button';
             domItem.buttonExpand = buttonExpand;
-            buttonExpand.className = 'jsoneditor-expand';
-            buttonExpand.innerHTML = '<div class="jsoneditor-expand"></div>';
+            buttonExpand.className = 'bsoneditor-expand';
+            buttonExpand.innerHTML = '<div class="bsoneditor-expand"></div>';
             li.appendChild(buttonExpand);
             if (item.submenuTitle) {
               buttonExpand.title = item.submenuTitle;
@@ -126,7 +126,7 @@ function ContextMenu (items, options) {
           else {
             // submenu and a button without a click handler
             var divExpand = document.createElement('div');
-            divExpand.className = 'jsoneditor-expand';
+            divExpand.className = 'bsoneditor-expand';
             button.appendChild(divExpand);
 
             buttonSubmenu = button;
@@ -144,15 +144,15 @@ function ContextMenu (items, options) {
           domItem.subItems = domSubItems;
           var ul = document.createElement('ul');
           domItem.ul = ul;
-          ul.className = 'jsoneditor-menu';
+          ul.className = 'bsoneditor-menu';
           ul.style.height = '0';
           li.appendChild(ul);
           createMenuItems(ul, domSubItems, item.submenu);
         }
         else {
           // no submenu, just a button with clickhandler
-          button.innerHTML = '<div class="jsoneditor-icon"></div>' +
-              '<div class="jsoneditor-text">' + translate(item.text) + '</div>';
+          button.innerHTML = '<div class="bsoneditor-icon"></div>' +
+              '<div class="bsoneditor-text">' + translate(item.text) + '</div>';
         }
 
         domItems.push(domItem);
@@ -333,7 +333,7 @@ ContextMenu.prototype._onExpandItem = function (domItem) {
     setTimeout(function () {
       if (me.expandedItem != expandedItem) {
         expandedItem.ul.style.display = '';
-        util.removeClassName(expandedItem.ul.parentNode, 'jsoneditor-selected');
+        util.removeClassName(expandedItem.ul.parentNode, 'bsoneditor-selected');
       }
     }, 300); // timeout duration must match the css transition duration
     this.expandedItem = undefined;
@@ -353,7 +353,7 @@ ContextMenu.prototype._onExpandItem = function (domItem) {
         ul.style.padding = '5px 10px';
       }
     }, 0);
-    util.addClassName(ul.parentNode, 'jsoneditor-selected');
+    util.addClassName(ul.parentNode, 'bsoneditor-selected');
     this.expandedItem = domItem;
   }
 };
@@ -405,7 +405,7 @@ ContextMenu.prototype._onKeyDown = function (event) {
     }
   }
   else if (keynum == 37) { // Arrow Left
-    if (target.className == 'jsoneditor-expand') {
+    if (target.className == 'bsoneditor-expand') {
       buttons = this._getVisibleButtons();
       targetIndex = buttons.indexOf(target);
       prevButton = buttons[targetIndex - 1];
@@ -419,7 +419,7 @@ ContextMenu.prototype._onKeyDown = function (event) {
     buttons = this._getVisibleButtons();
     targetIndex = buttons.indexOf(target);
     prevButton = buttons[targetIndex - 1];
-    if (prevButton && prevButton.className == 'jsoneditor-expand') {
+    if (prevButton && prevButton.className == 'bsoneditor-expand') {
       // skip expand button
       prevButton = buttons[targetIndex - 2];
     }
@@ -436,7 +436,7 @@ ContextMenu.prototype._onKeyDown = function (event) {
     buttons = this._getVisibleButtons();
     targetIndex = buttons.indexOf(target);
     nextButton = buttons[targetIndex + 1];
-    if (nextButton && nextButton.className == 'jsoneditor-expand') {
+    if (nextButton && nextButton.className == 'bsoneditor-expand') {
       nextButton.focus();
     }
     handled = true;
@@ -445,7 +445,7 @@ ContextMenu.prototype._onKeyDown = function (event) {
     buttons = this._getVisibleButtons();
     targetIndex = buttons.indexOf(target);
     nextButton = buttons[targetIndex + 1];
-    if (nextButton && nextButton.className == 'jsoneditor-expand') {
+    if (nextButton && nextButton.className == 'bsoneditor-expand') {
       // skip expand button
       nextButton = buttons[targetIndex + 2];
     }

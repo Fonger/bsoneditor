@@ -1,8 +1,8 @@
 /*!
- * jsoneditor.js
+ * bsoneditor.js
  *
  * @brief
- * JSONEditor is a web-based tool to view, edit, format, and validate JSON.
+ * BSONEditor is a web-based tool to view, edit, format, and validate JSON.
  * It has various modes such as a tree editor, a code editor, and a plain text
  * editor.
  *
@@ -21,7 +21,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *
- * Copyright (c) 2011-2017 Jos de Jong, http://jsoneditoronline.org
+ * Copyright (c) 2011-2017 Jos de Jong, http://bsoneditoronline.org
  *
  * @author  Jos de Jong, <wjosdejong@gmail.com>
  * @version 5.19.0
@@ -33,9 +33,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["JSONEditor"] = factory();
+		exports["BSONEditor"] = factory();
 	else
-		root["JSONEditor"] = factory();
+		root["BSONEditor"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -98,7 +98,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var util = __webpack_require__(4);
 
 	/**
-	 * @constructor JSONEditor
+	 * @constructor BSONEditor
 	 * @param {Element} container    Container element
 	 * @param {Object}  [options]    Object with options. available options:
 	 *                               {String} mode        Editor mode. Available values:
@@ -142,9 +142,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *                                                                Defaults to document.body
 	 * @param {Object | undefined} json JSON object
 	 */
-	function JSONEditor (container, options, json) {
-	  if (!(this instanceof JSONEditor)) {
-	    throw new Error('JSONEditor constructor called without "new".');
+	function BSONEditor (container, options, json) {
+	  if (!(this instanceof BSONEditor)) {
+	    throw new Error('BSONEditor constructor called without "new".');
 	  }
 
 	  // check for unsupported browser (IE8 and older)
@@ -210,19 +210,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *
 	 * @type { Object.<String, {mixin: Object, data: String} > }
 	 */
-	JSONEditor.modes = {};
+	BSONEditor.modes = {};
 
 	// debounce interval for JSON schema vaidation in milliseconds
-	JSONEditor.prototype.DEBOUNCE_INTERVAL = 150;
+	BSONEditor.prototype.DEBOUNCE_INTERVAL = 150;
 
 	/**
-	 * Create the JSONEditor
+	 * Create the BSONEditor
 	 * @param {Element} container    Container element
 	 * @param {Object}  [options]    See description in constructor
 	 * @param {Object | undefined} json JSON object
 	 * @private
 	 */
-	JSONEditor.prototype._create = function (container, options, json) {
+	BSONEditor.prototype._create = function (container, options, json) {
 	  this.container = container;
 	  this.options = options || {};
 	  this.json = json || {};
@@ -234,13 +234,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * Destroy the editor. Clean up DOM, event listeners, and web workers.
 	 */
-	JSONEditor.prototype.destroy = function () {};
+	BSONEditor.prototype.destroy = function () {};
 
 	/**
 	 * Set JSON object in editor
 	 * @param {Object | undefined} json      JSON data
 	 */
-	JSONEditor.prototype.set = function (json) {
+	BSONEditor.prototype.set = function (json) {
 	  this.json = json;
 	};
 
@@ -248,7 +248,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Get JSON from the editor
 	 * @returns {Object} json
 	 */
-	JSONEditor.prototype.get = function () {
+	BSONEditor.prototype.get = function () {
 	  return this.json;
 	};
 
@@ -256,7 +256,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Set string containing JSON for the editor
 	 * @param {String | undefined} jsonText
 	 */
-	JSONEditor.prototype.setText = function (jsonText) {
+	BSONEditor.prototype.setText = function (jsonText) {
 	  this.json = util.parse(jsonText);
 	};
 
@@ -264,7 +264,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Get stringified JSON contents from the editor
 	 * @returns {String} jsonText
 	 */
-	JSONEditor.prototype.getText = function () {
+	BSONEditor.prototype.getText = function () {
 	  return JSON.stringify(this.json);
 	};
 
@@ -272,7 +272,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Set a field name for the root node.
 	 * @param {String | undefined} name
 	 */
-	JSONEditor.prototype.setName = function (name) {
+	BSONEditor.prototype.setName = function (name) {
 	  if (!this.options) {
 	    this.options = {};
 	  }
@@ -283,17 +283,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Get the field name for the root node.
 	 * @return {String | undefined} name
 	 */
-	JSONEditor.prototype.getName = function () {
+	BSONEditor.prototype.getName = function () {
 	  return this.options && this.options.name;
 	};
 
 	/**
 	 * Change the mode of the editor.
-	 * JSONEditor will be extended with all methods needed for the chosen mode.
+	 * BSONEditor will be extended with all methods needed for the chosen mode.
 	 * @param {String} mode     Available modes: 'tree' (default), 'view', 'form',
 	 *                          'text', and 'code'.
 	 */
-	JSONEditor.prototype.setMode = function (mode) {
+	BSONEditor.prototype.setMode = function (mode) {
 	  var container = this.container;
 	  var options = util.extend({}, this.options);
 	  var oldMode = options.mode;
@@ -301,7 +301,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var name;
 
 	  options.mode = mode;
-	  var config = JSONEditor.modes[mode];
+	  var config = BSONEditor.modes[mode];
 	  if (config) {
 	    try {
 	      var asText = (config.data == 'text');
@@ -347,7 +347,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Get the current mode
 	 * @return {string}
 	 */
-	JSONEditor.prototype.getMode = function () {
+	BSONEditor.prototype.getMode = function () {
 	  return this.options.mode;
 	};
 
@@ -357,7 +357,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {Error} err
 	 * @private
 	 */
-	JSONEditor.prototype._onError = function(err) {
+	BSONEditor.prototype._onError = function(err) {
 	  if (this.options && typeof this.options.onError === 'function') {
 	    this.options.onError(err);
 	  }
@@ -368,12 +368,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * Set a JSON schema for validation of the JSON object.
-	 * To remove the schema, call JSONEditor.setSchema(null)
+	 * To remove the schema, call BSONEditor.setSchema(null)
 	 * @param {Object | null} schema
 	 * @param {Object.<string, Object>=} schemaRefs Schemas that are referenced using the `$ref` property from the JSON schema that are set in the `schema` option,
 	 +  the object structure in the form of `{reference_key: schemaObject}`
 	 */
-	JSONEditor.prototype.setSchema = function (schema, schemaRefs) {
+	BSONEditor.prototype.setSchema = function (schema, schemaRefs) {
 	  // compile a JSON schema validator if a JSON schema is provided
 	  if (schema) {
 	    var ajv;
@@ -383,7 +383,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    }
 	    catch (err) {
-	      console.warn('Failed to create an instance of Ajv, JSON Schema validation is not available. Please use a JSONEditor bundle including Ajv, or pass an instance of Ajv as via the configuration option `ajv`.');
+	      console.warn('Failed to create an instance of Ajv, JSON Schema validation is not available. Please use a BSONEditor bundle including Ajv, or pass an instance of Ajv as via the configuration option `ajv`.');
 	    }
 
 	    if (ajv) {
@@ -422,14 +422,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Validate current JSON object against the configured JSON schema
 	 * Throws an exception when no JSON schema is configured
 	 */
-	JSONEditor.prototype.validate = function () {
+	BSONEditor.prototype.validate = function () {
 	  // must be implemented by treemode and textmode
 	};
 
 	/**
 	 * Refresh the rendered contents
 	 */
-	JSONEditor.prototype.refresh = function () {
+	BSONEditor.prototype.refresh = function () {
 	  // can be implemented by treemode and textmode
 	};
 
@@ -440,11 +440,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *
 	 * - `mode: String`           The name of the mode.
 	 * - `mixin: Object`          An object containing the mixin functions which
-	 *                            will be added to the JSONEditor. Must contain functions
+	 *                            will be added to the BSONEditor. Must contain functions
 	 *                            create, get, getText, set, and setText. May have
 	 *                            additional functions.
-	 *                            When the JSONEditor switches to a mixin, all mixin
-	 *                            functions are added to the JSONEditor, and then
+	 *                            When the BSONEditor switches to a mixin, all mixin
+	 *                            functions are added to the BSONEditor, and then
 	 *                            the function `create(container, options)` is executed.
 	 * - `data: 'text' | 'json'`  The type of data that will be used to load the mixin.
 	 * - `[load: function]`       An optional function called after the mixin
@@ -452,13 +452,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *
 	 * @param {Object | Array} mode  A mode object or an array with multiple mode objects.
 	 */
-	JSONEditor.registerMode = function (mode) {
+	BSONEditor.registerMode = function (mode) {
 	  var i, prop;
 
 	  if (util.isArray(mode)) {
 	    // multiple modes
 	    for (i = 0; i < mode.length; i++) {
-	      JSONEditor.registerMode(mode[i]);
+	      BSONEditor.registerMode(mode[i]);
 	    }
 	  }
 	  else {
@@ -467,7 +467,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (!('mixin' in mode)) throw new Error('Property "mixin" missing');
 	    if (!('data' in mode)) throw new Error('Property "data" missing');
 	    var name = mode.mode;
-	    if (name in JSONEditor.modes) {
+	    if (name in BSONEditor.modes) {
 	      throw new Error('Mode "' + name + '" already registered');
 	    }
 
@@ -483,15 +483,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }
 
-	    JSONEditor.modes[name] = mode;
+	    BSONEditor.modes[name] = mode;
 	  }
 	};
 
 	// register tree and text modes
-	JSONEditor.registerMode(treemode);
-	JSONEditor.registerMode(textmode);
+	BSONEditor.registerMode(treemode);
+	BSONEditor.registerMode(textmode);
 
-	module.exports = JSONEditor;
+	module.exports = BSONEditor;
 
 
 /***/ },
@@ -1171,7 +1171,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	treemode._createFrame = function () {
 	  // create the frame
 	  this.frame = document.createElement('div');
-	  this.frame.className = 'jsoneditor jsoneditor-mode-' + this.options.mode;
+	  this.frame.className = 'bsoneditor bsoneditor-mode-' + this.options.mode;
 	  this.container.appendChild(this.frame);
 
 	  // create one global event listener to handle all events from all nodes
@@ -1214,13 +1214,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  // create menu
 	  this.menu = document.createElement('div');
-	  this.menu.className = 'jsoneditor-menu';
+	  this.menu.className = 'bsoneditor-menu';
 	  this.frame.appendChild(this.menu);
 
 	  // create expand all button
 	  var expandAll = document.createElement('button');
 	  expandAll.type = 'button';
-	  expandAll.className = 'jsoneditor-expand-all';
+	  expandAll.className = 'bsoneditor-expand-all';
 	  expandAll.title = translate('expandAll');
 	  expandAll.onclick = function () {
 	    editor.expandAll();
@@ -1231,7 +1231,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var collapseAll = document.createElement('button');
 	  collapseAll.type = 'button';
 	  collapseAll.title = translate('collapseAll');
-	  collapseAll.className = 'jsoneditor-collapse-all';
+	  collapseAll.className = 'bsoneditor-collapse-all';
 	  collapseAll.onclick = function () {
 	    editor.collapseAll();
 	  };
@@ -1240,7 +1240,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // create sort button
 	  var sort = document.createElement('button');
 	  sort.type = 'button';
-	  sort.className = 'jsoneditor-sort';
+	  sort.className = 'bsoneditor-sort';
 	  sort.title = translate('sortTitleShort');
 	  sort.onclick = function () {
 	    var anchor = editor.options.modalAnchor || DEFAULT_MODAL_ANCHOR;
@@ -1252,7 +1252,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var transform = document.createElement('button');
 	  transform.type = 'button';
 	  transform.title = translate('transformTitleShort');
-	  transform.className = 'jsoneditor-transform';
+	  transform.className = 'bsoneditor-transform';
 	  transform.onclick = function () {
 	    var anchor = editor.options.modalAnchor || DEFAULT_MODAL_ANCHOR;
 	    showTransformModal(editor.node, anchor)
@@ -1264,7 +1264,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // create undo button
 	    var undo = document.createElement('button');
 	    undo.type = 'button';
-	    undo.className = 'jsoneditor-undo jsoneditor-separator';
+	    undo.className = 'bsoneditor-undo bsoneditor-separator';
 	    undo.title = translate('undo');
 	    undo.onclick = function () {
 	      editor._onUndo();
@@ -1275,7 +1275,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // create redo button
 	    var redo = document.createElement('button');
 	    redo.type = 'button';
-	    redo.className = 'jsoneditor-redo';
+	    redo.className = 'bsoneditor-redo';
 	    redo.title = translate('redo');
 	    redo.onclick = function () {
 	      editor._onRedo();
@@ -1311,7 +1311,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if(this.options.navigationBar) {
 	    // create second menu row for treepath
 	    this.navBar = document.createElement('div');
-	    this.navBar.className = 'jsoneditor-navigation-bar nav-bar-empty';
+	    this.navBar.className = 'bsoneditor-navigation-bar nav-bar-empty';
 	    this.frame.appendChild(this.navBar);
 
 	    this.treePath = new TreePath(this.navBar);
@@ -1777,8 +1777,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (!ctrlKey && !altKey && !metaKey && (event.key.length == 1 || keynum == 8 || keynum == 46)) {
 	          handled = false;
 	          var jsonElementType = "";
-	          if (event.target.className.indexOf("jsoneditor-value") >= 0) jsonElementType = "value";
-	          if (event.target.className.indexOf("jsoneditor-field") >= 0) jsonElementType = "field";
+	          if (event.target.className.indexOf("bsoneditor-value") >= 0) jsonElementType = "value";
+	          if (event.target.className.indexOf("bsoneditor-field") >= 0) jsonElementType = "field";
 
 	          var node = Node.getNodeFromTarget(event.target);
 	          // Activate autocomplete
@@ -1825,18 +1825,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	treemode._createTable = function () {
 	  var contentOuter = document.createElement('div');
-	  contentOuter.className = 'jsoneditor-outer';
+	  contentOuter.className = 'bsoneditor-outer';
 	  if(this.options.navigationBar) {
 	    util.addClassName(contentOuter, 'has-nav-bar');
 	  }
 	  this.contentOuter = contentOuter;
 
 	  this.content = document.createElement('div');
-	  this.content.className = 'jsoneditor-tree';
+	  this.content.className = 'bsoneditor-tree';
 	  contentOuter.appendChild(this.content);
 
 	  this.table = document.createElement('table');
-	  this.table.className = 'jsoneditor-tree';
+	  this.table.className = 'bsoneditor-tree';
 	  this.content.appendChild(this.table);
 
 	  // create colgroup where the first two columns don't have a fixed
@@ -1876,7 +1876,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  items.push({
 	    text: translate('duplicateText'),
 	    title: translate('duplicateTitle'),
-	    className: 'jsoneditor-duplicate',
+	    className: 'bsoneditor-duplicate',
 	    click: function () {
 	      Node.onDuplicate(editor.multiselection.nodes);
 	    }
@@ -1886,7 +1886,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  items.push({
 	    text: translate('remove'),
 	    title: translate('removeTitle'),
-	    className: 'jsoneditor-remove',
+	    className: 'bsoneditor-remove',
 	    click: function () {
 	      Node.onRemove(editor.multiselection.nodes);
 	    }
@@ -2139,7 +2139,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * @constructor History
 	 * Store action history, enables undo and redo
-	 * @param {JSONEditor} editor
+	 * @param {BSONEditor} editor
 	 */
 	function History (editor) {
 	  this.editor = editor;
@@ -3805,7 +3805,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * @constructor SearchBox
 	 * Create a search box in given HTML container
-	 * @param {JSONEditor} editor    The JSON Editor to attach to
+	 * @param {BSONEditor} editor    The JSON Editor to attach to
 	 * @param {Element} container               HTML container element of where to
 	 *                                          create the search box
 	 */
@@ -3822,7 +3822,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  var table = document.createElement('table');
 	  this.dom.table = table;
-	  table.className = 'jsoneditor-search';
+	  table.className = 'bsoneditor-search';
 	  container.appendChild(table);
 	  var tbody = document.createElement('tbody');
 	  this.dom.tbody = tbody;
@@ -3834,14 +3834,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  tr.appendChild(td);
 	  var results = document.createElement('div');
 	  this.dom.results = results;
-	  results.className = 'jsoneditor-results';
+	  results.className = 'bsoneditor-results';
 	  td.appendChild(results);
 
 	  td = document.createElement('td');
 	  tr.appendChild(td);
 	  var divInput = document.createElement('div');
 	  this.dom.input = divInput;
-	  divInput.className = 'jsoneditor-frame';
+	  divInput.className = 'bsoneditor-frame';
 	  divInput.title = 'Search fields and values';
 	  td.appendChild(divInput);
 
@@ -3855,7 +3855,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  var refreshSearch = document.createElement('button');
 	  refreshSearch.type = 'button';
-	  refreshSearch.className = 'jsoneditor-refresh';
+	  refreshSearch.className = 'bsoneditor-refresh';
 	  td = document.createElement('td');
 	  td.appendChild(refreshSearch);
 	  tr.appendChild(td);
@@ -3887,7 +3887,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var searchNext = document.createElement('button');
 	  searchNext.type = 'button';
 	  searchNext.title = 'Next result (Enter)';
-	  searchNext.className = 'jsoneditor-next';
+	  searchNext.className = 'bsoneditor-next';
 	  searchNext.onclick = function () {
 	    searchBox.next();
 	  };
@@ -3898,7 +3898,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var searchPrevious = document.createElement('button');
 	  searchPrevious.type = 'button';
 	  searchPrevious.title = 'Previous result (Shift+Enter)';
-	  searchPrevious.className = 'jsoneditor-previous';
+	  searchPrevious.className = 'bsoneditor-previous';
 	  searchPrevious.onclick = function () {
 	    searchBox.previous();
 	  };
@@ -4169,18 +4169,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  // create root element
 	  var root = document.createElement('div');
-	  root.className = 'jsoneditor-contextmenu-root';
+	  root.className = 'bsoneditor-contextmenu-root';
 	  dom.root = root;
 
 	  // create a container element
 	  var menu = document.createElement('div');
-	  menu.className = 'jsoneditor-contextmenu';
+	  menu.className = 'bsoneditor-contextmenu';
 	  dom.menu = menu;
 	  root.appendChild(menu);
 
 	  // create a list to hold the menu items
 	  var list = document.createElement('ul');
-	  list.className = 'jsoneditor-menu';
+	  list.className = 'bsoneditor-menu';
 	  menu.appendChild(list);
 	  dom.list = list;
 	  dom.items = []; // list with all buttons
@@ -4200,7 +4200,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (item.type == 'separator') {
 	        // create a separator
 	        var separator = document.createElement('div');
-	        separator.className = 'jsoneditor-separator';
+	        separator.className = 'bsoneditor-separator';
 	        li = document.createElement('li');
 	        li.appendChild(separator);
 	        list.appendChild(li);
@@ -4233,24 +4233,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (item.submenu) {
 	          // add the icon to the button
 	          var divIcon = document.createElement('div');
-	          divIcon.className = 'jsoneditor-icon';
+	          divIcon.className = 'bsoneditor-icon';
 	          button.appendChild(divIcon);
 	          var divText = document.createElement('div');
-	          divText.className = 'jsoneditor-text' +
-	              (item.click ? '' : ' jsoneditor-right-margin');
+	          divText.className = 'bsoneditor-text' +
+	              (item.click ? '' : ' bsoneditor-right-margin');
 	          divText.appendChild(document.createTextNode(item.text));
 	          button.appendChild(divText);
 
 	          var buttonSubmenu;
 	          if (item.click) {
 	            // submenu and a button with a click handler
-	            button.className += ' jsoneditor-default';
+	            button.className += ' bsoneditor-default';
 
 	            var buttonExpand = document.createElement('button');
 	            buttonExpand.type = 'button';
 	            domItem.buttonExpand = buttonExpand;
-	            buttonExpand.className = 'jsoneditor-expand';
-	            buttonExpand.innerHTML = '<div class="jsoneditor-expand"></div>';
+	            buttonExpand.className = 'bsoneditor-expand';
+	            buttonExpand.innerHTML = '<div class="bsoneditor-expand"></div>';
 	            li.appendChild(buttonExpand);
 	            if (item.submenuTitle) {
 	              buttonExpand.title = item.submenuTitle;
@@ -4261,7 +4261,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          else {
 	            // submenu and a button without a click handler
 	            var divExpand = document.createElement('div');
-	            divExpand.className = 'jsoneditor-expand';
+	            divExpand.className = 'bsoneditor-expand';
 	            button.appendChild(divExpand);
 
 	            buttonSubmenu = button;
@@ -4279,15 +4279,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	          domItem.subItems = domSubItems;
 	          var ul = document.createElement('ul');
 	          domItem.ul = ul;
-	          ul.className = 'jsoneditor-menu';
+	          ul.className = 'bsoneditor-menu';
 	          ul.style.height = '0';
 	          li.appendChild(ul);
 	          createMenuItems(ul, domSubItems, item.submenu);
 	        }
 	        else {
 	          // no submenu, just a button with clickhandler
-	          button.innerHTML = '<div class="jsoneditor-icon"></div>' +
-	              '<div class="jsoneditor-text">' + translate(item.text) + '</div>';
+	          button.innerHTML = '<div class="bsoneditor-icon"></div>' +
+	              '<div class="bsoneditor-text">' + translate(item.text) + '</div>';
 	        }
 
 	        domItems.push(domItem);
@@ -4468,7 +4468,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    setTimeout(function () {
 	      if (me.expandedItem != expandedItem) {
 	        expandedItem.ul.style.display = '';
-	        util.removeClassName(expandedItem.ul.parentNode, 'jsoneditor-selected');
+	        util.removeClassName(expandedItem.ul.parentNode, 'bsoneditor-selected');
 	      }
 	    }, 300); // timeout duration must match the css transition duration
 	    this.expandedItem = undefined;
@@ -4488,7 +4488,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        ul.style.padding = '5px 10px';
 	      }
 	    }, 0);
-	    util.addClassName(ul.parentNode, 'jsoneditor-selected');
+	    util.addClassName(ul.parentNode, 'bsoneditor-selected');
 	    this.expandedItem = domItem;
 	  }
 	};
@@ -4540,7 +4540,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }
 	  else if (keynum == 37) { // Arrow Left
-	    if (target.className == 'jsoneditor-expand') {
+	    if (target.className == 'bsoneditor-expand') {
 	      buttons = this._getVisibleButtons();
 	      targetIndex = buttons.indexOf(target);
 	      prevButton = buttons[targetIndex - 1];
@@ -4554,7 +4554,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    buttons = this._getVisibleButtons();
 	    targetIndex = buttons.indexOf(target);
 	    prevButton = buttons[targetIndex - 1];
-	    if (prevButton && prevButton.className == 'jsoneditor-expand') {
+	    if (prevButton && prevButton.className == 'bsoneditor-expand') {
 	      // skip expand button
 	      prevButton = buttons[targetIndex - 2];
 	    }
@@ -4571,7 +4571,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    buttons = this._getVisibleButtons();
 	    targetIndex = buttons.indexOf(target);
 	    nextButton = buttons[targetIndex + 1];
-	    if (nextButton && nextButton.className == 'jsoneditor-expand') {
+	    if (nextButton && nextButton.className == 'bsoneditor-expand') {
 	      nextButton.focus();
 	    }
 	    handled = true;
@@ -4580,7 +4580,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    buttons = this._getVisibleButtons();
 	    targetIndex = buttons.indexOf(target);
 	    nextButton = buttons[targetIndex + 1];
-	    if (nextButton && nextButton.className == 'jsoneditor-expand') {
+	    if (nextButton && nextButton.className == 'bsoneditor-expand') {
 	      // skip expand button
 	      nextButton = buttons[targetIndex + 2];
 	    }
@@ -4874,7 +4874,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function TreePath(container) {
 	  if (container) {
 	    this.path = document.createElement('div');
-	    this.path.className = 'jsoneditor-treepath';
+	    this.path.className = 'bsoneditor-treepath';
 	    container.appendChild(this.path);
 	    this.reset();
 	  }
@@ -4901,7 +4901,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    pathObjs.forEach(function (pathObj, idx) {
 	      var pathEl = document.createElement('span');
 	      var sepEl;
-	      pathEl.className = 'jsoneditor-treepath-element';
+	      pathEl.className = 'bsoneditor-treepath-element';
 	      pathEl.innerText = pathObj.name;
 	      pathEl.onclick = _onSegmentClick.bind(me, pathObj);
 	  
@@ -4909,7 +4909,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      if (pathObj.children.length) {
 	        sepEl = document.createElement('span');
-	        sepEl.className = 'jsoneditor-treepath-seperator';
+	        sepEl.className = 'bsoneditor-treepath-seperator';
 	        sepEl.innerHTML = '&#9658;';
 
 	        sepEl.onclick = function () {
@@ -4917,7 +4917,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          pathObj.children.forEach(function (child) {
 	            items.push({
 	              'text': child.name,
-	              'className': 'jsoneditor-type-modes' + (pathObjs[idx + 1] + 1 && pathObjs[idx + 1].name === child.name ? ' jsoneditor-selected' : ''),
+	              'className': 'bsoneditor-type-modes' + (pathObjs[idx + 1] + 1 && pathObjs[idx + 1].name === child.name ? ' bsoneditor-selected' : ''),
 	              'click': _onContextMenuItemClick.bind(me, pathObj, child.name)
 	            });
 	          });
@@ -5205,12 +5205,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    var popover = document.createElement('div');
-	    popover.className = 'jsoneditor-popover jsoneditor-right';
+	    popover.className = 'bsoneditor-popover bsoneditor-right';
 	    popover.appendChild(document.createTextNode(error.message));
 
 	    var button = document.createElement('button');
 	    button.type = 'button';
-	    button.className = 'jsoneditor-schema-error';
+	    button.className = 'bsoneditor-schema-error';
 	    button.appendChild(popover);
 
 	    // update the direction of the popover
@@ -5218,7 +5218,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var directions = ['right', 'above', 'below', 'left'];
 	      for (var i = 0; i < directions.length; i++) {
 	        var direction = directions[i];
-	        popover.className = 'jsoneditor-popover jsoneditor-' + direction;
+	        popover.className = 'bsoneditor-popover bsoneditor-' + direction;
 
 	        var contentRect = this.editor.content.getBoundingClientRect();
 	        var popoverRect = popover.getBoundingClientRect();
@@ -5481,7 +5481,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // set this node expanded
 	  this.expanded = true;
 	  if (this.dom.expand) {
-	    this.dom.expand.className = 'jsoneditor-expanded';
+	    this.dom.expand.className = 'bsoneditor-expanded';
 	  }
 
 	  this.showChilds();
@@ -5515,7 +5515,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  // make this node collapsed
 	  if (this.dom.expand) {
-	    this.dom.expand.className = 'jsoneditor-collapsed';
+	    this.dom.expand.className = 'bsoneditor-collapsed';
 	  }
 	  this.expanded = false;
 	};
@@ -6307,30 +6307,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	Node.prototype._updateDomValue = function () {
 	  var domValue = this.dom.value;
 	  if (domValue) {
-	    var classNames = ['jsoneditor-value'];
+	    var classNames = ['bsoneditor-value'];
 
 
 	    // set text color depending on value type
 	    var value = this.value;
 	    var type = (this.type == 'auto') ? util.type(value) : this.type;
 	    var isUrl = type == 'string' && util.isUrl(value);
-	    classNames.push('jsoneditor-' + type);
+	    classNames.push('bsoneditor-' + type);
 	    if (isUrl) {
-	      classNames.push('jsoneditor-url');
+	      classNames.push('bsoneditor-url');
 	    }
 
 	    // visual styling when empty
 	    var isEmpty = (String(this.value) == '' && this.type != 'array' && this.type != 'object');
 	    if (isEmpty) {
-	      classNames.push('jsoneditor-empty');
+	      classNames.push('bsoneditor-empty');
 	    }
 
 	    // highlight when there is a search result
 	    if (this.searchValueActive) {
-	      classNames.push('jsoneditor-highlight-active');
+	      classNames.push('bsoneditor-highlight-active');
 	    }
 	    if (this.searchValue) {
-	      classNames.push('jsoneditor-highlight');
+	      classNames.push('bsoneditor-highlight');
 	    }
 
 	    domValue.className = classNames.join(' ');
@@ -6353,7 +6353,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.dom.checkbox = document.createElement('input');
 	        this.dom.checkbox.type = 'checkbox';
 	        this.dom.tdCheckbox = document.createElement('td');
-	        this.dom.tdCheckbox.className = 'jsoneditor-tree';
+	        this.dom.tdCheckbox.className = 'bsoneditor-tree';
 	        this.dom.tdCheckbox.appendChild(this.dom.checkbox);
 
 	        this.dom.tdValue.parentNode.insertBefore(this.dom.tdCheckbox, this.dom.tdValue);
@@ -6396,7 +6396,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        this.dom.tdSelect = document.createElement('td');
-	        this.dom.tdSelect.className = 'jsoneditor-tree';
+	        this.dom.tdSelect.className = 'bsoneditor-tree';
 	        this.dom.tdSelect.appendChild(this.dom.select);
 	        this.dom.tdValue.parentNode.insertBefore(this.dom.tdSelect, this.dom.tdValue);
 	      }
@@ -6445,24 +6445,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // make backgound color lightgray when empty
 	    var isEmpty = (String(this.field) == '' && this.parent.type != 'array');
 	    if (isEmpty) {
-	      util.addClassName(domField, 'jsoneditor-empty');
+	      util.addClassName(domField, 'bsoneditor-empty');
 	    }
 	    else {
-	      util.removeClassName(domField, 'jsoneditor-empty');
+	      util.removeClassName(domField, 'bsoneditor-empty');
 	    }
 
 	    // highlight when there is a search result
 	    if (this.searchFieldActive) {
-	      util.addClassName(domField, 'jsoneditor-highlight-active');
+	      util.addClassName(domField, 'bsoneditor-highlight-active');
 	    }
 	    else {
-	      util.removeClassName(domField, 'jsoneditor-highlight-active');
+	      util.removeClassName(domField, 'bsoneditor-highlight-active');
 	    }
 	    if (this.searchField) {
-	      util.addClassName(domField, 'jsoneditor-highlight');
+	      util.addClassName(domField, 'bsoneditor-highlight');
 	    }
 	    else {
-	      util.removeClassName(domField, 'jsoneditor-highlight');
+	      util.removeClassName(domField, 'bsoneditor-highlight');
 	    }
 
 	    // strip formatting from the contents of the editable div
@@ -6584,7 +6584,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var domDrag = document.createElement('button');
 	        domDrag.type = 'button';
 	        dom.drag = domDrag;
-	        domDrag.className = 'jsoneditor-dragarea';
+	        domDrag.className = 'bsoneditor-dragarea';
 	        domDrag.title = translate('drag');
 	        tdDrag.appendChild(domDrag);
 	      }
@@ -6596,7 +6596,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var menu = document.createElement('button');
 	    menu.type = 'button';
 	    dom.menu = menu;
-	    menu.className = 'jsoneditor-contextmenu';
+	    menu.className = 'bsoneditor-contextmenu';
 	    menu.title = translate('actionsMenu');
 	    tdMenu.appendChild(dom.menu);
 	    dom.tr.appendChild(tdMenu);
@@ -6932,10 +6932,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	Node.prototype.setHighlight = function (highlight) {
 	  if (this.dom.tr) {
 	    if (highlight) {
-	      util.addClassName(this.dom.tr, 'jsoneditor-highlight');
+	      util.addClassName(this.dom.tr, 'bsoneditor-highlight');
 	    }
 	    else {
-	      util.removeClassName(this.dom.tr, 'jsoneditor-highlight');
+	      util.removeClassName(this.dom.tr, 'bsoneditor-highlight');
 	    }
 
 	    if (this.append) {
@@ -6960,17 +6960,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  if (this.dom.tr) {
 	    if (selected) {
-	      util.addClassName(this.dom.tr, 'jsoneditor-selected');
+	      util.addClassName(this.dom.tr, 'bsoneditor-selected');
 	    }
 	    else {
-	      util.removeClassName(this.dom.tr, 'jsoneditor-selected');
+	      util.removeClassName(this.dom.tr, 'bsoneditor-selected');
 	    }
 
 	    if (isFirst) {
-	      util.addClassName(this.dom.tr, 'jsoneditor-first');
+	      util.addClassName(this.dom.tr, 'bsoneditor-first');
 	    }
 	    else {
-	      util.removeClassName(this.dom.tr, 'jsoneditor-first');
+	      util.removeClassName(this.dom.tr, 'bsoneditor-first');
 	    }
 
 	    if (this.append) {
@@ -7032,11 +7032,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // parent is an object
 	      domField.contentEditable = this.editable.field;
 	      domField.spellcheck = false;
-	      domField.className = 'jsoneditor-field';
+	      domField.className = 'bsoneditor-field';
 	    }
 	    else {
 	      // parent is an array this is the root node
-	      domField.className = 'jsoneditor-readonly';
+	      domField.className = 'bsoneditor-readonly';
 	    }
 
 	    var fieldText;
@@ -7063,15 +7063,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var count = this.childs ? this.childs.length : 0;
 	    if (this.type == 'array') {
 	      domValue.innerHTML = '[' + count + ']';
-	      util.addClassName(this.dom.tr, 'jsoneditor-expandable');
+	      util.addClassName(this.dom.tr, 'bsoneditor-expandable');
 	    }
 	    else if (this.type == 'object') {
 	      domValue.innerHTML = '{' + count + '}';
-	      util.addClassName(this.dom.tr, 'jsoneditor-expandable');
+	      util.addClassName(this.dom.tr, 'bsoneditor-expandable');
 	    }
 	    else {
 	      domValue.innerHTML = this._escapeHTML(this.value);
-	      util.removeClassName(this.dom.tr, 'jsoneditor-expandable');
+	      util.removeClassName(this.dom.tr, 'bsoneditor-expandable');
 	    }
 	  }
 
@@ -7281,11 +7281,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var expand = document.createElement('button');
 	  expand.type = 'button';
 	  if (this._hasChilds()) {
-	    expand.className = this.expanded ? 'jsoneditor-expanded' : 'jsoneditor-collapsed';
+	    expand.className = this.expanded ? 'bsoneditor-expanded' : 'bsoneditor-collapsed';
 	    expand.title = translate('expandTitle');
 	  }
 	  else {
-	    expand.className = 'jsoneditor-invisible';
+	    expand.className = 'bsoneditor-invisible';
 	    expand.title = '';
 	  }
 
@@ -7303,14 +7303,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var domTree = document.createElement('table');
 	  var tbody = document.createElement('tbody');
 	  domTree.style.borderCollapse = 'collapse'; // TODO: put in css
-	  domTree.className = 'jsoneditor-values';
+	  domTree.className = 'bsoneditor-values';
 	  domTree.appendChild(tbody);
 	  var tr = document.createElement('tr');
 	  tbody.appendChild(tr);
 
 	  // create expand button
 	  var tdExpand = document.createElement('td');
-	  tdExpand.className = 'jsoneditor-tree';
+	  tdExpand.className = 'bsoneditor-tree';
 	  tr.appendChild(tdExpand);
 	  dom.expand = this._createDomExpandButton();
 	  tdExpand.appendChild(dom.expand);
@@ -7318,7 +7318,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  // create the field
 	  var tdField = document.createElement('td');
-	  tdField.className = 'jsoneditor-tree';
+	  tdField.className = 'bsoneditor-tree';
 	  tr.appendChild(tdField);
 	  dom.field = this._createDomField();
 	  tdField.appendChild(dom.field);
@@ -7326,17 +7326,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  // create a separator
 	  var tdSeparator = document.createElement('td');
-	  tdSeparator.className = 'jsoneditor-tree';
+	  tdSeparator.className = 'bsoneditor-tree';
 	  tr.appendChild(tdSeparator);
 	  if (this.type != 'object' && this.type != 'array') {
 	    tdSeparator.appendChild(document.createTextNode(':'));
-	    tdSeparator.className = 'jsoneditor-separator';
+	    tdSeparator.className = 'bsoneditor-separator';
 	  }
 	  dom.tdSeparator = tdSeparator;
 
 	  // create the value
 	  var tdValue = document.createElement('td');
-	  tdValue.className = 'jsoneditor-tree';
+	  tdValue.className = 'bsoneditor-tree';
 	  tr.appendChild(tdValue);
 	  dom.value = this._createDomValue();
 	  tdValue.appendChild(dom.value);
@@ -7372,9 +7372,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var highlighter = node.editor.highlighter;
 	    highlighter.highlight(node);
 	    highlighter.lock();
-	    util.addClassName(dom.menu, 'jsoneditor-selected');
+	    util.addClassName(dom.menu, 'bsoneditor-selected');
 	    this.showContextMenu(dom.menu, function () {
-	      util.removeClassName(dom.menu, 'jsoneditor-selected');
+	      util.removeClassName(dom.menu, 'bsoneditor-selected');
 	      highlighter.unlock();
 	      highlighter.unhighlight();
 	    });
@@ -8491,7 +8491,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    templates.forEach(function (template) {
 	        menu.push({
 	            text: template.text,
-	            className: (template.className || 'jsoneditor-type-object'),
+	            className: (template.className || 'bsoneditor-type-object'),
 	            title: template.title,
 	            click: (append ? appendData.bind(this, template.field, template.value) : insertData.bind(this, template.field, template.value))
 	        });
@@ -8514,12 +8514,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    items.push({
 	      text: translate('type'),
 	      title: translate('typeTitle'),
-	      className: 'jsoneditor-type-' + this.type,
+	      className: 'bsoneditor-type-' + this.type,
 	      submenu: [
 	        {
 	          text: translate('auto'),
-	          className: 'jsoneditor-type-auto' +
-	              (this.type == 'auto' ? ' jsoneditor-selected' : ''),
+	          className: 'bsoneditor-type-auto' +
+	              (this.type == 'auto' ? ' bsoneditor-selected' : ''),
 	          title: titles.auto,
 	          click: function () {
 	            node._onChangeType('auto');
@@ -8527,8 +8527,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        {
 	          text: translate('array'),
-	          className: 'jsoneditor-type-array' +
-	              (this.type == 'array' ? ' jsoneditor-selected' : ''),
+	          className: 'bsoneditor-type-array' +
+	              (this.type == 'array' ? ' bsoneditor-selected' : ''),
 	          title: titles.array,
 	          click: function () {
 	            node._onChangeType('array');
@@ -8536,8 +8536,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        {
 	          text: translate('object'),
-	          className: 'jsoneditor-type-object' +
-	              (this.type == 'object' ? ' jsoneditor-selected' : ''),
+	          className: 'bsoneditor-type-object' +
+	              (this.type == 'object' ? ' bsoneditor-selected' : ''),
 	          title: titles.object,
 	          click: function () {
 	            node._onChangeType('object');
@@ -8545,8 +8545,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        {
 	          text: translate('string'),
-	          className: 'jsoneditor-type-string' +
-	              (this.type == 'string' ? ' jsoneditor-selected' : ''),
+	          className: 'bsoneditor-type-string' +
+	              (this.type == 'string' ? ' bsoneditor-selected' : ''),
 	          title: titles.string,
 	          click: function () {
 	            node._onChangeType('string');
@@ -8560,7 +8560,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    items.push({
 	      text: translate('sort'),
 	      title: translate('sortTitle', {type: this.type}),
-	      className: 'jsoneditor-sort-asc',
+	      className: 'bsoneditor-sort-asc',
 	      click: function () {
 	        var anchor = node.editor.options.modalAnchor || DEFAULT_MODAL_ANCHOR;
 	        showSortModal(node, anchor)
@@ -8570,7 +8570,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    items.push({
 	      text: translate('transform'),
 	      title: translate('transformTitle', {type: this.type}),
-	      className: 'jsoneditor-transform',
+	      className: 'bsoneditor-transform',
 	      click: function () {
 	        var anchor = node.editor.options.modalAnchor || DEFAULT_MODAL_ANCHOR;
 	        showTransformModal(node, anchor)
@@ -8592,7 +8592,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var appendSubmenu = [
 	            {
 	                text: translate('auto'),
-	                className: 'jsoneditor-type-auto',
+	                className: 'bsoneditor-type-auto',
 	                title: titles.auto,
 	                click: function () {
 	                    node._onAppend('', '', 'auto');
@@ -8600,7 +8600,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 	            {
 	                text: translate('array'),
-	                className: 'jsoneditor-type-array',
+	                className: 'bsoneditor-type-array',
 	                title: titles.array,
 	                click: function () {
 	                    node._onAppend('', []);
@@ -8608,7 +8608,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 	            {
 	                text: translate('object'),
-	                className: 'jsoneditor-type-object',
+	                className: 'bsoneditor-type-object',
 	                title: titles.object,
 	                click: function () {
 	                    node._onAppend('', {});
@@ -8616,7 +8616,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 	            {
 	                text: translate('string'),
-	                className: 'jsoneditor-type-string',
+	                className: 'bsoneditor-type-string',
 	                title: titles.string,
 	                click: function () {
 	                    node._onAppend('', '', 'string');
@@ -8628,7 +8628,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            text: translate('appendText'),
 	            title: translate('appendTitle'),
 	            submenuTitle: translate('appendSubmenuTitle'),
-	            className: 'jsoneditor-append',
+	            className: 'bsoneditor-append',
 	            click: function () {
 	                node._onAppend('', '', 'auto');
 	            },
@@ -8642,7 +8642,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var insertSubmenu = [
 	        {
 	            text: translate('auto'),
-	            className: 'jsoneditor-type-auto',
+	            className: 'bsoneditor-type-auto',
 	            title: titles.auto,
 	            click: function () {
 	                node._onInsertBefore('', '', 'auto');
@@ -8650,7 +8650,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        {
 	            text: translate('array'),
-	            className: 'jsoneditor-type-array',
+	            className: 'bsoneditor-type-array',
 	            title: titles.array,
 	            click: function () {
 	                node._onInsertBefore('', []);
@@ -8658,7 +8658,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        {
 	            text: translate('object'),
-	            className: 'jsoneditor-type-object',
+	            className: 'bsoneditor-type-object',
 	            title: titles.object,
 	            click: function () {
 	                node._onInsertBefore('', {});
@@ -8666,7 +8666,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        {
 	            text: translate('string'),
-	            className: 'jsoneditor-type-string',
+	            className: 'bsoneditor-type-string',
 	            title: titles.string,
 	            click: function () {
 	                node._onInsertBefore('', '', 'string');
@@ -8678,7 +8678,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      text: translate('insert'),
 	      title: translate('insertTitle'),
 	      submenuTitle: translate('insertSub'),
-	      className: 'jsoneditor-insert',
+	      className: 'bsoneditor-insert',
 	      click: function () {
 	        node._onInsertBefore('', '', 'auto');
 	      },
@@ -8690,7 +8690,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      items.push({
 	        text: translate('duplicateText'),
 	        title: translate('duplicateField'),
-	        className: 'jsoneditor-duplicate',
+	        className: 'bsoneditor-duplicate',
 	        click: function () {
 	          Node.onDuplicate(node);
 	        }
@@ -8700,7 +8700,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      items.push({
 	        text: translate('removeText'),
 	        title: translate('removeField'),
-	        className: 'jsoneditor-remove',
+	        className: 'bsoneditor-remove',
 	        click: function () {
 	          Node.onRemove(node);
 	        }
@@ -10627,7 +10627,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    // a row for the append button
 	    var trAppend = document.createElement('tr');
-	    trAppend.className = 'jsoneditor-append';
+	    trAppend.className = 'bsoneditor-append';
 	    trAppend.node = this;
 	    dom.tr = trAppend;
 
@@ -10642,7 +10642,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      dom.tdMenu = tdMenu;
 	      var menu = document.createElement('button');
 	      menu.type = 'button';
-	      menu.className = 'jsoneditor-contextmenu';
+	      menu.className = 'bsoneditor-contextmenu';
 	      menu.title = 'Click to open the actions menu (Ctrl+M)';
 	      dom.menu = menu;
 	      tdMenu.appendChild(dom.menu);
@@ -10652,7 +10652,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var tdAppend = document.createElement('td');
 	    var domText = document.createElement('div');
 	    domText.innerHTML = '(' + translate('empty') + ')';
-	    domText.className = 'jsoneditor-readonly';
+	    domText.className = 'bsoneditor-readonly';
 	    tdAppend.appendChild(domText);
 	    dom.td = tdAppend;
 	    dom.text = domText;
@@ -10726,7 +10726,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var appendSubmenu = [
 	        {
 	            text: translate('auto'),
-	            className: 'jsoneditor-type-auto',
+	            className: 'bsoneditor-type-auto',
 	            title: titles.auto,
 	            click: function () {
 	                node._onAppend('', '', 'auto');
@@ -10734,7 +10734,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        {
 	            text: translate('array'),
-	            className: 'jsoneditor-type-array',
+	            className: 'bsoneditor-type-array',
 	            title: titles.array,
 	            click: function () {
 	                node._onAppend('', []);
@@ -10742,7 +10742,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        {
 	            text: translate('object'),
-	            className: 'jsoneditor-type-object',
+	            className: 'bsoneditor-type-object',
 	            title: titles.object,
 	            click: function () {
 	                node._onAppend('', {});
@@ -10750,7 +10750,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        {
 	            text: translate('string'),
-	            className: 'jsoneditor-type-string',
+	            className: 'bsoneditor-type-string',
 	            title: titles.string,
 	            click: function () {
 	                node._onAppend('', '', 'string');
@@ -10764,7 +10764,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        'text': translate('appendText'),
 	        'title': translate('appendTitleAuto'),
 	        'submenuTitle': translate('appendSubmenuTitle'),
-	        'className': 'jsoneditor-insert',
+	        'className': 'bsoneditor-insert',
 	        'click': function () {
 	          node._onAppend('', '', 'auto');
 	        },
@@ -10801,9 +10801,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var highlighter = this.editor.highlighter;
 	      highlighter.highlight(this.parent);
 	      highlighter.lock();
-	      util.addClassName(dom.menu, 'jsoneditor-selected');
+	      util.addClassName(dom.menu, 'bsoneditor-selected');
 	      this.showContextMenu(dom.menu, function () {
-	        util.removeClassName(dom.menu, 'jsoneditor-selected');
+	        util.removeClassName(dom.menu, 'bsoneditor-selected');
 	        highlighter.unlock();
 	        highlighter.unhighlight();
 	      });
@@ -10894,7 +10894,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var moreContents = document.createElement('div');
 	      var moreText = document.createTextNode(this._getShowMoreText());
-	      moreContents.className = 'jsoneditor-show-more';
+	      moreContents.className = 'bsoneditor-show-more';
 	      moreContents.appendChild(moreText);
 	      moreContents.appendChild(showMoreButton);
 	      moreContents.appendChild(document.createTextNode('. '));
@@ -10908,7 +10908,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      moreTr.appendChild(document.createElement('td'));
 	      moreTr.appendChild(document.createElement('td'));
 	      moreTr.appendChild(tdContents);
-	      moreTr.className = 'jsoneditor-show-more';
+	      moreTr.className = 'bsoneditor-show-more';
 	      this.dom.tr = moreTr;
 	      this.dom.moreContents = moreContents;
 	      this.dom.moreText = moreText;
@@ -11002,8 +11002,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      '<tbody>' +
 	      '<tr>' +
 	      '  <td>' + translate('sortFieldLabel') + ' </td>' +
-	      '  <td class="jsoneditor-modal-input">' +
-	      '  <div class="jsoneditor-select-wrapper">' +
+	      '  <td class="bsoneditor-modal-input">' +
+	      '  <div class="bsoneditor-select-wrapper">' +
 	      '    <select id="field" title="' + translate('sortFieldTitle') + '">' +
 	      '    </select>' +
 	      '  </div>' +
@@ -11011,23 +11011,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	      '</tr>' +
 	      '<tr>' +
 	      '  <td>' + translate('sortDirectionLabel') + ' </td>' +
-	      '  <td class="jsoneditor-modal-input">' +
-	      '  <div id="direction" class="jsoneditor-button-group">' +
+	      '  <td class="bsoneditor-modal-input">' +
+	      '  <div id="direction" class="bsoneditor-button-group">' +
 	      '<input type="button" ' +
 	      'value="' + translate('sortAscending') + '" ' +
 	      'title="'  + translate('sortAscendingTitle') + '" ' +
 	      'data-value="asc" ' +
-	      'class="jsoneditor-button-first jsoneditor-button-asc"/>' +
+	      'class="bsoneditor-button-first bsoneditor-button-asc"/>' +
 	      '<input type="button" ' +
 	      'value="' + translate('sortDescending') + '" ' +
 	      'title="' + translate('sortDescendingTitle') + '" ' +
 	      'data-value="desc" ' +
-	      'class="jsoneditor-button-last jsoneditor-button-desc"/>' +
+	      'class="bsoneditor-button-last bsoneditor-button-desc"/>' +
 	      '  </div>' +
 	      '  </td>' +
 	      '</tr>' +
 	      '<tr>' +
-	      '<td colspan="2" class="jsoneditor-modal-input jsoneditor-modal-actions">' +
+	      '<td colspan="2" class="bsoneditor-modal-input bsoneditor-modal-actions">' +
 	      '  <input type="submit" id="ok" value="' + translate('ok') + '" />' +
 	      '</td>' +
 	      '</tr>' +
@@ -11039,8 +11039,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  picoModal({
 	    parent: container,
 	    content: content,
-	    overlayClass: 'jsoneditor-modal-overlay',
-	    modalClass: 'jsoneditor-modal jsoneditor-modal-sort'
+	    overlayClass: 'bsoneditor-modal-overlay',
+	    modalClass: 'bsoneditor-modal bsoneditor-modal-sort'
 	  })
 	      .afterCreate(function (modal) {
 	        var form = modal.modalElem().querySelector('form');
@@ -11061,7 +11061,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        function setDirection(value) {
 	          direction.value = value;
-	          direction.className = 'jsoneditor-button-group jsoneditor-button-group-value-' + direction.value;
+	          direction.className = 'bsoneditor-button-group bsoneditor-button-group-value-' + direction.value;
 	        }
 
 	        field.value = node.sortedBy ? node.sortedBy.path : paths[0];
@@ -11088,7 +11088,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          node.sort(pathArray, direction.value)
 	        };
 
-	        if (form) { // form is not available when JSONEditor is created inside a form
+	        if (form) { // form is not available when BSONEditor is created inside a form
 	          form.onsubmit = ok.onclick;
 	        }
 	      })
@@ -11742,15 +11742,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	      '<tr>' +
 	      '  <th>' + translate('transformWizardLabel') + ' </th>' +
 	      '  <td>' +
-	      '  <div id="wizard" class="jsoneditor-jmespath-wizard">' +
+	      '  <div id="wizard" class="bsoneditor-jmespath-wizard">' +
 	      '  <div>' +
-	      '    <div class="jsoneditor-jmespath-wizard-label">' + translate('transformWizardFilter') + '</div>' +
-	      '    <div class="jsoneditor-jmespath-filter">' +
-	      '      <div class="jsoneditor-inline jsoneditor-jmespath-filter-field" >' +
+	      '    <div class="bsoneditor-jmespath-wizard-label">' + translate('transformWizardFilter') + '</div>' +
+	      '    <div class="bsoneditor-jmespath-filter">' +
+	      '      <div class="bsoneditor-inline bsoneditor-jmespath-filter-field" >' +
 	      '        <select id="filterField">' +
 	      '        </select>' +
 	      '      </div>' +
-	      '      <div class="jsoneditor-inline jsoneditor-jmespath-filter-relation" >' +
+	      '      <div class="bsoneditor-inline bsoneditor-jmespath-filter-relation" >' +
 	      '        <select id="filterRelation">' +
 	      '          <option value="==">==</option>' +
 	      '          <option value="!=">!=</option>' +
@@ -11760,19 +11760,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      '          <option value=">=">&gt;=</option>' +
 	      '        </select>' +
 	      '      </div>' +
-	      '      <div class="jsoneditor-inline jsoneditor-jmespath-filter-value" >' +
+	      '      <div class="bsoneditor-inline bsoneditor-jmespath-filter-value" >' +
 	      '        <input placeholder="value..." id="filterValue" />' +
 	      '      </div>' +
 	      '    </div>' +
 	      '  </div>' +
 	      '  <div>' +
-	      '    <div class="jsoneditor-jmespath-wizard-label">' + translate('transformWizardSortBy') + '</div>' +
-	      '    <div class="jsoneditor-jmespath-filter">' +
-	      '      <div class="jsoneditor-inline jsoneditor-jmespath-sort-field">' +
+	      '    <div class="bsoneditor-jmespath-wizard-label">' + translate('transformWizardSortBy') + '</div>' +
+	      '    <div class="bsoneditor-jmespath-filter">' +
+	      '      <div class="bsoneditor-inline bsoneditor-jmespath-sort-field">' +
 	      '        <select id="sortField">' +
 	      '        </select>' +
 	      '      </div>' +
-	      '      <div class="jsoneditor-inline jsoneditor-jmespath-sort-order" >' +
+	      '      <div class="bsoneditor-inline bsoneditor-jmespath-sort-order" >' +
 	      '        <select id="sortOrder">' +
 	      '          <option value="asc">Ascending</option>' +
 	      '          <option value="desc">Descending</option>' +
@@ -11781,8 +11781,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      '    </div>' +
 	      '  </div>' +
 	      '  <div id="selectFieldsPart">' +
-	      '    <div class="jsoneditor-jmespath-wizard-label">' + translate('transformWizardSelectFields') + '</div>' +
-	      '    <select class="jsoneditor-jmespath-select-fields" id="selectFields" multiple>' +
+	      '    <div class="bsoneditor-jmespath-wizard-label">' + translate('transformWizardSelectFields') + '</div>' +
+	      '    <select class="bsoneditor-jmespath-select-fields" id="selectFields" multiple>' +
 	      '    </select>' +
 	      '  </div>' +
 	      '  </div>' +
@@ -11790,7 +11790,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      '</tr>' +
 	      '<tr>' +
 	      '  <th>' + translate('transformQueryLabel') + ' </th>' +
-	      '  <td class="jsoneditor-modal-input">' +
+	      '  <td class="bsoneditor-modal-input">' +
 	      '    <textarea id="query" ' +
 	      '              rows="4" ' +
 	      '              autocomplete="off" ' +
@@ -11802,14 +11802,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	      '</tr>' +
 	      '<tr>' +
 	      '  <th>' + translate('transformPreviewLabel') + ' </th>' +
-	      '  <td class="jsoneditor-modal-input">' +
+	      '  <td class="bsoneditor-modal-input">' +
 	      '    <textarea id="preview" ' +
-	      '        class="jsoneditor-transform-preview"' +
+	      '        class="bsoneditor-transform-preview"' +
 	      '        readonly> </textarea>' +
 	      '  </td>' +
 	      '</tr>' +
 	      '<tr>' +
-	      '<td colspan="2" class="jsoneditor-modal-input jsoneditor-modal-actions">' +
+	      '<td colspan="2" class="bsoneditor-modal-input bsoneditor-modal-actions">' +
 	      '  <input type="submit" id="ok" value="' + translate('ok') + '" autofocus />' +
 	      '</td>' +
 	      '</tr>' +
@@ -11820,8 +11820,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  picoModal({
 	    parent: container,
 	    content: content,
-	    overlayClass: 'jsoneditor-modal-overlay',
-	    modalClass: 'jsoneditor-modal jsoneditor-modal-transform',
+	    overlayClass: 'bsoneditor-modal-overlay',
+	    modalClass: 'bsoneditor-modal bsoneditor-modal-transform',
 	    focus: false
 	  })
 	      .afterCreate(function (modal) {
@@ -11976,12 +11976,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 
 
-	            preview.className = 'jsoneditor-transform-preview';
+	            preview.className = 'bsoneditor-transform-preview';
 	            preview.value = lines.join('\n');
 	            ok.disabled = false;
 	          }
 	          catch (err) {
-	            preview.className = 'jsoneditor-transform-preview jsoneditor-error';
+	            preview.className = 'bsoneditor-transform-preview bsoneditor-error';
 	            preview.value = err.toString();
 	            ok.disabled = true;
 	          }
@@ -14261,7 +14261,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      throw new Error('Unknown mode "' + mode + '"');
 	    }
 
-	    item.className = 'jsoneditor-type-modes' + ((current == mode) ? ' jsoneditor-selected' : '');
+	    item.className = 'bsoneditor-type-modes' + ((current == mode) ? ' bsoneditor-selected' : '');
 	    items.push(item);
 	  }
 
@@ -14275,7 +14275,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // create the html element
 	  var box = document.createElement('button');
 	  box.type = 'button';
-	  box.className = 'jsoneditor-modes jsoneditor-separator';
+	  box.className = 'bsoneditor-modes bsoneditor-separator';
 	  box.innerHTML = currentTitle + ' &#x25BE;';
 	  box.title = 'Switch editor mode';
 	  box.onclick = function () {
@@ -14284,7 +14284,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  var frame = document.createElement('div');
-	  frame.className = 'jsoneditor-modes';
+	  frame.className = 'bsoneditor-modes';
 	  frame.style.position = 'relative';
 	  frame.appendChild(box);
 
@@ -14719,7 +14719,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var MAX_ERRORS = 3; // maximum number of displayed errors at the bottom
 
-	var DEFAULT_THEME = 'ace/theme/jsoneditor';
+	var DEFAULT_THEME = 'ace/theme/bsoneditor';
 
 	/**
 	 * Create a text editor
@@ -14773,7 +14773,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // verify whether Ace editor is available and supported
 	    if (typeof _ace === 'undefined') {
 	      this.mode = 'text';
-	      console.warn('Failed to load Ace editor, falling back to plain text mode. Please use a JSONEditor bundle including Ace, or pass Ace as via the configuration option `ace`.');
+	      console.warn('Failed to load Ace editor, falling back to plain text mode. Please use a BSONEditor bundle including Ace, or pass Ace as via the configuration option `ace`.');
 	    }
 	  }
 
@@ -14806,7 +14806,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.height = container.clientHeight;
 
 	  this.frame = document.createElement('div');
-	  this.frame.className = 'jsoneditor jsoneditor-mode-' + this.options.mode;
+	  this.frame.className = 'bsoneditor bsoneditor-mode-' + this.options.mode;
 	  this.frame.onclick = function (event) {
 	    // prevent default submit action when the editor is located inside a form
 	    event.preventDefault();
@@ -14817,13 +14817,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  
 	  // create menu
 	  this.menu = document.createElement('div');
-	  this.menu.className = 'jsoneditor-menu';
+	  this.menu.className = 'bsoneditor-menu';
 	  this.frame.appendChild(this.menu);
 
 	  // create format button
 	  var buttonFormat = document.createElement('button');
 	  buttonFormat.type = 'button';
-	  buttonFormat.className = 'jsoneditor-format';
+	  buttonFormat.className = 'bsoneditor-format';
 	  buttonFormat.title = 'Format JSON data, with proper indentation and line feeds (Ctrl+\\)';
 	  this.menu.appendChild(buttonFormat);
 	  buttonFormat.onclick = function () {
@@ -14839,7 +14839,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // create compact button
 	  var buttonCompact = document.createElement('button');
 	  buttonCompact.type = 'button';
-	  buttonCompact.className = 'jsoneditor-compact';
+	  buttonCompact.className = 'bsoneditor-compact';
 	  buttonCompact.title = 'Compact JSON data, remove all whitespaces (Ctrl+Shift+\\)';
 	  this.menu.appendChild(buttonCompact);
 	  buttonCompact.onclick = function () {
@@ -14855,7 +14855,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // create repair button
 	  var buttonRepair = document.createElement('button');
 	  buttonRepair.type = 'button';
-	  buttonRepair.className = 'jsoneditor-repair';
+	  buttonRepair.className = 'bsoneditor-repair';
 	  buttonRepair.title = 'Repair JSON: fix quotes and escape characters, remove comments and JSONP notation, turn JavaScript objects into JSON.';
 	  this.menu.appendChild(buttonRepair);
 	  buttonRepair.onclick = function () {
@@ -14883,7 +14883,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  && !this.options.onEditable(emptyNode));
 
 	  this.content = document.createElement('div');
-	  this.content.className = 'jsoneditor-outer';
+	  this.content.className = 'bsoneditor-outer';
 	  this.frame.appendChild(this.content);
 
 	  this.container.appendChild(this.frame);
@@ -14926,7 +14926,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    poweredBy.appendChild(document.createTextNode('powered by ace'));
 	    poweredBy.href = 'http://ace.ajax.org';
 	    poweredBy.target = '_blank';
-	    poweredBy.className = 'jsoneditor-poweredBy';
+	    poweredBy.className = 'bsoneditor-poweredBy';
 	    poweredBy.onclick = function () {
 	      // TODO: this anchor falls below the margin of the content,
 	      // therefore the normal a.href does not work. We use a click event
@@ -14942,7 +14942,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  else {
 	    // load a plain text textarea
 	    var textarea = document.createElement('textarea');
-	    textarea.className = 'jsoneditor-text';
+	    textarea.className = 'bsoneditor-text';
 	    textarea.spellcheck = false;
 	    this.content.appendChild(textarea);
 	    this.textarea = textarea;
@@ -14973,26 +14973,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.curserInfoElements = {};
 	    var statusBar = document.createElement('div');
 	    this.dom.statusBar = statusBar;
-	    statusBar.className = 'jsoneditor-statusbar';
+	    statusBar.className = 'bsoneditor-statusbar';
 	    this.frame.appendChild(statusBar);
 
 	    var lnLabel = document.createElement('span');
-	    lnLabel.className = 'jsoneditor-curserinfo-label';
+	    lnLabel.className = 'bsoneditor-curserinfo-label';
 	    lnLabel.innerText = 'Ln:';
 
 	    var lnVal = document.createElement('span');
-	    lnVal.className = 'jsoneditor-curserinfo-val';
+	    lnVal.className = 'bsoneditor-curserinfo-val';
 	    lnVal.innerText = '1';
 
 	    statusBar.appendChild(lnLabel);
 	    statusBar.appendChild(lnVal);
 
 	    var colLabel = document.createElement('span');
-	    colLabel.className = 'jsoneditor-curserinfo-label';
+	    colLabel.className = 'bsoneditor-curserinfo-label';
 	    colLabel.innerText = 'Col:';
 
 	    var colVal = document.createElement('span');
-	    colVal.className = 'jsoneditor-curserinfo-val';
+	    colVal.className = 'bsoneditor-curserinfo-val';
 	    colVal.innerText = '1';
 
 	    statusBar.appendChild(colLabel);
@@ -15002,12 +15002,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.curserInfoElements.lnVal = lnVal;
 
 	    var countLabel = document.createElement('span');
-	    countLabel.className = 'jsoneditor-curserinfo-label';
+	    countLabel.className = 'bsoneditor-curserinfo-label';
 	    countLabel.innerText = 'characters selected';
 	    countLabel.style.display = 'none';
 
 	    var countVal = document.createElement('span');
-	    countVal.className = 'jsoneditor-curserinfo-count';
+	    countVal.className = 'bsoneditor-curserinfo-count';
 	    countVal.innerText = '0';
 	    countVal.style.display = 'none';
 
@@ -15370,7 +15370,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    var validationErrors = document.createElement('div');
-	    validationErrors.innerHTML = '<table class="jsoneditor-text-errors">' +
+	    validationErrors.innerHTML = '<table class="bsoneditor-text-errors">' +
 	        '<tbody>' +
 	        errors.map(function (error) {
 	          var message;
@@ -15382,7 +15382,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                '<td>' + error.message + '</td>';
 	          }
 
-	          return '<tr><td><button class="jsoneditor-schema-error"></button></td>' + message + '</tr>'
+	          return '<tr><td><button class="bsoneditor-schema-error"></button></td>' + message + '</tr>'
 	        }).join('') +
 	        '</tbody>' +
 	        '</table>';
@@ -16432,115 +16432,115 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *
 	 * ***** END LICENSE BLOCK ***** */
 
-	ace.define('ace/theme/jsoneditor', ['require', 'exports', 'module', 'ace/lib/dom'], function(acequire, exports, module) {
+	ace.define('ace/theme/bsoneditor', ['require', 'exports', 'module', 'ace/lib/dom'], function(acequire, exports, module) {
 
 	exports.isDark = false;
-	exports.cssClass = "ace-jsoneditor";
-	exports.cssText = ".ace-jsoneditor .ace_gutter {\
+	exports.cssClass = "ace-bsoneditor";
+	exports.cssText = ".ace-bsoneditor .ace_gutter {\
 	background: #ebebeb;\
 	color: #333\
 	}\
 	\
-	.ace-jsoneditor.ace_editor {\
+	.ace-bsoneditor.ace_editor {\
 	font-family: \"dejavu sans mono\", \"droid sans mono\", consolas, monaco, \"lucida console\", \"courier new\", courier, monospace, sans-serif;\
 	line-height: 1.3;\
 	background-color: #fff;\
 	}\
-	.ace-jsoneditor .ace_print-margin {\
+	.ace-bsoneditor .ace_print-margin {\
 	width: 1px;\
 	background: #e8e8e8\
 	}\
-	.ace-jsoneditor .ace_scroller {\
+	.ace-bsoneditor .ace_scroller {\
 	background-color: #FFFFFF\
 	}\
-	.ace-jsoneditor .ace_text-layer {\
+	.ace-bsoneditor .ace_text-layer {\
 	color: gray\
 	}\
-	.ace-jsoneditor .ace_variable {\
+	.ace-bsoneditor .ace_variable {\
 	color: #1a1a1a\
 	}\
-	.ace-jsoneditor .ace_cursor {\
+	.ace-bsoneditor .ace_cursor {\
 	border-left: 2px solid #000000\
 	}\
-	.ace-jsoneditor .ace_overwrite-cursors .ace_cursor {\
+	.ace-bsoneditor .ace_overwrite-cursors .ace_cursor {\
 	border-left: 0px;\
 	border-bottom: 1px solid #000000\
 	}\
-	.ace-jsoneditor .ace_marker-layer .ace_selection {\
+	.ace-bsoneditor .ace_marker-layer .ace_selection {\
 	background: lightgray\
 	}\
-	.ace-jsoneditor.ace_multiselect .ace_selection.ace_start {\
+	.ace-bsoneditor.ace_multiselect .ace_selection.ace_start {\
 	box-shadow: 0 0 3px 0px #FFFFFF;\
 	border-radius: 2px\
 	}\
-	.ace-jsoneditor .ace_marker-layer .ace_step {\
+	.ace-bsoneditor .ace_marker-layer .ace_step {\
 	background: rgb(255, 255, 0)\
 	}\
-	.ace-jsoneditor .ace_marker-layer .ace_bracket {\
+	.ace-bsoneditor .ace_marker-layer .ace_bracket {\
 	margin: -1px 0 0 -1px;\
 	border: 1px solid #BFBFBF\
 	}\
-	.ace-jsoneditor .ace_marker-layer .ace_active-line {\
+	.ace-bsoneditor .ace_marker-layer .ace_active-line {\
 	background: #FFFBD1\
 	}\
-	.ace-jsoneditor .ace_gutter-active-line {\
+	.ace-bsoneditor .ace_gutter-active-line {\
 	background-color : #dcdcdc\
 	}\
-	.ace-jsoneditor .ace_marker-layer .ace_selected-word {\
+	.ace-bsoneditor .ace_marker-layer .ace_selected-word {\
 	border: 1px solid lightgray\
 	}\
-	.ace-jsoneditor .ace_invisible {\
+	.ace-bsoneditor .ace_invisible {\
 	color: #BFBFBF\
 	}\
-	.ace-jsoneditor .ace_keyword,\
-	.ace-jsoneditor .ace_meta,\
-	.ace-jsoneditor .ace_support.ace_constant.ace_property-value {\
+	.ace-bsoneditor .ace_keyword,\
+	.ace-bsoneditor .ace_meta,\
+	.ace-bsoneditor .ace_support.ace_constant.ace_property-value {\
 	color: #AF956F\
 	}\
-	.ace-jsoneditor .ace_keyword.ace_operator {\
+	.ace-bsoneditor .ace_keyword.ace_operator {\
 	color: #484848\
 	}\
-	.ace-jsoneditor .ace_keyword.ace_other.ace_unit {\
+	.ace-bsoneditor .ace_keyword.ace_other.ace_unit {\
 	color: #96DC5F\
 	}\
-	.ace-jsoneditor .ace_constant.ace_language {\
+	.ace-bsoneditor .ace_constant.ace_language {\
 	color: darkorange\
 	}\
-	.ace-jsoneditor .ace_constant.ace_numeric {\
+	.ace-bsoneditor .ace_constant.ace_numeric {\
 	color: red\
 	}\
-	.ace-jsoneditor .ace_constant.ace_character.ace_entity {\
+	.ace-bsoneditor .ace_constant.ace_character.ace_entity {\
 	color: #BF78CC\
 	}\
-	.ace-jsoneditor .ace_invalid {\
+	.ace-bsoneditor .ace_invalid {\
 	color: #FFFFFF;\
 	background-color: #FF002A;\
 	}\
-	.ace-jsoneditor .ace_fold {\
+	.ace-bsoneditor .ace_fold {\
 	background-color: #AF956F;\
 	border-color: #000000\
 	}\
-	.ace-jsoneditor .ace_storage,\
-	.ace-jsoneditor .ace_support.ace_class,\
-	.ace-jsoneditor .ace_support.ace_function,\
-	.ace-jsoneditor .ace_support.ace_other,\
-	.ace-jsoneditor .ace_support.ace_type {\
+	.ace-bsoneditor .ace_storage,\
+	.ace-bsoneditor .ace_support.ace_class,\
+	.ace-bsoneditor .ace_support.ace_function,\
+	.ace-bsoneditor .ace_support.ace_other,\
+	.ace-bsoneditor .ace_support.ace_type {\
 	color: #C52727\
 	}\
-	.ace-jsoneditor .ace_string {\
+	.ace-bsoneditor .ace_string {\
 	color: green\
 	}\
-	.ace-jsoneditor .ace_comment {\
+	.ace-bsoneditor .ace_comment {\
 	color: #BCC8BA\
 	}\
-	.ace-jsoneditor .ace_entity.ace_name.ace_tag,\
-	.ace-jsoneditor .ace_entity.ace_other.ace_attribute-name {\
+	.ace-bsoneditor .ace_entity.ace_name.ace_tag,\
+	.ace-bsoneditor .ace_entity.ace_other.ace_attribute-name {\
 	color: #606060\
 	}\
-	.ace-jsoneditor .ace_markup.ace_underline {\
+	.ace-bsoneditor .ace_markup.ace_underline {\
 	text-decoration: underline\
 	}\
-	.ace-jsoneditor .ace_indent-guide {\
+	.ace-bsoneditor .ace_indent-guide {\
 	background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==\") right repeat-y\
 	}";
 

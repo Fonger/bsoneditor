@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title>JSONEditor | Auto Complete</title>
+  <title>BSONEditor | Auto Complete</title>
     
-  <link href="../dist/jsoneditor.css" rel="stylesheet" type="text/css">
-  <script src="../dist/jsoneditor.js"></script>
+  <link href="../dist/bsoneditor.css" rel="stylesheet" type="text/css">
+  <script src="../dist/bsoneditor.js"></script>
 
 
   <style type="text/css">
-    #jsoneditor {
+    #bsoneditor {
       width: 500px;
       height: 500px;
     }
@@ -25,11 +25,11 @@
     This example demonstrates how to autocomplete works, options available are: 'apple','cranberry','raspberry','pie', 'mango', 'mandarine', 'melon', 'appleton'.
 </p>
 
-<div id="jsoneditor"></div>
+<div id="bsoneditor"></div>
 
 <script>
   // create the editor
-  var container = document.getElementById('jsoneditor');
+  var container = document.getElementById('bsoneditor');
   var options = {
     autocomplete: {
       getOptions: function () {
@@ -45,7 +45,7 @@
     'object': {'a': 'b', 'c': 'd'},
     'string': 'Hello World'
   };
-  var editor = new JSONEditor(container, options, json);
+  var editor = new BSONEditor(container, options, json);
 </script>
 </body>
 </html>

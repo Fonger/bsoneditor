@@ -11,7 +11,7 @@ var translate = require('./i18n').translate;
 function TreePath(container) {
   if (container) {
     this.path = document.createElement('div');
-    this.path.className = 'jsoneditor-treepath';
+    this.path.className = 'bsoneditor-treepath';
     container.appendChild(this.path);
     this.reset();
   }
@@ -38,7 +38,7 @@ TreePath.prototype.setPath = function (pathObjs) {
     pathObjs.forEach(function (pathObj, idx) {
       var pathEl = document.createElement('span');
       var sepEl;
-      pathEl.className = 'jsoneditor-treepath-element';
+      pathEl.className = 'bsoneditor-treepath-element';
       pathEl.innerText = pathObj.name;
       pathEl.onclick = _onSegmentClick.bind(me, pathObj);
   
@@ -46,7 +46,7 @@ TreePath.prototype.setPath = function (pathObjs) {
 
       if (pathObj.children.length) {
         sepEl = document.createElement('span');
-        sepEl.className = 'jsoneditor-treepath-seperator';
+        sepEl.className = 'bsoneditor-treepath-seperator';
         sepEl.innerHTML = '&#9658;';
 
         sepEl.onclick = function () {
@@ -54,7 +54,7 @@ TreePath.prototype.setPath = function (pathObjs) {
           pathObj.children.forEach(function (child) {
             items.push({
               'text': child.name,
-              'className': 'jsoneditor-type-modes' + (pathObjs[idx + 1] + 1 && pathObjs[idx + 1].name === child.name ? ' jsoneditor-selected' : ''),
+              'className': 'bsoneditor-type-modes' + (pathObjs[idx + 1] + 1 && pathObjs[idx + 1].name === child.name ? ' bsoneditor-selected' : ''),
               'click': _onContextMenuItemClick.bind(me, pathObj, child.name)
             });
           });

@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>JSONEditor | Custom styling</title>
+    <title>BSONEditor | Custom styling</title>
 
-    <link href="../dist/jsoneditor.css" rel="stylesheet" type="text/css">
-    <script src="../dist/jsoneditor.js"></script>
+    <link href="../dist/bsoneditor.css" rel="stylesheet" type="text/css">
+    <script src="../dist/bsoneditor.js"></script>
 
     <style type="text/css">
-        #jsoneditor {
+        #bsoneditor {
             width: 500px;
             height: 500px;
         }
@@ -23,17 +23,17 @@
 </head>
 <body>
     <p>
-        This example demonstrates how to customize the look of JSONEditor,
+        This example demonstrates how to customize the look of BSONEditor,
         the editor below has a dark theme. Note that the example isn't worked
         out for the mode <code>code</code>. To do that, you can load and configure
         a custom theme for the Ace editor.
     </p>
 
-    <div id="jsoneditor"></div>
+    <div id="bsoneditor"></div>
 
     <script>
   // create the editor
-  var container = document.getElementById('jsoneditor');
+  var container = document.getElementById('bsoneditor');
   var options = {
     modes: ['text', 'tree']
   };
@@ -45,7 +45,7 @@
     'object': {'a': 'b', 'c': 'd'},
     'string': 'Hello World'
   };
-  var editor = new JSONEditor(container, options, json);
+  var editor = new BSONEditor(container, options, json);
     </script>
 </body>
 </html>

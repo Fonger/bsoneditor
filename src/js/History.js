@@ -5,7 +5,7 @@ var util = require('./util');
 /**
  * @constructor History
  * Store action history, enables undo and redo
- * @param {JSONEditor} editor
+ * @param {BSONEditor} editor
  */
 function History (editor) {
   this.editor = editor;

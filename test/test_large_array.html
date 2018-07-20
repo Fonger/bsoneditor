@@ -3,8 +3,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 
-  <link href="../dist/jsoneditor.css" rel="stylesheet" type="text/css">
-  <script src="../dist/jsoneditor.js"></script>
+  <link href="../dist/bsoneditor.css" rel="stylesheet" type="text/css">
+  <script src="../dist/bsoneditor.js"></script>
 
   <!--<script src="https://unpkg.com/mobius1-selectr@2.4.1/dist/selectr.min.js"></script>-->
   <!--<link rel="stylesheet" type="text/css" href="https://unpkg.com/mobius1-selectr@2.4.1/dist/selectr.min.css">-->
@@ -22,7 +22,7 @@
       background-color: #f5f5f5;
     }
 
-    #jsoneditor {
+    #bsoneditor {
       width: 500px;
       height: 500px;
     }
@@ -36,10 +36,10 @@
   <code>editor.setMode(mode)</code>, try it in the console of your browser.
 </p>
 
-<div id="jsoneditor"></div>
+<div id="bsoneditor"></div>
 
 <script>
-  var container = document.getElementById('jsoneditor');
+  var container = document.getElementById('bsoneditor');
 
   var options = {
     mode: 'tree',
@@ -80,7 +80,7 @@
     });
   }
 
-  var editor = new JSONEditor(container, options, json);
+  var editor = new BSONEditor(container, options, json);
 </script>
 </body>
 </html>

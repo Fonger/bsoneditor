@@ -10,8 +10,8 @@
   <link rel="shortcut icon" href="../app/web/favicon.ico">
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
-  <script src="../jsoneditor/js/jsoneditor.js"></script>
-  <link rel="stylesheet" type="text/css" href="../jsoneditor/css/jsoneditor.css">
+  <script src="../bsoneditor/js/bsoneditor.js"></script>
+  <link rel="stylesheet" type="text/css" href="../bsoneditor/css/bsoneditor.css">
 
   <style type="text/css">
     body, html {
@@ -36,8 +36,8 @@
     var editor = null;
 
     function init() {
-      var container = document.getElementById('jsoneditor');
-      editor = new JSONEditor(container);
+      var container = document.getElementById('bsoneditor');
+      editor = new BSONEditor(container);
      
       document.getElementById('url').focus();
     }
@@ -92,7 +92,7 @@
     </td>
   </tr>
   <tr>
-    <td id="jsoneditor"></td>
+    <td id="bsoneditor"></td>
   </tr>
 </table>
 

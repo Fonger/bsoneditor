@@ -277,6 +277,9 @@ exports.type = function type (object) {
   if ((object instanceof Boolean) || (typeof object === 'boolean')) {
     return 'boolean';
   }
+  if (object instanceof Date) {
+    return 'date';
+  }
   if ((object instanceof RegExp) || (typeof object === 'regexp')) {
     return 'regexp';
   }

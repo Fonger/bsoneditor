@@ -1,76 +1,76 @@
 /* dark styling of the editor */
-div.jsoneditor,
-div.jsoneditor-menu {
+div.bsoneditor,
+div.bsoneditor-menu {
   border-color: #4b4b4b;
 }
-div.jsoneditor-menu {
+div.bsoneditor-menu {
   background-color: #4b4b4b;
 }
-div.jsoneditor-tree,
-div.jsoneditor textarea.jsoneditor-text {
+div.bsoneditor-tree,
+div.bsoneditor textarea.bsoneditor-text {
   background-color: #666666;
   color: #ffffff;
 }
-div.jsoneditor-field,
-div.jsoneditor-value {
+div.bsoneditor-field,
+div.bsoneditor-value {
   color: #ffffff;
 }
-table.jsoneditor-search div.jsoneditor-frame {
+table.bsoneditor-search div.bsoneditor-frame {
   background: #808080;
 }
 
-tr.jsoneditor-highlight,
-tr.jsoneditor-selected {
+tr.bsoneditor-highlight,
+tr.bsoneditor-selected {
   background-color: #808080;
 }
 
-div.jsoneditor-field[contenteditable=true]:focus,
-div.jsoneditor-field[contenteditable=true]:hover,
-div.jsoneditor-value[contenteditable=true]:focus,
-div.jsoneditor-value[contenteditable=true]:hover,
-div.jsoneditor-field.jsoneditor-highlight,
-div.jsoneditor-value.jsoneditor-highlight {
+div.bsoneditor-field[contenteditable=true]:focus,
+div.bsoneditor-field[contenteditable=true]:hover,
+div.bsoneditor-value[contenteditable=true]:focus,
+div.bsoneditor-value[contenteditable=true]:hover,
+div.bsoneditor-field.bsoneditor-highlight,
+div.bsoneditor-value.bsoneditor-highlight {
   background-color: #808080;
   border-color: #808080;
 }
 
-div.jsoneditor-field.highlight-active,
-div.jsoneditor-field.highlight-active:focus,
-div.jsoneditor-field.highlight-active:hover,
-div.jsoneditor-value.highlight-active,
-div.jsoneditor-value.highlight-active:focus,
-div.jsoneditor-value.highlight-active:hover {
+div.bsoneditor-field.highlight-active,
+div.bsoneditor-field.highlight-active:focus,
+div.bsoneditor-field.highlight-active:hover,
+div.bsoneditor-value.highlight-active,
+div.bsoneditor-value.highlight-active:focus,
+div.bsoneditor-value.highlight-active:hover {
   background-color: #b1b1b1;
   border-color: #b1b1b1;
 }
 
-div.jsoneditor-tree button:focus {
+div.bsoneditor-tree button:focus {
   background-color: #868686;
 }
 
 /* coloring of JSON in tree mode */
-div.jsoneditor-readonly {
+div.bsoneditor-readonly {
   color: #acacac;
 }
-div.jsoneditor td.jsoneditor-separator {
+div.bsoneditor td.bsoneditor-separator {
   color: #acacac;
 }
-div.jsoneditor-value.jsoneditor-string {
+div.bsoneditor-value.bsoneditor-string {
   color: #00ff88;
 }
-div.jsoneditor-value.jsoneditor-object,
-div.jsoneditor-value.jsoneditor-array {
+div.bsoneditor-value.bsoneditor-object,
+div.bsoneditor-value.bsoneditor-array {
   color: #bababa;
 }
-div.jsoneditor-value.jsoneditor-number {
+div.bsoneditor-value.bsoneditor-number {
   color: #ff4040;
 }
-div.jsoneditor-value.jsoneditor-boolean {
+div.bsoneditor-value.bsoneditor-boolean {
   color: #ff8048;
 }
-div.jsoneditor-value.jsoneditor-null {
+div.bsoneditor-value.bsoneditor-null {
   color: #49a7fc;
 }
-div.jsoneditor-value.jsoneditor-invalid {
+div.bsoneditor-value.bsoneditor-invalid {
   color: white;
 }

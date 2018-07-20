@@ -1,18 +1,18 @@
 # API Reference
 
-## JSONEditor
+## BSONEditor
 
 ### Constructor
 
-#### `JSONEditor(container [, options [, json]])`
+#### `BSONEditor(container [, options [, json]])`
 
-Constructs a new JSONEditor.
+Constructs a new BSONEditor.
 
 *Parameters:*
 
 - `{Element} container`
 
-  An HTML DIV element. The JSONEditor will be created inside this container element.
+  An HTML DIV element. The BSONEditor will be created inside this container element.
 
 - `{Object} options`
 
@@ -21,21 +21,21 @@ Constructs a new JSONEditor.
 
 - `{JSON} json`
 
-  Initial JSON data to be loaded into the JSONEditor. Alternatively, the method `JSONEditor.set(json)` can be used to load JSON data into the editor.
+  Initial JSON data to be loaded into the BSONEditor. Alternatively, the method `BSONEditor.set(json)` can be used to load JSON data into the editor.
 
 *Returns:*
 
-- `{JSONEditor} editor`
+- `{BSONEditor} editor`
 
-  New instance of a JSONEditor.
+  New instance of a BSONEditor.
 
 ### Configuration options
 
 - `{Object} ace`
 
-  Provide a custom version of the [Ace editor](http://ace.c9.io/) and use this instead of the version that comes embedded with JSONEditor. Only applicable when `mode` is `code`.
+  Provide a custom version of the [Ace editor](http://ace.c9.io/) and use this instead of the version that comes embedded with BSONEditor. Only applicable when `mode` is `code`.
 
-  Note that when using the minimalist version of JSONEditor (which has Ace excluded), JSONEditor will try to load the Ace plugins `ace/mode/json` and `ace/ext/searchbox`. These plugins must be loaded beforehand or be available in the folder of the Ace editor.
+  Note that when using the minimalist version of BSONEditor (which has Ace excluded), BSONEditor will try to load the Ace plugins `ace/mode/json` and `ace/ext/searchbox`. These plugins must be loaded beforehand or be available in the folder of the Ace editor.
 
 - `{Object} ajv`
 
@@ -50,7 +50,7 @@ Constructs a new JSONEditor.
 
 - `{function} onChange`
 
-  Set a callback function triggered when the contents of the JSONEditor change. Called without parameters. Will only be triggered on changes made by the user, not in case of programmatic changes via the functions `set` or `setText`.
+  Set a callback function triggered when the contents of the BSONEditor change. Called without parameters. Will only be triggered on changes made by the user, not in case of programmatic changes via the functions `set` or `setText`.
 
 - `{function} onEditable`
 
@@ -80,7 +80,7 @@ Constructs a new JSONEditor.
 
 - `{boolean} history`
 
-  Enables history, adds a button Undo and Redo to the menu of the JSONEditor. True by default. Only applicable when `mode` is 'tree' or 'form'.
+  Enables history, adds a button Undo and Redo to the menu of the BSONEditor. True by default. Only applicable when `mode` is 'tree' or 'form'.
 
 - `{String} mode`
 
@@ -92,7 +92,7 @@ Constructs a new JSONEditor.
 
 - `{String} name`
 
-  Initial field name for the root node, is undefined by default. Can also be set using `JSONEditor.setName(name)`. Only applicable when `mode` is 'tree', 'view', or 'form'.
+  Initial field name for the root node, is undefined by default. Can also be set using `BSONEditor.setName(name)`. Only applicable when `mode` is 'tree', 'view', or 'form'.
 
 - `{Object} schema`
 
@@ -109,7 +109,7 @@ Constructs a new JSONEditor.
 
 - `{boolean} search`
 
-  Enables a search box in the upper right corner of the JSONEditor. True by default. Only applicable when `mode` is 'tree', 'view', or 'form'.
+  Enables a search box in the upper right corner of the BSONEditor. True by default. Only applicable when `mode` is 'tree', 'view', or 'form'.
 
 - `{Number} indentation`
 
@@ -117,7 +117,7 @@ Constructs a new JSONEditor.
 
 - `{String} theme`
 
-  Set the Ace editor theme, uses included 'ace/theme/jsoneditor' by default. Please note that only the default theme is included with jsoneditor, so if you specify another one you need to make sure it is loaded.
+  Set the Ace editor theme, uses included 'ace/theme/bsoneditor' by default. Please note that only the default theme is included with bsoneditor, so if you specify another one you need to make sure it is loaded.
 
 - `{Object} templates`
 
@@ -131,7 +131,7 @@ Constructs a new JSONEditor.
           {
               text: 'Person',
               title: 'Insert a Person Node',
-              className: 'jsoneditor-type-object',
+              className: 'bsoneditor-type-object',
               field: 'PersonTemplate',
               value: {
                   'firstName': 'John',
@@ -166,7 +166,7 @@ Constructs a new JSONEditor.
 
      Indicate if the autocomplete is going to be strict case-sensitive to match the options.
 
-  - `{Function} getOptions (text: string, path: string[], input: string, editor: JSONEditor)`
+  - `{Function} getOptions (text: string, path: string[], input: string, editor: BSONEditor)`
 
      This function will return your possible options for create the autocomplete selection, you can control dynamically which options you want to display according to the current active editing node.
      
@@ -194,7 +194,7 @@ Constructs a new JSONEditor.
 
 - `{function} onTextSelectionChange`
 
-  Set a callback function triggered when a text is selected in the JSONEditor.
+  Set a callback function triggered when a text is selected in the BSONEditor.
 
   callback signature should be:
   ```js
@@ -211,7 +211,7 @@ Constructs a new JSONEditor.
 
 - `{function} onSelectionChange`
 
-  Set a callback function triggered when Nodes are selected in the JSONEditor.
+  Set a callback function triggered when Nodes are selected in the BSONEditor.
 
   callback signature should be:
   ```js
@@ -257,23 +257,23 @@ Constructs a new JSONEditor.
 
 ### Methods
 
-#### `JSONEditor.collapseAll()`
+#### `BSONEditor.collapseAll()`
 
 Collapse all fields. Only applicable for mode 'tree', 'view', and 'form'.
 
-#### `JSONEditor.destroy()`
+#### `BSONEditor.destroy()`
 
 Destroy the editor. Clean up DOM, event listeners, and web workers.
 
-#### `JSONEditor.expandAll()`
+#### `BSONEditor.expandAll()`
 
 Expand all fields. Only applicable for mode 'tree', 'view', and 'form'.
 
-#### `JSONEditor.focus()`
+#### `BSONEditor.focus()`
 
-Set focus to the JSONEditor.
+Set focus to the BSONEditor.
 
-#### `JSONEditor.set(json)`
+#### `BSONEditor.set(json)`
 
 Set JSON data.
 
@@ -281,9 +281,9 @@ Set JSON data.
 
 - `{JSON} json`
 
-  JSON data to be displayed in the JSONEditor.
+  JSON data to be displayed in the BSONEditor.
 
-#### `JSONEditor.setMode(mode)`
+#### `BSONEditor.setMode(mode)`
 
 Switch mode. Mode `code` requires the [Ace editor](http://ace.ajax.org/).
 
@@ -293,7 +293,7 @@ Switch mode. Mode `code` requires the [Ace editor](http://ace.ajax.org/).
 
   Available values: `tree`, `view`, `form`, `code`, `text`.
 
-#### `JSONEditor.setName(name)`
+#### `BSONEditor.setName(name)`
 
 Set a field name for the root node.
 
@@ -303,7 +303,7 @@ Set a field name for the root node.
 
   Field name of the root node. If undefined, the current name will be removed.
 
-#### `JSONEditor.setSchema(schema [,schemaRefs])`
+#### `BSONEditor.setSchema(schema [,schemaRefs])`
 
 Set a JSON schema for validation of the JSON object. See also option `schema`.
 See [http://json-schema.org/](http://json-schema.org/) for more information on the JSON schema definition.
@@ -318,7 +318,7 @@ See [http://json-schema.org/](http://json-schema.org/) for more information on t
 
   Optional, Schemas that are referenced using the `$ref` property from the JSON schema, the object structure in the form of `{reference_key: schemaObject}`
 
-#### `JSONEditor.setText(jsonString)`
+#### `BSONEditor.setText(jsonString)`
 
 Set text data in the editor.
 
@@ -331,7 +331,7 @@ valid JSON and the editor is in mode `tree`, `view`, or `form`.
 
   Contents of the editor as string.
 
-#### `JSONEditor.get()`
+#### `BSONEditor.get()`
 
 Get JSON data. 
 
@@ -342,9 +342,9 @@ which can be the case when the editor is in mode `code` or `text`.
 
 - `{JSON} json`
 
-  JSON data from the JSONEditor.
+  JSON data from the BSONEditor.
 
-#### `JSONEditor.getMode()`
+#### `BSONEditor.getMode()`
 
 Retrieve the current mode of the editor.
 
@@ -354,7 +354,7 @@ Retrieve the current mode of the editor.
 
   Current mode of the editor for example `tree` or `code`.
 
-#### `JSONEditor.getName()`
+#### `BSONEditor.getName()`
 
 Retrieve the current field name of the root node.
 
@@ -364,7 +364,7 @@ Retrieve the current field name of the root node.
 
   Current field name of the root node, or undefined if not set.
 
-#### `JSONEditor.getText()`
+#### `BSONEditor.getText()`
 
 Get JSON data as string.
 
@@ -375,9 +375,9 @@ Get JSON data as string.
   Contents of the editor as string. When the editor is in code `text` or `code`,
   the returned text is returned as-is. For the other modes, the returned text
   is a compacted string. In order to get the JSON formatted with a certain
-  number of spaces, use `JSON.stringify(JSONEditor.get(), null, 2)`.
+  number of spaces, use `JSON.stringify(BSONEditor.get(), null, 2)`.
 
-#### `JSONEditor.getTextSelection()`
+#### `BSONEditor.getTextSelection()`
 
 Get the current selected text with the selection range, Only applicable for mode 'text' and 'code'.
 
@@ -385,7 +385,7 @@ Get the current selected text with the selection range, Only applicable for mode
 
 - `{start:{row:Number, column:Number},end:{row:Number, column:Number},text:String} selection`
 
-#### `JSONEditor.setTextSelection(startPos, endPos)`
+#### `BSONEditor.setTextSelection(startPos, endPos)`
 
 Set text selection for a range, Only applicable for mode 'text' and 'code'.
 
@@ -399,7 +399,7 @@ Set text selection for a range, Only applicable for mode 'text' and 'code'.
 
   Position for selection end
 
-#### `JSONEditor.getSelection()`
+#### `BSONEditor.getSelection()`
 
 Get the current selected nodes, Only applicable for mode 'tree'.
 
@@ -407,7 +407,7 @@ Get the current selected nodes, Only applicable for mode 'tree'.
 
 - `{start:SerializableNode, end: SerializableNode}`
 
-#### `JSONEditor.setSelection(start, end)`
+#### `BSONEditor.setSelection(start, end)`
 
 Set selection for a range of nodes, Only applicable for mode 'tree'.
 
@@ -426,7 +426,7 @@ Set selection for a range of nodes, Only applicable for mode 'tree'.
   Path for the end node
 
 
-#### `JSONEditor.getNodesByRange(start, end)`
+#### `BSONEditor.getNodesByRange(start, end)`
 
 A utility function for getting a list of `SerializableNode` under certain range.
 
@@ -451,7 +451,7 @@ var options = {
     "mode": "tree",
     "search": true
 };
-var editor = new JSONEditor(container, options);
+var editor = new BSONEditor(container, options);
 var json = {
     "Array": [1, 2, 3],
     "Boolean": true,
@@ -473,7 +473,7 @@ var options = {
     "mode": "text",
     "indentation": 2
 };
-var editor = new JSONEditor(container, options);
+var editor = new BSONEditor(container, options);
 var json = {
     "Array": [1, 2, 3],
     "Boolean": true,

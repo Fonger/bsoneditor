@@ -3,8 +3,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 
-  <link href="../dist/jsoneditor.css" rel="stylesheet" type="text/css">
-  <script src="../dist/jsoneditor.js"></script>
+  <link href="../dist/bsoneditor.css" rel="stylesheet" type="text/css">
+  <script src="../dist/bsoneditor.js"></script>
 
   <style type="text/css">
     body {
@@ -19,7 +19,7 @@
       background-color: #f5f5f5;
     }
 
-    #jsoneditor {
+    #bsoneditor {
       width: 500px;
       height: 500px;
     }
@@ -34,13 +34,13 @@
 </p>
 
 <form>
-  <div id="jsoneditor"></div>
+  <div id="bsoneditor"></div>
 </form>
 
 <script>
   var container, options, json, editor;
 
-  container = document.getElementById('jsoneditor');
+  container = document.getElementById('bsoneditor');
 
   options = {
     mode: 'tree',
@@ -66,10 +66,10 @@
     "number": 123,
     "object": {"a": "b", "c": "d"},
     "string": "Hello World",
-    "url": "http://jsoneditoronline.org"
+    "url": "http://bsoneditoronline.org"
   };
 
-  editor = new JSONEditor(container, options, json);
+  editor = new BSONEditor(container, options, json);
 
   console.log('json', json);
   console.log('string', JSON.stringify(json));

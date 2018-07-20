@@ -1,8 +1,8 @@
-var module = '../../../dist/jsoneditor';
-require([module], function (JSONEditor) {
+var module = '../../../dist/bsoneditor';
+require([module], function (BSONEditor) {
   // create the editor
-  var container = document.getElementById('jsoneditor');
-  var editor = new JSONEditor(container);
+  var container = document.getElementById('bsoneditor');
+  var editor = new BSONEditor(container);
 
   // set json
   document.getElementById('setJSON').onclick = function () {

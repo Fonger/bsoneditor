@@ -68,7 +68,7 @@ function showMoreNodeFactory(Node) {
 
       var moreContents = document.createElement('div');
       var moreText = document.createTextNode(this._getShowMoreText());
-      moreContents.className = 'jsoneditor-show-more';
+      moreContents.className = 'bsoneditor-show-more';
       moreContents.appendChild(moreText);
       moreContents.appendChild(showMoreButton);
       moreContents.appendChild(document.createTextNode('. '));
@@ -79,10 +79,12 @@ function showMoreNodeFactory(Node) {
       tdContents.appendChild(moreContents);
 
       var moreTr = document.createElement('tr');
-      moreTr.appendChild(document.createElement('td'));
-      moreTr.appendChild(document.createElement('td'));
+      if (this.editor.options.mode === 'tree') {
+        moreTr.appendChild(document.createElement('td'));
+        moreTr.appendChild(document.createElement('td'));
+      }
       moreTr.appendChild(tdContents);
-      moreTr.className = 'jsoneditor-show-more';
+      moreTr.className = 'bsoneditor-show-more';
       this.dom.tr = moreTr;
       this.dom.moreContents = moreContents;
       this.dom.moreText = moreText;

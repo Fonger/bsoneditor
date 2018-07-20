@@ -3,7 +3,7 @@
 /**
  * @constructor SearchBox
  * Create a search box in given HTML container
- * @param {JSONEditor} editor    The JSON Editor to attach to
+ * @param {BSONEditor} editor    The JSON Editor to attach to
  * @param {Element} container               HTML container element of where to
  *                                          create the search box
  */
@@ -20,7 +20,7 @@ function SearchBox (editor, container) {
 
   var table = document.createElement('table');
   this.dom.table = table;
-  table.className = 'jsoneditor-search';
+  table.className = 'bsoneditor-search';
   container.appendChild(table);
   var tbody = document.createElement('tbody');
   this.dom.tbody = tbody;
@@ -32,14 +32,14 @@ function SearchBox (editor, container) {
   tr.appendChild(td);
   var results = document.createElement('div');
   this.dom.results = results;
-  results.className = 'jsoneditor-results';
+  results.className = 'bsoneditor-results';
   td.appendChild(results);
 
   td = document.createElement('td');
   tr.appendChild(td);
   var divInput = document.createElement('div');
   this.dom.input = divInput;
-  divInput.className = 'jsoneditor-frame';
+  divInput.className = 'bsoneditor-frame';
   divInput.title = 'Search fields and values';
   td.appendChild(divInput);
 
@@ -53,7 +53,7 @@ function SearchBox (editor, container) {
 
   var refreshSearch = document.createElement('button');
   refreshSearch.type = 'button';
-  refreshSearch.className = 'jsoneditor-refresh';
+  refreshSearch.className = 'bsoneditor-refresh';
   td = document.createElement('td');
   td.appendChild(refreshSearch);
   tr.appendChild(td);
@@ -85,7 +85,7 @@ function SearchBox (editor, container) {
   var searchNext = document.createElement('button');
   searchNext.type = 'button';
   searchNext.title = 'Next result (Enter)';
-  searchNext.className = 'jsoneditor-next';
+  searchNext.className = 'bsoneditor-next';
   searchNext.onclick = function () {
     searchBox.next();
   };
@@ -96,7 +96,7 @@ function SearchBox (editor, container) {
   var searchPrevious = document.createElement('button');
   searchPrevious.type = 'button';
   searchPrevious.title = 'Previous result (Shift+Enter)';
-  searchPrevious.className = 'jsoneditor-previous';
+  searchPrevious.className = 'bsoneditor-previous';
   searchPrevious.onclick = function () {
     searchBox.previous();
   };

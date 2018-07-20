@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title>JSONEditor | Viewer</title>
+  <title>BSONEditor | Viewer</title>
 
-  <link href="../dist/jsoneditor.css" rel="stylesheet" type="text/css">
-  <script src="../dist/jsoneditor.js"></script>
+  <link href="../dist/bsoneditor.css" rel="stylesheet" type="text/css">
+  <script src="../dist/bsoneditor.js"></script>
 
 
   <style type="text/css">
     body {
       font: 11pt arial;
     }
-    #jsoneditor {
+    #bsoneditor {
       width: 500px;
     }
   </style>
@@ -20,10 +20,10 @@
 <p>
   This editor is read-only (mode='viewer').
 </p>
-<div id="jsoneditor"></div>
+<div id="bsoneditor"></div>
 
 <script>
-  var container = document.getElementById('jsoneditor');
+  var container = document.getElementById('bsoneditor');
 
   var options = {
     mode: 'view'
@@ -38,7 +38,7 @@
     'string': 'Hello World'
   };
 
-  var editor = new JSONEditor(container, options, json);
+  var editor = new BSONEditor(container, options, json);
 </script>
 </body>
 </html>

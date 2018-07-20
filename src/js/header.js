@@ -1,8 +1,8 @@
 /*!
- * jsoneditor.js
+ * bsoneditor.js
  *
  * @brief
- * JSONEditor is a web-based tool to view, edit, format, and validate JSON.
+ * BSONEditor is a web-based tool to view, edit, format, and validate JSON.
  * It has various modes such as a tree editor, a code editor, and a plain text
  * editor.
  *
@@ -21,7 +21,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *
- * Copyright (c) 2011-2017 Jos de Jong, http://jsoneditoronline.org
+ * Copyright (c) 2011-2017 Jos de Jong, http://bsoneditoronline.org
  *
  * @author  Jos de Jong, <wjosdejong@gmail.com>
  * @version @@version

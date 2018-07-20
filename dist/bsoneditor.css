@@ -241,7 +241,7 @@ div.bsoneditor-tree div.bsoneditor-show-more {
   border-radius: 3px;
   color: #808080;
   font-family: arial, sans-serif;
-  font-size: 10pt;
+  font-size: 10.0pt;
 }
 
 div.bsoneditor-tree div.bsoneditor-show-more a {
@@ -369,7 +369,7 @@ div.bsoneditor th,
 div.bsoneditor textarea,
 .bsoneditor-schema-error {
   font-family: "dejavu sans mono", "droid sans mono", consolas, monaco, "lucida console", "courier new", courier, monospace, sans-serif;
-  font-size: 10pt;
+  font-size: 10.0pt;
   color: #1A1A1A;
 }
 
@@ -1093,6 +1093,20 @@ div.bsoneditor-menu > button.bsoneditor-transform {
   background-position: -144px -96px;
 }
 
+div.bsoneditor-menu > button.bsoneditor-save {
+  background: unset;
+  width: unset;
+  padding-left: 2px;
+  padding-right: 5px;
+}
+
+div.bsoneditor-menu > button.bsoneditor-cancel {
+  background: unset;
+  width: unset;
+  padding-left: 2px;
+  padding-right: 5px;
+}
+
 div.bsoneditor-menu > button.bsoneditor-undo {
   background-position: -24px -96px;
 }
@@ -1135,7 +1149,7 @@ div.bsoneditor-menu > div.bsoneditor-modes > button {
 
 div.bsoneditor-menu > button.bsoneditor-separator,
 div.bsoneditor-menu > div.bsoneditor-modes > button.bsoneditor-separator {
-  margin-left: 10px;
+  margin-left: 0;
 }
 
 div.bsoneditor-menu a {

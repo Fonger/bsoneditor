@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title>JSONEditor | Item templates</title>
+  <title>BSONEditor | Item templates</title>
 
-  <link href="../dist/jsoneditor.css" rel="stylesheet" type="text/css">
-  <script src="../dist/jsoneditor.js"></script>
+  <link href="../dist/bsoneditor.css" rel="stylesheet" type="text/css">
+  <script src="../dist/bsoneditor.js"></script>
 
   <style type="text/css">
     body {
       width: 600px;
       font: 11pt sans-serif;
     }
-    #jsoneditor {
+    #bsoneditor {
       width: 100%;
       height: 500px;
     }
@@ -24,7 +24,7 @@
   Using item templates, the options in the context menu under "insert" and "append" can be extended with extra options, containing a domain specific template like a "Person", "Contact", "Order", "Address", etc.
 </p>
 
-<div id="jsoneditor"></div>
+<div id="bsoneditor"></div>
 
 <script>
 
@@ -41,7 +41,7 @@
           {
               text: 'Person',
               title: 'Insert a Person Node',
-              className: 'jsoneditor-type-object',
+              className: 'bsoneditor-type-object',
               field: 'PersonTemplate',
               value: {
                   'firstName': 'John',
@@ -64,8 +64,8 @@
   };
 
   // create the editor
-  var container = document.getElementById('jsoneditor');
-  var editor = new JSONEditor(container, options, json);
+  var container = document.getElementById('bsoneditor');
+  var editor = new BSONEditor(container, options, json);
   editor.expandAll();
 </script>
 </body>

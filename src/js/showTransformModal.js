@@ -26,15 +26,15 @@ function showTransformModal (node, container) {
       '<tr>' +
       '  <th>' + translate('transformWizardLabel') + ' </th>' +
       '  <td>' +
-      '  <div id="wizard" class="jsoneditor-jmespath-wizard">' +
+      '  <div id="wizard" class="bsoneditor-jmespath-wizard">' +
       '  <div>' +
-      '    <div class="jsoneditor-jmespath-wizard-label">' + translate('transformWizardFilter') + '</div>' +
-      '    <div class="jsoneditor-jmespath-filter">' +
-      '      <div class="jsoneditor-inline jsoneditor-jmespath-filter-field" >' +
+      '    <div class="bsoneditor-jmespath-wizard-label">' + translate('transformWizardFilter') + '</div>' +
+      '    <div class="bsoneditor-jmespath-filter">' +
+      '      <div class="bsoneditor-inline bsoneditor-jmespath-filter-field" >' +
       '        <select id="filterField">' +
       '        </select>' +
       '      </div>' +
-      '      <div class="jsoneditor-inline jsoneditor-jmespath-filter-relation" >' +
+      '      <div class="bsoneditor-inline bsoneditor-jmespath-filter-relation" >' +
       '        <select id="filterRelation">' +
       '          <option value="==">==</option>' +
       '          <option value="!=">!=</option>' +
@@ -44,19 +44,19 @@ function showTransformModal (node, container) {
       '          <option value=">=">&gt;=</option>' +
       '        </select>' +
       '      </div>' +
-      '      <div class="jsoneditor-inline jsoneditor-jmespath-filter-value" >' +
+      '      <div class="bsoneditor-inline bsoneditor-jmespath-filter-value" >' +
       '        <input placeholder="value..." id="filterValue" />' +
       '      </div>' +
       '    </div>' +
       '  </div>' +
       '  <div>' +
-      '    <div class="jsoneditor-jmespath-wizard-label">' + translate('transformWizardSortBy') + '</div>' +
-      '    <div class="jsoneditor-jmespath-filter">' +
-      '      <div class="jsoneditor-inline jsoneditor-jmespath-sort-field">' +
+      '    <div class="bsoneditor-jmespath-wizard-label">' + translate('transformWizardSortBy') + '</div>' +
+      '    <div class="bsoneditor-jmespath-filter">' +
+      '      <div class="bsoneditor-inline bsoneditor-jmespath-sort-field">' +
       '        <select id="sortField">' +
       '        </select>' +
       '      </div>' +
-      '      <div class="jsoneditor-inline jsoneditor-jmespath-sort-order" >' +
+      '      <div class="bsoneditor-inline bsoneditor-jmespath-sort-order" >' +
       '        <select id="sortOrder">' +
       '          <option value="asc">Ascending</option>' +
       '          <option value="desc">Descending</option>' +
@@ -65,8 +65,8 @@ function showTransformModal (node, container) {
       '    </div>' +
       '  </div>' +
       '  <div id="selectFieldsPart">' +
-      '    <div class="jsoneditor-jmespath-wizard-label">' + translate('transformWizardSelectFields') + '</div>' +
-      '    <select class="jsoneditor-jmespath-select-fields" id="selectFields" multiple>' +
+      '    <div class="bsoneditor-jmespath-wizard-label">' + translate('transformWizardSelectFields') + '</div>' +
+      '    <select class="bsoneditor-jmespath-select-fields" id="selectFields" multiple>' +
       '    </select>' +
       '  </div>' +
       '  </div>' +
@@ -74,7 +74,7 @@ function showTransformModal (node, container) {
       '</tr>' +
       '<tr>' +
       '  <th>' + translate('transformQueryLabel') + ' </th>' +
-      '  <td class="jsoneditor-modal-input">' +
+      '  <td class="bsoneditor-modal-input">' +
       '    <textarea id="query" ' +
       '              rows="4" ' +
       '              autocomplete="off" ' +
@@ -86,14 +86,14 @@ function showTransformModal (node, container) {
       '</tr>' +
       '<tr>' +
       '  <th>' + translate('transformPreviewLabel') + ' </th>' +
-      '  <td class="jsoneditor-modal-input">' +
+      '  <td class="bsoneditor-modal-input">' +
       '    <textarea id="preview" ' +
-      '        class="jsoneditor-transform-preview"' +
+      '        class="bsoneditor-transform-preview"' +
       '        readonly> </textarea>' +
       '  </td>' +
       '</tr>' +
       '<tr>' +
-      '<td colspan="2" class="jsoneditor-modal-input jsoneditor-modal-actions">' +
+      '<td colspan="2" class="bsoneditor-modal-input bsoneditor-modal-actions">' +
       '  <input type="submit" id="ok" value="' + translate('ok') + '" autofocus />' +
       '</td>' +
       '</tr>' +
@@ -104,8 +104,8 @@ function showTransformModal (node, container) {
   picoModal({
     parent: container,
     content: content,
-    overlayClass: 'jsoneditor-modal-overlay',
-    modalClass: 'jsoneditor-modal jsoneditor-modal-transform',
+    overlayClass: 'bsoneditor-modal-overlay',
+    modalClass: 'bsoneditor-modal bsoneditor-modal-transform',
     focus: false
   })
       .afterCreate(function (modal) {
@@ -260,12 +260,12 @@ function showTransformModal (node, container) {
             }
 
 
-            preview.className = 'jsoneditor-transform-preview';
+            preview.className = 'bsoneditor-transform-preview';
             preview.value = lines.join('\n');
             ok.disabled = false;
           }
           catch (err) {
-            preview.className = 'jsoneditor-transform-preview jsoneditor-error';
+            preview.className = 'bsoneditor-transform-preview bsoneditor-error';
             preview.value = err.toString();
             ok.disabled = true;
           }

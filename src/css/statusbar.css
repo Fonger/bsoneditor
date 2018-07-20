@@ -1,4 +1,4 @@
-div.jsoneditor-statusbar {
+div.bsoneditor-statusbar {
   line-height: 26px;
   height: 26px;
   margin-top: -1px;
@@ -11,14 +11,14 @@ div.jsoneditor-statusbar {
   font-size: 10pt;
 }
 
-div.jsoneditor-statusbar > .jsoneditor-curserinfo-label {
+div.bsoneditor-statusbar > .bsoneditor-curserinfo-label {
   margin: 0 2px 0 4px;
 }
 
-div.jsoneditor-statusbar > .jsoneditor-curserinfo-val {
+div.bsoneditor-statusbar > .bsoneditor-curserinfo-val {
   margin-right: 12px;
 }
 
-div.jsoneditor-statusbar > .jsoneditor-curserinfo-count {
+div.bsoneditor-statusbar > .bsoneditor-curserinfo-count {
   margin-left: 4px;
 }

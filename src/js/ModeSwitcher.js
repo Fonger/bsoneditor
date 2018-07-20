@@ -35,7 +35,7 @@ function ModeSwitcher(container, modes, current, onSwitch) {
       }
     },
     tree: {
-      'text': 'Tree',
+      'text': 'Edit',
       'title': 'Switch to tree editor',
       'click': function () {
         onSwitch('tree');
@@ -46,6 +46,13 @@ function ModeSwitcher(container, modes, current, onSwitch) {
       'title': 'Switch to tree view',
       'click': function () {
         onSwitch('view');
+      }
+    },
+    remove : {
+      'text': 'Remove',
+      'title': 'Remove this compound',
+      'click': function() {
+        onSwitch('remove');
       }
     }
   };
@@ -59,7 +66,7 @@ function ModeSwitcher(container, modes, current, onSwitch) {
       throw new Error('Unknown mode "' + mode + '"');
     }
 
-    item.className = 'jsoneditor-type-modes' + ((current == mode) ? ' jsoneditor-selected' : '');
+    item.className = 'bsoneditor-type-modes' + ((current == mode) ? ' bsoneditor-selected' : '');
     items.push(item);
   }
 
@@ -73,7 +80,7 @@ function ModeSwitcher(container, modes, current, onSwitch) {
   // create the html element
   var box = document.createElement('button');
   box.type = 'button';
-  box.className = 'jsoneditor-modes jsoneditor-separator';
+  box.className = 'bsoneditor-modes bsoneditor-separator';
   box.innerHTML = currentTitle + ' &#x25BE;';
   box.title = 'Switch editor mode';
   box.onclick = function () {
@@ -82,7 +89,7 @@ function ModeSwitcher(container, modes, current, onSwitch) {
   };
 
   var frame = document.createElement('div');
-  frame.className = 'jsoneditor-modes';
+  frame.className = 'bsoneditor-modes';
   frame.style.position = 'relative';
   frame.appendChild(box);
 

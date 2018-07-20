@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title>JSONEditor | Custom editable fields</title>
+  <title>BSONEditor | Custom editable fields</title>
 
-  <link href="../dist/jsoneditor.css" rel="stylesheet" type="text/css">
-  <script src="../dist/jsoneditor.js"></script>
+  <link href="../dist/bsoneditor.css" rel="stylesheet" type="text/css">
+  <script src="../dist/bsoneditor.js"></script>
 
   <style type="text/css">
-    #jsoneditor {
+    #bsoneditor {
       width: 500px;
     }
   </style>
@@ -22,10 +22,10 @@
     <li>the field <code>age</code> and its value are editable</li>
   </ul>
 
-  <div id="jsoneditor"></div>
+  <div id="bsoneditor"></div>
 
   <script>
-    var container = document.getElementById('jsoneditor');
+    var container = document.getElementById('bsoneditor');
 
     var options = {
       onEditable: function (node) {
@@ -57,7 +57,7 @@
       age: 32
     };
 
-    var editor = new JSONEditor(container, options, json);
+    var editor = new BSONEditor(container, options, json);
   </script>
 </body>
 </html>

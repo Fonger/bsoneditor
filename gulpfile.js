@@ -8,11 +8,11 @@ var mkdirp = require('mkdirp');
 var webpack = require('webpack');
 var uglify = require('uglify-js');
 
-var NAME    = 'jsoneditor';
-var NAME_MINIMALIST = 'jsoneditor-minimalist';
-var ENTRY   = './src/js/JSONEditor.js';
+var NAME    = 'bsoneditor';
+var NAME_MINIMALIST = 'bsoneditor-minimalist';
+var ENTRY   = './src/js/BSONEditor.js';
 var HEADER  = './src/js/header.js';
-var IMAGE   = './src/css/img/jsoneditor-icons.svg';
+var IMAGE   = './src/css/img/bsoneditor-icons.svg';
 var DOCS    = './src/docs/*';
 var DIST    = './dist';
 
@@ -35,7 +35,7 @@ var bannerPlugin = new webpack.BannerPlugin(createBanner(), {
 var compiler = webpack({
   entry: ENTRY,
   output: {
-    library: 'JSONEditor',
+    library: 'BSONEditor',
     libraryTarget: 'umd',
     path: DIST,
     filename: NAME + '.js'
@@ -53,7 +53,7 @@ var compiler = webpack({
 var compilerMinimalist = webpack({
   entry: ENTRY,
   output: {
-    library: 'JSONEditor',
+    library: 'BSONEditor',
     libraryTarget: 'umd',
     path: DIST,
     filename: NAME_MINIMALIST + '.js'
@@ -131,7 +131,7 @@ gulp.task('bundle-minimalist', ['mkdir'], function (done) {
 gulp.task('bundle-css', ['mkdir'], function () {
   gulp.src([
     'src/css/reset.css',
-    'src/css/jsoneditor.css',
+    'src/css/bsoneditor.css',
     'src/css/contextmenu.css',
     'src/css/menu.css',
     'src/css/searchbox.css',
@@ -174,13 +174,13 @@ gulp.task('minify-minimalist', ['bundle-minimalist'], function () {
 });
 
 // TODO: zip file using archiver
-var pkg = 'jsoneditor-' + require('./package.json').version + '.zip';
+var pkg = 'bsoneditor-' + require('./package.json').version + '.zip';
 gulp.task('zip', shell.task([
       'zip ' + pkg + ' ' + 'README.md NOTICE LICENSE HISTORY.md index.html src dist docs examples -r '
 ]));
 
 // The watch task (to automatically rebuild when the source code changes)
-// Does only generate jsoneditor.js and jsoneditor.css, and copy the image
+// Does only generate bsoneditor.js and bsoneditor.css, and copy the image
 // Does NOT minify the code and does NOT generate the minimalist version
 gulp.task('watch', ['bundle', 'bundle-css', 'copy-img'], function () {
   gulp.watch(['src/**/*'], ['bundle', 'bundle-css', 'copy-img']);

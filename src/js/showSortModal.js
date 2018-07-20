@@ -15,8 +15,8 @@ function showSortModal (node, container) {
       '<tbody>' +
       '<tr>' +
       '  <td>' + translate('sortFieldLabel') + ' </td>' +
-      '  <td class="jsoneditor-modal-input">' +
-      '  <div class="jsoneditor-select-wrapper">' +
+      '  <td class="bsoneditor-modal-input">' +
+      '  <div class="bsoneditor-select-wrapper">' +
       '    <select id="field" title="' + translate('sortFieldTitle') + '">' +
       '    </select>' +
       '  </div>' +
@@ -24,23 +24,23 @@ function showSortModal (node, container) {
       '</tr>' +
       '<tr>' +
       '  <td>' + translate('sortDirectionLabel') + ' </td>' +
-      '  <td class="jsoneditor-modal-input">' +
-      '  <div id="direction" class="jsoneditor-button-group">' +
+      '  <td class="bsoneditor-modal-input">' +
+      '  <div id="direction" class="bsoneditor-button-group">' +
       '<input type="button" ' +
       'value="' + translate('sortAscending') + '" ' +
       'title="'  + translate('sortAscendingTitle') + '" ' +
       'data-value="asc" ' +
-      'class="jsoneditor-button-first jsoneditor-button-asc"/>' +
+      'class="bsoneditor-button-first bsoneditor-button-asc"/>' +
       '<input type="button" ' +
       'value="' + translate('sortDescending') + '" ' +
       'title="' + translate('sortDescendingTitle') + '" ' +
       'data-value="desc" ' +
-      'class="jsoneditor-button-last jsoneditor-button-desc"/>' +
+      'class="bsoneditor-button-last bsoneditor-button-desc"/>' +
       '  </div>' +
       '  </td>' +
       '</tr>' +
       '<tr>' +
-      '<td colspan="2" class="jsoneditor-modal-input jsoneditor-modal-actions">' +
+      '<td colspan="2" class="bsoneditor-modal-input bsoneditor-modal-actions">' +
       '  <input type="submit" id="ok" value="' + translate('ok') + '" />' +
       '</td>' +
       '</tr>' +
@@ -52,8 +52,8 @@ function showSortModal (node, container) {
   picoModal({
     parent: container,
     content: content,
-    overlayClass: 'jsoneditor-modal-overlay',
-    modalClass: 'jsoneditor-modal jsoneditor-modal-sort'
+    overlayClass: 'bsoneditor-modal-overlay',
+    modalClass: 'bsoneditor-modal bsoneditor-modal-sort'
   })
       .afterCreate(function (modal) {
         var form = modal.modalElem().querySelector('form');
@@ -74,7 +74,7 @@ function showSortModal (node, container) {
 
         function setDirection(value) {
           direction.value = value;
-          direction.className = 'jsoneditor-button-group jsoneditor-button-group-value-' + direction.value;
+          direction.className = 'bsoneditor-button-group bsoneditor-button-group-value-' + direction.value;
         }
 
         field.value = node.sortedBy ? node.sortedBy.path : paths[0];
@@ -101,7 +101,7 @@ function showSortModal (node, container) {
           node.sort(pathArray, direction.value)
         };
 
-        if (form) { // form is not available when JSONEditor is created inside a form
+        if (form) { // form is not available when BSONEditor is created inside a form
           form.onsubmit = ok.onclick;
         }
       })

@@ -4,27 +4,27 @@
 
 with npm:
 
-    npm install jsoneditor
+    npm install bsoneditor
 
 with bower:
 
-    bower install jsoneditor
+    bower install bsoneditor
 
 download:
 
-[http://jsoneditoronline.org/downloads/](http://jsoneditoronline.org/downloads/)
+[http://bsoneditoronline.org/downloads/](http://bsoneditoronline.org/downloads/)
 
 The library consists of three files: one javascript file, one css file and an
 image. Both full and minified version are available.
 
 ## Load
 
-To implement JSONEditor in a web application, load the javascript and css file
+To implement BSONEditor in a web application, load the javascript and css file
 in the head of the HTML page:
 
 ```html
-<link href="jsoneditor/dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
-<script src="jsoneditor/dist/jsoneditor.min.js"></script>
+<link href="bsoneditor/dist/bsoneditor.min.css" rel="stylesheet" type="text/css">
+<script src="bsoneditor/dist/bsoneditor.min.js"></script>
 ```
 
 ## Use
@@ -32,17 +32,17 @@ in the head of the HTML page:
 In the body, create an div element with an id and a size:
 
 ```html
-<div id="jsoneditor" style="width: 400px; height: 400px;"></div>
+<div id="bsoneditor" style="width: 400px; height: 400px;"></div>
 ```
 
 After the page is loaded, load the editor with javascript:
 
 ```js
-var container = document.getElementById("jsoneditor");
+var container = document.getElementById("bsoneditor");
 var options = {
     mode: 'tree'
 };
-var editor = new JSONEditor(container, options);
+var editor = new BSONEditor(container, options);
 ```
 
 To set JSON data in the editor:
@@ -75,20 +75,20 @@ var json = editor.get();
     <!-- when using the mode "code", it's important to specify charset utf-8 -->
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 
-    <link href="jsoneditor/dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
-    <script src="jsoneditor/dist/jsoneditor.min.js"></script>
+    <link href="bsoneditor/dist/bsoneditor.min.css" rel="stylesheet" type="text/css">
+    <script src="bsoneditor/dist/bsoneditor.min.js"></script>
 </head>
 <body>
 <p>
     <button onclick="setJSON();">Set JSON</button>
     <button onclick="getJSON();">Get JSON</button>
 </p>
-<div id="jsoneditor" style="width: 400px; height: 400px;"></div>
+<div id="bsoneditor" style="width: 400px; height: 400px;"></div>
 
 <script>
     // create the editor
-    var container = document.getElementById("jsoneditor");
-    var editor = new JSONEditor(container);
+    var container = document.getElementById("bsoneditor");
+    var editor = new BSONEditor(container);
 
     // set json
     function setJSON () {
@@ -114,4 +114,4 @@ var json = editor.get();
 ```
 
 For more examples, see the
-[examples section](https://github.com/josdejong/jsoneditor/tree/master/examples).
+[examples section](https://github.com/Fonger/bsoneditor/tree/master/examples).

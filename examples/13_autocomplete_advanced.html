@@ -1,15 +1,15 @@
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
-  <title>JSONEditor | Advanced Auto Complete</title>
+  <title>BSONEditor | Advanced Auto Complete</title>
 
   <meta charset="UTF-8">
-  <link href="../dist/jsoneditor.css" rel="stylesheet" type="text/css">
-  <script src="../dist/jsoneditor.js"></script>
+  <link href="../dist/bsoneditor.css" rel="stylesheet" type="text/css">
+  <script src="../dist/bsoneditor.js"></script>
   <script src="https://unpkg.com/jsonpath@0.2.11/jsonpath.min.js"></script>
 
   <style type="text/css">
-    #jsoneditor {
+    #bsoneditor {
       width: 500px;
       height: 500px;
     }
@@ -27,11 +27,11 @@
   The autocomplete returns the posible jsonpaths of the existing json document, for example <code>*object.a</code>.
 </p>
 
-<div id="jsoneditor"></div>
+<div id="bsoneditor"></div>
 
 <script>
   // create the editor
-  var container = document.getElementById('jsoneditor');
+  var container = document.getElementById('bsoneditor');
   var activationChar = '*';
   var options = {
     autocomplete: {
@@ -98,7 +98,7 @@
     'object': { 'a': 'b', 'c': 'd' },
     'string': 'Hello World'
   };
-  var editor = new JSONEditor(container, options, json);
+  var editor = new BSONEditor(container, options, json);
 </script>
 </body>
 </html>

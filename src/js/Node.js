@@ -9,7 +9,6 @@ var showSortModal = require('./showSortModal');
 var showTransformModal = require('./showTransformModal');
 var util = require('./util');
 var translate = require('./i18n').translate;
-
 var DEFAULT_MODAL_ANCHOR = document.body; // TODO: this constant is defined twice
 
 /**
@@ -49,7 +48,7 @@ Node.prototype.DEBOUNCE_INTERVAL = 150;
 Node.prototype.MAX_SEARCH_RESULTS = 999;
 
 // number of visible childs rendered initially in large arrays/objects (with a "show more" button to show more)
-Node.prototype.MAX_VISIBLE_CHILDS = 100;
+Node.prototype.MAX_VISIBLE_CHILDS = 10;
 
 // default value for the max visible childs of large arrays
 Node.prototype.visibleChilds = Node.prototype.MAX_VISIBLE_CHILDS;
@@ -227,12 +226,12 @@ Node.prototype.updateError = function() {
     }
 
     var popover = document.createElement('div');
-    popover.className = 'jsoneditor-popover jsoneditor-right';
+    popover.className = 'bsoneditor-popover bsoneditor-right';
     popover.appendChild(document.createTextNode(error.message));
 
     var button = document.createElement('button');
     button.type = 'button';
-    button.className = 'jsoneditor-schema-error';
+    button.className = 'bsoneditor-schema-error';
     button.appendChild(popover);
 
     // update the direction of the popover
@@ -240,7 +239,7 @@ Node.prototype.updateError = function() {
       var directions = ['right', 'above', 'below', 'left'];
       for (var i = 0; i < directions.length; i++) {
         var direction = directions[i];
-        popover.className = 'jsoneditor-popover jsoneditor-' + direction;
+        popover.className = 'bsoneditor-popover bsoneditor-' + direction;
 
         var contentRect = this.editor.content.getBoundingClientRect();
         var popoverRect = popover.getBoundingClientRect();
@@ -503,7 +502,7 @@ Node.prototype.expand = function(recurse) {
   // set this node expanded
   this.expanded = true;
   if (this.dom.expand) {
-    this.dom.expand.className = 'jsoneditor-expanded';
+    this.dom.expand.className = 'bsoneditor-expanded';
   }
 
   this.showChilds();
@@ -537,7 +536,7 @@ Node.prototype.collapse = function(recurse) {
 
   // make this node collapsed
   if (this.dom.expand) {
-    this.dom.expand.className = 'jsoneditor-collapsed';
+    this.dom.expand.className = 'bsoneditor-collapsed';
   }
   this.expanded = false;
 };
@@ -683,7 +682,6 @@ Node.prototype.appendChild = function(node, visible, updateDom) {
       node.index = this.childs.length;
     }
     this.childs.push(node);
-
     if (this.expanded && visible !== false) {
       // insert into the DOM, before the appendRow
       var newTr = node.getDom();
@@ -1135,6 +1133,24 @@ Node.prototype.changeType = function (newType) {
     // this is an easy change
     this.type = newType;
   }
+  else if (newType == 'date') {
+    var val = this.value;
+    if (oldType == 'string' && INTEGER_REGEXP.test(val)) {
+      val = parseInt(val);
+    }
+    this.value = new Date(val);
+    if (isNaN(this.value)) this.value = new Date();
+    this.type = newType;
+  }
+  else if (newType == 'objectId') {
+    if (oldType == 'string' && OBJECTID_REGEXP.test(this.value)) {
+      this.value = this.editor.options.bson.ObjectId.createFromHexString(this.value);
+      this.type = newType;
+    } else {
+      this.value = this.editor.options.bson.ObjectId.createFromHexString('000000000000000000000000');
+      this.type = newType;
+    }
+  }
   else {
     // change from array to object, or from string/auto to object/array
     var table = this.dom.tr ? this.dom.tr.parentNode : undefined;
@@ -1219,6 +1235,8 @@ Node.prototype.changeType = function (newType) {
   this.updateDom({'updateIndexes': true});
 };
 
+var INTEGER_REGEXP = /^\d{1,16}$/;
+var OBJECTID_REGEXP = /^[a-f\d]{24}$/i;
 /**
  * Retrieve value from DOM
  * @param {boolean} [silent]  If true (default), no errors will be thrown in
@@ -1236,6 +1254,20 @@ Node.prototype._getDomValue = function(silent) {
       var value;
       if (this.type == 'string') {
         value = this._unescapeHTML(this.valueInnerText);
+      }
+      else if (this.type == 'date') {
+        var val = this._unescapeHTML(this.valueInnerText);
+        if (INTEGER_REGEXP.test(val)) val = parseInt(val);
+        value = new Date(val);
+        if(isNaN(value)) throw new Error('Invalid Date');
+      }
+      else if (this.type == 'objectId') {
+        var val = this._unescapeHTML(this.valueInnerText);
+        if (OBJECTID_REGEXP.test(val)) {
+          value = this.editor.options.bson.ObjectId.createFromHexString(val);
+        } else {
+          throw new Error('Invalid ObjectId');
+        }
       }
       else {
         var str = this._unescapeHTML(this.valueInnerText);
@@ -1319,6 +1351,10 @@ Node.prototype._onChangeField = function () {
   this.previousField = this.field;
 };
 
+Date.prototype.toString = function() {
+  return this.toISOString();
+}
+
 /**
  * Update dom value:
  * - the text color of the value, depending on the type of the value
@@ -1329,30 +1365,30 @@ Node.prototype._onChangeField = function () {
 Node.prototype._updateDomValue = function () {
   var domValue = this.dom.value;
   if (domValue) {
-    var classNames = ['jsoneditor-value'];
+    var classNames = ['bsoneditor-value'];
 
 
     // set text color depending on value type
     var value = this.value;
     var type = (this.type == 'auto') ? util.type(value) : this.type;
     var isUrl = type == 'string' && util.isUrl(value);
-    classNames.push('jsoneditor-' + type);
+    classNames.push('bsoneditor-' + type);
     if (isUrl) {
-      classNames.push('jsoneditor-url');
+      classNames.push('bsoneditor-url');
     }
 
     // visual styling when empty
     var isEmpty = (String(this.value) == '' && this.type != 'array' && this.type != 'object');
     if (isEmpty) {
-      classNames.push('jsoneditor-empty');
+      classNames.push('bsoneditor-empty');
     }
 
     // highlight when there is a search result
     if (this.searchValueActive) {
-      classNames.push('jsoneditor-highlight-active');
+      classNames.push('bsoneditor-highlight-active');
     }
     if (this.searchValue) {
-      classNames.push('jsoneditor-highlight');
+      classNames.push('bsoneditor-highlight');
     }
 
     domValue.className = classNames.join(' ');
@@ -1370,12 +1406,12 @@ Node.prototype._updateDomValue = function () {
     }
 
     // show checkbox when the value is a boolean
-    if (type === 'boolean' && this.editable.value) {
+    /*if (type === 'boolean' && this.editable.value) {
       if (!this.dom.checkbox) {
         this.dom.checkbox = document.createElement('input');
         this.dom.checkbox.type = 'checkbox';
         this.dom.tdCheckbox = document.createElement('td');
-        this.dom.tdCheckbox.className = 'jsoneditor-tree';
+        this.dom.tdCheckbox.className = 'bsoneditor-tree';
         this.dom.tdCheckbox.appendChild(this.dom.checkbox);
 
         this.dom.tdValue.parentNode.insertBefore(this.dom.tdCheckbox, this.dom.tdValue);
@@ -1390,7 +1426,7 @@ Node.prototype._updateDomValue = function () {
         delete this.dom.tdCheckbox;
         delete this.dom.checkbox;
       }
-    }
+    }*/
 
     if (this.enum && this.editable.value) {
       // create select box when this node has an enum object
@@ -1418,7 +1454,7 @@ Node.prototype._updateDomValue = function () {
         }
 
         this.dom.tdSelect = document.createElement('td');
-        this.dom.tdSelect.className = 'jsoneditor-tree';
+        this.dom.tdSelect.className = 'bsoneditor-tree';
         this.dom.tdSelect.appendChild(this.dom.select);
         this.dom.tdValue.parentNode.insertBefore(this.dom.tdSelect, this.dom.tdValue);
       }
@@ -1467,24 +1503,24 @@ Node.prototype._updateDomField = function () {
     // make backgound color lightgray when empty
     var isEmpty = (String(this.field) == '' && this.parent.type != 'array');
     if (isEmpty) {
-      util.addClassName(domField, 'jsoneditor-empty');
+      util.addClassName(domField, 'bsoneditor-empty');
     }
     else {
-      util.removeClassName(domField, 'jsoneditor-empty');
+      util.removeClassName(domField, 'bsoneditor-empty');
     }
 
     // highlight when there is a search result
     if (this.searchFieldActive) {
-      util.addClassName(domField, 'jsoneditor-highlight-active');
+      util.addClassName(domField, 'bsoneditor-highlight-active');
     }
     else {
-      util.removeClassName(domField, 'jsoneditor-highlight-active');
+      util.removeClassName(domField, 'bsoneditor-highlight-active');
     }
     if (this.searchField) {
-      util.addClassName(domField, 'jsoneditor-highlight');
+      util.addClassName(domField, 'bsoneditor-highlight');
     }
     else {
-      util.removeClassName(domField, 'jsoneditor-highlight');
+      util.removeClassName(domField, 'bsoneditor-highlight');
     }
 
     // strip formatting from the contents of the editable div
@@ -1528,9 +1564,34 @@ Node.prototype._getDomField = function(silent) {
  */
 Node.prototype.validate = function () {
   var errors = [];
-
+  if (typeof this.field === 'string' && (this.field === "" || this.field.indexOf('$') === 0)) {
+    if (this.parent && this.parent.type !== 'array') {
+      errors.push({
+        node: this,
+        error: {
+          message: translate('invalidField') + ' "' + this.field + '"'
+        }
+      });
+    }
+  }
+  else if (this.type === 'date' && isNaN(this.value)) {
+    errors.push({
+      node: this,
+      error: {
+        message: translate('invalidDate') + ' "' + this.field + '"'
+      }
+    });
+  }
+  else if (this.type === 'objectId' && !OBJECTID_REGEXP.test(this.value.toString())) {
+    errors.push({
+      node: this,
+      error: {
+        message: translate('invalidObjectId') + ' "' + this.field + '"'
+      }
+    });
+  }
   // find duplicate keys
-  if (this.type === 'object') {
+  else if (this.type === 'object') {
     var keys = {};
     var duplicateKeys = [];
     for (var i = 0; i < this.childs.length; i++) {
@@ -1606,7 +1667,7 @@ Node.prototype.getDom = function() {
         var domDrag = document.createElement('button');
         domDrag.type = 'button';
         dom.drag = domDrag;
-        domDrag.className = 'jsoneditor-dragarea';
+        domDrag.className = 'bsoneditor-dragarea';
         domDrag.title = translate('drag');
         tdDrag.appendChild(domDrag);
       }
@@ -1618,10 +1679,13 @@ Node.prototype.getDom = function() {
     var menu = document.createElement('button');
     menu.type = 'button';
     dom.menu = menu;
-    menu.className = 'jsoneditor-contextmenu';
+    menu.className = 'bsoneditor-contextmenu';
     menu.title = translate('actionsMenu');
     tdMenu.appendChild(dom.menu);
     dom.tr.appendChild(tdMenu);
+    if (this.getPath().length === 0) {
+      dom.menu.style = "visibility: hidden"; // hide context menu for root
+    }
   }
 
   // create tree and field
@@ -1954,10 +2018,10 @@ Node.prototype._createDomField = function () {
 Node.prototype.setHighlight = function (highlight) {
   if (this.dom.tr) {
     if (highlight) {
-      util.addClassName(this.dom.tr, 'jsoneditor-highlight');
+      util.addClassName(this.dom.tr, 'bsoneditor-highlight');
     }
     else {
-      util.removeClassName(this.dom.tr, 'jsoneditor-highlight');
+      util.removeClassName(this.dom.tr, 'bsoneditor-highlight');
     }
 
     if (this.append) {
@@ -1982,17 +2046,17 @@ Node.prototype.setSelected = function (selected, isFirst) {
 
   if (this.dom.tr) {
     if (selected) {
-      util.addClassName(this.dom.tr, 'jsoneditor-selected');
+      util.addClassName(this.dom.tr, 'bsoneditor-selected');
     }
     else {
-      util.removeClassName(this.dom.tr, 'jsoneditor-selected');
+      util.removeClassName(this.dom.tr, 'bsoneditor-selected');
     }
 
     if (isFirst) {
-      util.addClassName(this.dom.tr, 'jsoneditor-first');
+      util.addClassName(this.dom.tr, 'bsoneditor-first');
     }
     else {
-      util.removeClassName(this.dom.tr, 'jsoneditor-first');
+      util.removeClassName(this.dom.tr, 'bsoneditor-first');
     }
 
     if (this.append) {
@@ -2054,11 +2118,11 @@ Node.prototype.updateDom = function (options) {
       // parent is an object
       domField.contentEditable = this.editable.field;
       domField.spellcheck = false;
-      domField.className = 'jsoneditor-field';
+      domField.className = 'bsoneditor-field';
     }
     else {
       // parent is an array this is the root node
-      domField.className = 'jsoneditor-readonly';
+      domField.className = 'bsoneditor-readonly';
     }
 
     var fieldText;
@@ -2085,15 +2149,15 @@ Node.prototype.updateDom = function (options) {
     var count = this.childs ? this.childs.length : 0;
     if (this.type == 'array') {
       domValue.innerHTML = '[' + count + ']';
-      util.addClassName(this.dom.tr, 'jsoneditor-expandable');
+      util.addClassName(this.dom.tr, 'bsoneditor-expandable');
     }
     else if (this.type == 'object') {
       domValue.innerHTML = '{' + count + '}';
-      util.addClassName(this.dom.tr, 'jsoneditor-expandable');
+      util.addClassName(this.dom.tr, 'bsoneditor-expandable');
     }
     else {
       domValue.innerHTML = this._escapeHTML(this.value);
-      util.removeClassName(this.dom.tr, 'jsoneditor-expandable');
+      util.removeClassName(this.dom.tr, 'bsoneditor-expandable');
     }
   }
 
@@ -2303,11 +2367,11 @@ Node.prototype._createDomExpandButton = function () {
   var expand = document.createElement('button');
   expand.type = 'button';
   if (this._hasChilds()) {
-    expand.className = this.expanded ? 'jsoneditor-expanded' : 'jsoneditor-collapsed';
+    expand.className = this.expanded ? 'bsoneditor-expanded' : 'bsoneditor-collapsed';
     expand.title = translate('expandTitle');
   }
   else {
-    expand.className = 'jsoneditor-invisible';
+    expand.className = 'bsoneditor-invisible';
     expand.title = '';
   }
 
@@ -2325,14 +2389,14 @@ Node.prototype._createDomTree = function () {
   var domTree = document.createElement('table');
   var tbody = document.createElement('tbody');
   domTree.style.borderCollapse = 'collapse'; // TODO: put in css
-  domTree.className = 'jsoneditor-values';
+  domTree.className = 'bsoneditor-values';
   domTree.appendChild(tbody);
   var tr = document.createElement('tr');
   tbody.appendChild(tr);
 
   // create expand button
   var tdExpand = document.createElement('td');
-  tdExpand.className = 'jsoneditor-tree';
+  tdExpand.className = 'bsoneditor-tree';
   tr.appendChild(tdExpand);
   dom.expand = this._createDomExpandButton();
   tdExpand.appendChild(dom.expand);
@@ -2340,7 +2404,7 @@ Node.prototype._createDomTree = function () {
 
   // create the field
   var tdField = document.createElement('td');
-  tdField.className = 'jsoneditor-tree';
+  tdField.className = 'bsoneditor-tree';
   tr.appendChild(tdField);
   dom.field = this._createDomField();
   tdField.appendChild(dom.field);
@@ -2348,17 +2412,17 @@ Node.prototype._createDomTree = function () {
 
   // create a separator
   var tdSeparator = document.createElement('td');
-  tdSeparator.className = 'jsoneditor-tree';
+  tdSeparator.className = 'bsoneditor-tree';
   tr.appendChild(tdSeparator);
   if (this.type != 'object' && this.type != 'array') {
     tdSeparator.appendChild(document.createTextNode(':'));
-    tdSeparator.className = 'jsoneditor-separator';
+    tdSeparator.className = 'bsoneditor-separator';
   }
   dom.tdSeparator = tdSeparator;
 
   // create the value
   var tdValue = document.createElement('td');
-  tdValue.className = 'jsoneditor-tree';
+  tdValue.className = 'bsoneditor-tree';
   tr.appendChild(tdValue);
   dom.value = this._createDomValue();
   tdValue.appendChild(dom.value);
@@ -2394,9 +2458,9 @@ Node.prototype.onEvent = function (event) {
     var highlighter = node.editor.highlighter;
     highlighter.highlight(node);
     highlighter.lock();
-    util.addClassName(dom.menu, 'jsoneditor-selected');
+    util.addClassName(dom.menu, 'bsoneditor-selected');
     this.showContextMenu(dom.menu, function () {
-      util.removeClassName(dom.menu, 'jsoneditor-selected');
+      util.removeClassName(dom.menu, 'bsoneditor-selected');
       highlighter.unlock();
       highlighter.unhighlight();
     });
@@ -2433,20 +2497,25 @@ Node.prototype.onEvent = function (event) {
     switch (type) {
       case 'blur':
       case 'change':
-        this._getDomValue(true);
-        this._updateDomValue();
-        if (this.value) {
-          domValue.innerHTML = this._escapeHTML(this.value);
+        try {
+          this.setError(null);
+          this._getDomValue(false);
+          this._updateDomValue();
+          if (this.value) {
+            domValue.innerHTML = this._escapeHTML(this.value);
+          }
+        }
+        catch (err) {
+          // target.focus();
+          this.setError(err);
         }
         break;
 
-      case 'input':
-        //this._debouncedGetDomValue(true); // TODO
-        this._getDomValue(true);
-        this._updateDomValue();
-        break;
-
       case 'keydown':
+        if (event.keyCode == 13 && ((!event.ctrlKey && !event.shiftKey && !event.altKey))) {
+          event.preventDefault();
+          target.blur();
+        }
       case 'mousedown':
           // TODO: cleanup
         this.editor.selection = this.editor.getDomSelection();
@@ -2462,10 +2531,18 @@ Node.prototype.onEvent = function (event) {
         }
         break;
 
+      case 'input':
       case 'keyup':
         //this._debouncedGetDomValue(true); // TODO
-        this._getDomValue(true);
-        this._updateDomValue();
+        try {
+          this.setError(null);
+          this._getDomValue(false);
+          this._updateDomValue();
+        }
+        catch (err) {
+          //this.dom.value.className = 'bsoneditor-value bsoneditor-error';
+          this.setError(err);
+        }
         break;
 
       case 'cut':
@@ -2499,6 +2576,10 @@ Node.prototype.onEvent = function (event) {
         break;
 
       case 'keydown':
+        if (event.keyCode == 13 && ((!event.ctrlKey && !event.shiftKey && !event.altKey))) {
+          event.preventDefault();
+          target.blur();
+        }
       case 'mousedown':
         this.editor.selection = this.editor.getDomSelection();
         break;
@@ -3491,7 +3572,9 @@ Node.TYPE_TITLES = {
   'auto': translate('autoType'),
   'object': translate('objectType'),
   'array': translate('arrayType'),
-  'string': translate('stringType')
+  'string': translate('stringType'),
+  'date': translate('dateType'),
+  'objectId': translate('objectIdType')
 };
 
 Node.prototype.addTemplates = function (menu, append) {
@@ -3513,7 +3596,7 @@ Node.prototype.addTemplates = function (menu, append) {
     templates.forEach(function (template) {
         menu.push({
             text: template.text,
-            className: (template.className || 'jsoneditor-type-object'),
+            className: (template.className || 'bsoneditor-type-object'),
             title: template.title,
             click: (append ? appendData.bind(this, template.field, template.value) : insertData.bind(this, template.field, template.value))
         });
@@ -3536,12 +3619,12 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
     items.push({
       text: translate('type'),
       title: translate('typeTitle'),
-      className: 'jsoneditor-type-' + this.type,
+      className: 'bsoneditor-type-' + this.type,
       submenu: [
         {
           text: translate('auto'),
-          className: 'jsoneditor-type-auto' +
-              (this.type == 'auto' ? ' jsoneditor-selected' : ''),
+          className: 'bsoneditor-type-auto' +
+              (this.type == 'auto' ? ' bsoneditor-selected' : ''),
           title: titles.auto,
           click: function () {
             node._onChangeType('auto');
@@ -3549,8 +3632,8 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
         },
         {
           text: translate('array'),
-          className: 'jsoneditor-type-array' +
-              (this.type == 'array' ? ' jsoneditor-selected' : ''),
+          className: 'bsoneditor-type-array' +
+              (this.type == 'array' ? ' bsoneditor-selected' : ''),
           title: titles.array,
           click: function () {
             node._onChangeType('array');
@@ -3558,8 +3641,8 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
         },
         {
           text: translate('object'),
-          className: 'jsoneditor-type-object' +
-              (this.type == 'object' ? ' jsoneditor-selected' : ''),
+          className: 'bsoneditor-type-object' +
+              (this.type == 'object' ? ' bsoneditor-selected' : ''),
           title: titles.object,
           click: function () {
             node._onChangeType('object');
@@ -3567,22 +3650,40 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
         },
         {
           text: translate('string'),
-          className: 'jsoneditor-type-string' +
-              (this.type == 'string' ? ' jsoneditor-selected' : ''),
+          className: 'bsoneditor-type-string' +
+              (this.type == 'string' ? ' bsoneditor-selected' : ''),
           title: titles.string,
           click: function () {
             node._onChangeType('string');
+          }
+        },
+        {
+          text: translate('date'),
+          className: 'bsoneditor-type-date' +
+              (this.type == 'date' ? ' bsoneditor-selected' : ''),
+          title: titles.date,
+          click: function () {
+            node._onChangeType('date');
+          }
+        },
+        {
+          text: translate('objectId'),
+          className: 'bsoneditor-type-objectId' +
+              (this.type == 'objectId' ? ' bsoneditor-selected' : ''),
+          title: titles.objectId,
+          click: function () {
+            node._onChangeType('objectId');
           }
         }
       ]
     });
   }
-
+  /*
   if (this._hasChilds()) {
     items.push({
       text: translate('sort'),
       title: translate('sortTitle', {type: this.type}),
-      className: 'jsoneditor-sort-asc',
+      className: 'bsoneditor-sort-asc',
       click: function () {
         var anchor = node.editor.options.modalAnchor || DEFAULT_MODAL_ANCHOR;
         showSortModal(node, anchor)
@@ -3592,13 +3693,14 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
     items.push({
       text: translate('transform'),
       title: translate('transformTitle', {type: this.type}),
-      className: 'jsoneditor-transform',
+      className: 'bsoneditor-transform',
       click: function () {
         var anchor = node.editor.options.modalAnchor || DEFAULT_MODAL_ANCHOR;
         showTransformModal(node, anchor)
       }
     });
   }
+  */
 
   if (this.parent && this.parent._hasChilds()) {
     if (items.length) {
@@ -3614,7 +3716,7 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
         var appendSubmenu = [
             {
                 text: translate('auto'),
-                className: 'jsoneditor-type-auto',
+                className: 'bsoneditor-type-auto',
                 title: titles.auto,
                 click: function () {
                     node._onAppend('', '', 'auto');
@@ -3622,7 +3724,7 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
             },
             {
                 text: translate('array'),
-                className: 'jsoneditor-type-array',
+                className: 'bsoneditor-type-array',
                 title: titles.array,
                 click: function () {
                     node._onAppend('', []);
@@ -3630,7 +3732,7 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
             },
             {
                 text: translate('object'),
-                className: 'jsoneditor-type-object',
+                className: 'bsoneditor-type-object',
                 title: titles.object,
                 click: function () {
                     node._onAppend('', {});
@@ -3638,11 +3740,29 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
             },
             {
                 text: translate('string'),
-                className: 'jsoneditor-type-string',
+                className: 'bsoneditor-type-string',
                 title: titles.string,
                 click: function () {
                     node._onAppend('', '', 'string');
                 }
+            },
+            {
+                text: translate('date'),
+                className: 'bsoneditor-type-date' +
+                    (this.type == 'date' ? ' bsoneditor-selected' : ''),
+                title: titles.date,
+                click: function () {
+                  node._onAppend('', new Date(), 'date');
+                }
+            },
+            {
+              text: translate('objectId'),
+              className: 'bsoneditor-type-objectId' +
+                  (this.type == 'objectId' ? ' bsoneditor-selected' : ''),
+              title: titles.objectId,
+              click: function () {
+                node._onAppend('', this.editor.options.bson.ObjectId.createFromHexString('000000000000000000000000'), 'objectId');
+              }
             }
         ];
         node.addTemplates(appendSubmenu, true);
@@ -3650,7 +3770,7 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
             text: translate('appendText'),
             title: translate('appendTitle'),
             submenuTitle: translate('appendSubmenuTitle'),
-            className: 'jsoneditor-append',
+            className: 'bsoneditor-append',
             click: function () {
                 node._onAppend('', '', 'auto');
             },
@@ -3659,12 +3779,11 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
     }
 
 
-
     // create insert button
     var insertSubmenu = [
         {
             text: translate('auto'),
-            className: 'jsoneditor-type-auto',
+            className: 'bsoneditor-type-auto',
             title: titles.auto,
             click: function () {
                 node._onInsertBefore('', '', 'auto');
@@ -3672,7 +3791,7 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
         },
         {
             text: translate('array'),
-            className: 'jsoneditor-type-array',
+            className: 'bsoneditor-type-array',
             title: titles.array,
             click: function () {
                 node._onInsertBefore('', []);
@@ -3680,7 +3799,7 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
         },
         {
             text: translate('object'),
-            className: 'jsoneditor-type-object',
+            className: 'bsoneditor-type-object',
             title: titles.object,
             click: function () {
                 node._onInsertBefore('', {});
@@ -3688,11 +3807,29 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
         },
         {
             text: translate('string'),
-            className: 'jsoneditor-type-string',
+            className: 'bsoneditor-type-string',
             title: titles.string,
             click: function () {
                 node._onInsertBefore('', '', 'string');
             }
+        },
+        {
+          text: translate('date'),
+          className: 'bsoneditor-type-date' +
+              (this.type == 'date' ? ' bsoneditor-selected' : ''),
+          title: titles.date,
+          click: function () {
+            node._onInsertBefore('', new Date(), 'date');
+          }
+        },
+        {
+          text: translate('objectId'),
+          className: 'bsoneditor-type-objectId' +
+              (this.type == 'objectId' ? ' bsoneditor-selected' : ''),
+          title: titles.objectId,
+          click: function () {
+            node._onInsertBefore('', this.editor.options.bson.ObjectId.createFromHexString('000000000000000000000000'), 'objectId');
+          }
         }
     ];
     node.addTemplates(insertSubmenu, false);
@@ -3700,7 +3837,7 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
       text: translate('insert'),
       title: translate('insertTitle'),
       submenuTitle: translate('insertSub'),
-      className: 'jsoneditor-insert',
+      className: 'bsoneditor-insert',
       click: function () {
         node._onInsertBefore('', '', 'auto');
       },
@@ -3712,7 +3849,7 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
       items.push({
         text: translate('duplicateText'),
         title: translate('duplicateField'),
-        className: 'jsoneditor-duplicate',
+        className: 'bsoneditor-duplicate',
         click: function () {
           Node.onDuplicate(node);
         }
@@ -3722,7 +3859,7 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
       items.push({
         text: translate('removeText'),
         title: translate('removeField'),
-        className: 'jsoneditor-remove',
+        className: 'bsoneditor-remove',
         click: function () {
           Node.onRemove(node);
         }
@@ -3737,14 +3874,18 @@ Node.prototype.showContextMenu = function (anchor, onClose) {
 /**
  * get the type of a value
  * @param {*} value
- * @return {String} type   Can be 'object', 'array', 'string', 'auto'
+ * @return {String} type   Can be 'date', object', 'array', 'string', 'auto'
  * @private
  */
 Node.prototype._getType = function(value) {
   if (value instanceof Array) {
     return 'array';
   }
+  if (value instanceof Date) {
+    return 'date'
+  }
   if (value instanceof Object) {
+    if (value instanceof this.editor.options.bson.ObjectId) return 'objectId';
     return 'object';
   }
   if (typeof(value) == 'string' && typeof(this._stringCast(value)) != 'string') {
@@ -3756,7 +3897,7 @@ Node.prototype._getType = function(value) {
 
 /**
  * cast contents of a string to the correct type. This can be a string,
- * a number, a boolean, etc
+ * a number, a boolean, a date etc
  * @param {String} str
  * @return {*} castedStr
  * @private

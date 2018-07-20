@@ -1,6 +1,6 @@
-# How to publish jsoneditor
+# How to publish bsoneditor
 
-This document describes the steps required to publish a new version of jsoneditor.
+This document describes the steps required to publish a new version of bsoneditor.
 
 
 ## Update version number
@@ -23,7 +23,7 @@ Run the unit tests and validate whether all tests pass:
 
 ## Build library
 
-Build the build (jsoneditor.js, jsoneditor.css, ...) files by running:
+Build the build (bsoneditor.js, bsoneditor.css, ...) files by running:
 
     npm run build
 
@@ -36,7 +36,7 @@ correct date and version number in the header.
 Test whether the npm library is ok by installing it locally:
 
     cd ../tmp-folder
-    npm install ./path/to/jsoneditor
+    npm install ./path/to/bsoneditor
 
 Check whether the examples in the library work ok, and whether the necessary
 files are included.
@@ -69,8 +69,8 @@ published at cdnjs (should auto update).
 Install the libraries locally and test whether they work correctly:
 
     cd tmp-folder
-    npm install jsoneditor
-    bower install jsoneditor
+    npm install bsoneditor
+    bower install bsoneditor
 
 
 ## Done

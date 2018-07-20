@@ -1,25 +1,25 @@
 
 /* ContextMenu - main menu */
 
-div.jsoneditor-contextmenu-root {
+div.bsoneditor-contextmenu-root {
   position: relative;
   width: 0;
   height: 0;
 }
 
-div.jsoneditor-contextmenu {
+div.bsoneditor-contextmenu {
   position: absolute;
   box-sizing: content-box;
   z-index: 99999;
 }
 
-div.jsoneditor-contextmenu ul,
-div.jsoneditor-contextmenu li {
+div.bsoneditor-contextmenu ul,
+div.bsoneditor-contextmenu li {
   box-sizing: content-box;
   position: relative;
 }
 
-div.jsoneditor-contextmenu ul {
+div.bsoneditor-contextmenu ul {
   position: relative;
   left: 0;
   top: 0;
@@ -34,7 +34,7 @@ div.jsoneditor-contextmenu ul {
   padding: 0;
 }
 
-div.jsoneditor-contextmenu ul li button {
+div.bsoneditor-contextmenu ul li button {
   position: relative;
   padding: 0 4px 0 0;
   margin: 0;
@@ -54,30 +54,30 @@ div.jsoneditor-contextmenu ul li button {
 }
 
 /* Fix button padding in firefox */
-div.jsoneditor-contextmenu ul li button::-moz-focus-inner {
+div.bsoneditor-contextmenu ul li button::-moz-focus-inner {
   padding: 0;
   border: 0;
 }
 
-div.jsoneditor-contextmenu ul li button:hover,
-div.jsoneditor-contextmenu ul li button:focus {
+div.bsoneditor-contextmenu ul li button:hover,
+div.bsoneditor-contextmenu ul li button:focus {
   color: #1a1a1a;
   background-color: #f5f5f5;
   outline: none;
 }
 
-div.jsoneditor-contextmenu ul li button.jsoneditor-default {
+div.bsoneditor-contextmenu ul li button.bsoneditor-default {
   width: 96px; /* 128px - 32px */
 }
 
-div.jsoneditor-contextmenu ul li button.jsoneditor-expand {
+div.bsoneditor-contextmenu ul li button.bsoneditor-expand {
   float: right;
   width: 32px;
   height: 24px;
   border-left: 1px solid #e5e5e5;
 }
 
-div.jsoneditor-contextmenu div.jsoneditor-icon {
+div.bsoneditor-contextmenu div.bsoneditor-icon {
   position: absolute;
   top: 0;
   left: 0;
@@ -86,23 +86,23 @@ div.jsoneditor-contextmenu div.jsoneditor-icon {
   border: none;
   padding: 0;
   margin: 0;
-  background-image: url('./img/jsoneditor-icons.svg');
+  background-image: url('./img/bsoneditor-icons.svg');
 }
 
-div.jsoneditor-contextmenu ul li ul div.jsoneditor-icon {
+div.bsoneditor-contextmenu ul li ul div.bsoneditor-icon {
   margin-left: 24px;
 }
 
-div.jsoneditor-contextmenu div.jsoneditor-text {
+div.bsoneditor-contextmenu div.bsoneditor-text {
   padding: 4px 0 4px 24px;
   word-wrap: break-word;
 }
 
-div.jsoneditor-contextmenu div.jsoneditor-text.jsoneditor-right-margin {
+div.bsoneditor-contextmenu div.bsoneditor-text.bsoneditor-right-margin {
   padding-right: 24px;
 }
 
-div.jsoneditor-contextmenu ul li button div.jsoneditor-expand {
+div.bsoneditor-contextmenu ul li button div.bsoneditor-expand {
   position: absolute;
   top: 0;
   right: 0;
@@ -110,58 +110,58 @@ div.jsoneditor-contextmenu ul li button div.jsoneditor-expand {
   height: 24px;
   padding: 0;
   margin: 0 4px 0 0;
-  background: url('./img/jsoneditor-icons.svg') 0 -72px;
+  background: url('./img/bsoneditor-icons.svg') 0 -72px;
 }
 
-div.jsoneditor-contextmenu div.jsoneditor-separator {
+div.bsoneditor-contextmenu div.bsoneditor-separator {
   height: 0;
   border-top: 1px solid #e5e5e5;
   padding-top: 5px;
   margin-top: 5px;
 }
 
-div.jsoneditor-contextmenu button.jsoneditor-remove > div.jsoneditor-icon {
+div.bsoneditor-contextmenu button.bsoneditor-remove > div.bsoneditor-icon {
   background-position: -24px 0;
 }
 
-div.jsoneditor-contextmenu button.jsoneditor-append > div.jsoneditor-icon {
+div.bsoneditor-contextmenu button.bsoneditor-append > div.bsoneditor-icon {
   background-position: 0 0;
 }
 
-div.jsoneditor-contextmenu button.jsoneditor-insert > div.jsoneditor-icon {
+div.bsoneditor-contextmenu button.bsoneditor-insert > div.bsoneditor-icon {
   background-position: 0 0;
 }
 
-div.jsoneditor-contextmenu button.jsoneditor-duplicate > div.jsoneditor-icon {
+div.bsoneditor-contextmenu button.bsoneditor-duplicate > div.bsoneditor-icon {
   background-position: -48px 0;
 }
 
-div.jsoneditor-contextmenu button.jsoneditor-sort-asc > div.jsoneditor-icon {
+div.bsoneditor-contextmenu button.bsoneditor-sort-asc > div.bsoneditor-icon {
   background-position: -168px 0;
 }
 
-div.jsoneditor-contextmenu button.jsoneditor-sort-desc > div.jsoneditor-icon {
+div.bsoneditor-contextmenu button.bsoneditor-sort-desc > div.bsoneditor-icon {
   background-position: -192px 0;
 }
 
-div.jsoneditor-contextmenu button.jsoneditor-transform > div.jsoneditor-icon {
+div.bsoneditor-contextmenu button.bsoneditor-transform > div.bsoneditor-icon {
   background-position: -216px 0;
 }
 
 /* ContextMenu - sub menu */
 
-div.jsoneditor-contextmenu ul li button.jsoneditor-selected,
-div.jsoneditor-contextmenu ul li button.jsoneditor-selected:hover,
-div.jsoneditor-contextmenu ul li button.jsoneditor-selected:focus {
+div.bsoneditor-contextmenu ul li button.bsoneditor-selected,
+div.bsoneditor-contextmenu ul li button.bsoneditor-selected:hover,
+div.bsoneditor-contextmenu ul li button.bsoneditor-selected:focus {
   color: white;
   background-color: #ee422e;
 }
 
-div.jsoneditor-contextmenu ul li {
+div.bsoneditor-contextmenu ul li {
   overflow: hidden;
 }
 
-div.jsoneditor-contextmenu ul li ul {
+div.bsoneditor-contextmenu ul li ul {
   display: none;
   position: relative;
   left: -10px;
@@ -178,36 +178,36 @@ div.jsoneditor-contextmenu ul li ul {
   transition: all 0.3s ease-out;
 }
 
-div.jsoneditor-contextmenu ul li.jsoneditor-selected ul {
+div.bsoneditor-contextmenu ul li.bsoneditor-selected ul {
 }
 
-div.jsoneditor-contextmenu ul li ul li button {
+div.bsoneditor-contextmenu ul li ul li button {
   padding-left: 24px;
   animation: all ease-in-out 1s;
 }
 
-div.jsoneditor-contextmenu ul li ul li button:hover,
-div.jsoneditor-contextmenu ul li ul li button:focus {
+div.bsoneditor-contextmenu ul li ul li button:hover,
+div.bsoneditor-contextmenu ul li ul li button:focus {
   background-color: #f5f5f5;
 }
 
-div.jsoneditor-contextmenu button.jsoneditor-type-string > div.jsoneditor-icon {
+div.bsoneditor-contextmenu button.bsoneditor-type-string > div.bsoneditor-icon {
   background-position: -144px 0;
 }
 
-div.jsoneditor-contextmenu button.jsoneditor-type-auto > div.jsoneditor-icon {
+div.bsoneditor-contextmenu button.bsoneditor-type-auto > div.bsoneditor-icon {
   background-position: -120px 0;
 }
 
-div.jsoneditor-contextmenu button.jsoneditor-type-object > div.jsoneditor-icon {
+div.bsoneditor-contextmenu button.bsoneditor-type-object > div.bsoneditor-icon {
   background-position: -72px 0;
 }
 
-div.jsoneditor-contextmenu button.jsoneditor-type-array > div.jsoneditor-icon {
+div.bsoneditor-contextmenu button.bsoneditor-type-array > div.bsoneditor-icon {
   background-position: -96px 0;
 }
 
-div.jsoneditor-contextmenu button.jsoneditor-type-modes > div.jsoneditor-icon {
+div.bsoneditor-contextmenu button.bsoneditor-type-modes > div.bsoneditor-icon {
   background-image: none;
   width: 6px;
 }
@@ -215,14 +215,14 @@ div.jsoneditor-contextmenu button.jsoneditor-type-modes > div.jsoneditor-icon {
 
 /* pico modal styling */
 
-.jsoneditor-modal-overlay {
+.bsoneditor-modal-overlay {
   position: absolute !important;
 
   background: rgb(1,1,1) !important;
   opacity: 0.3 !important;
 }
 
-.jsoneditor-modal {
+.bsoneditor-modal {
   position: absolute !important;
   max-width: 95% !important;
   width: auto !important;
@@ -235,11 +235,11 @@ div.jsoneditor-contextmenu button.jsoneditor-type-modes > div.jsoneditor-icon {
   line-height: 1.3em;
 }
 
-.jsoneditor-modal.jsoneditor-modal-transform {
+.bsoneditor-modal.bsoneditor-modal-transform {
   width: 600px !important;
 }
 
-.jsoneditor-modal .pico-modal-header {
+.bsoneditor-modal .pico-modal-header {
   position: absolute;
   box-sizing: border-box;
   top: 0;
@@ -256,12 +256,12 @@ div.jsoneditor-contextmenu button.jsoneditor-type-modes > div.jsoneditor-icon {
   color: white;
 }
 
-.jsoneditor-modal table {
+.bsoneditor-modal table {
   width: 100%;
 }
 
-.jsoneditor-modal table th,
-.jsoneditor-modal table td {
+.bsoneditor-modal table th,
+.bsoneditor-modal table td {
   padding: 5px 20px 5px 0;
 
   text-align: left;
@@ -271,28 +271,28 @@ div.jsoneditor-contextmenu button.jsoneditor-type-modes > div.jsoneditor-icon {
   line-height: 32px;
 }
 
-.jsoneditor-modal p:first-child {
+.bsoneditor-modal p:first-child {
   margin-top: 0;
 }
 
-.jsoneditor-modal a {
+.bsoneditor-modal a {
   color: #3883fa;
 }
 
-.jsoneditor-modal table td:first-child {
+.bsoneditor-modal table td:first-child {
 }
 
-.jsoneditor-modal table td.jsoneditor-modal-input {
+.bsoneditor-modal table td.bsoneditor-modal-input {
   text-align: right;
   padding-right: 0;
   white-space: nowrap;
 }
 
-.jsoneditor-modal table td.jsoneditor-modal-actions {
+.bsoneditor-modal table td.bsoneditor-modal-actions {
   padding-top: 15px;
 }
 
-.jsoneditor-modal .pico-close {
+.bsoneditor-modal .pico-close {
   background: none !important;
   font-size: 24px !important;
   top: 7px !important;
@@ -300,10 +300,10 @@ div.jsoneditor-contextmenu button.jsoneditor-type-modes > div.jsoneditor-icon {
   color: white;
 }
 
-.jsoneditor-modal select,
-.jsoneditor-modal textarea,
-.jsoneditor-modal input,
-.jsoneditor-modal #query {
+.bsoneditor-modal select,
+.bsoneditor-modal textarea,
+.bsoneditor-modal input,
+.bsoneditor-modal #query {
   background: #ffffff;
   border: 1px solid #d3d3d3;
   color: #4d4d4d;
@@ -311,54 +311,54 @@ div.jsoneditor-contextmenu button.jsoneditor-type-modes > div.jsoneditor-icon {
   padding: 4px;
 }
 
-.jsoneditor-modal,
-.jsoneditor-modal table td,
-.jsoneditor-modal table th,
-.jsoneditor-modal select,
-.jsoneditor-modal option,
-.jsoneditor-modal textarea,
-.jsoneditor-modal input,
-.jsoneditor-modal #query {
+.bsoneditor-modal,
+.bsoneditor-modal table td,
+.bsoneditor-modal table th,
+.bsoneditor-modal select,
+.bsoneditor-modal option,
+.bsoneditor-modal textarea,
+.bsoneditor-modal input,
+.bsoneditor-modal #query {
   font-size: 10.5pt;
   font-family: arial, sans-serif;
 }
 
-.jsoneditor-modal #query,
-.jsoneditor-modal .jsoneditor-transform-preview {
+.bsoneditor-modal #query,
+.bsoneditor-modal .bsoneditor-transform-preview {
   font-family: "dejavu sans mono", "droid sans mono", consolas, monaco, "lucida console", "courier new", courier, monospace, sans-serif;
   font-size: 10pt;
 }
 
-.jsoneditor-modal input[type="button"],
-.jsoneditor-modal input[type="submit"] {
+.bsoneditor-modal input[type="button"],
+.bsoneditor-modal input[type="submit"] {
   background: #f5f5f5;
   padding: 4px 20px;
 }
 
-.jsoneditor-modal select,
-.jsoneditor-modal input {
+.bsoneditor-modal select,
+.bsoneditor-modal input {
   cursor: pointer;
 }
 
-.jsoneditor-modal input {
+.bsoneditor-modal input {
   padding: 4px;
 }
 
-.jsoneditor-modal input[type="text"] {
+.bsoneditor-modal input[type="text"] {
   cursor: inherit;
 }
 
-.jsoneditor-modal input[disabled] {
+.bsoneditor-modal input[disabled] {
   background: #d3d3d3;
   color: #808080;
 }
 
-.jsoneditor-modal .jsoneditor-select-wrapper {
+.bsoneditor-modal .bsoneditor-select-wrapper {
   position: relative;
   display: inline-block;
 }
 
-.jsoneditor-modal .jsoneditor-select-wrapper:after {
+.bsoneditor-modal .bsoneditor-select-wrapper:after {
   content: "";
   width: 0;
   height: 0;
@@ -371,7 +371,7 @@ div.jsoneditor-contextmenu button.jsoneditor-type-modes > div.jsoneditor-icon {
   pointer-events: none;
 }
 
-.jsoneditor-modal select {
+.bsoneditor-modal select {
   padding: 3px 24px 3px 10px;
   min-width: 180px;
   max-width: 350px;
@@ -386,51 +386,51 @@ div.jsoneditor-contextmenu button.jsoneditor-type-modes > div.jsoneditor-icon {
   line-height: 1.5em;
 }
 
-.jsoneditor-modal select::-ms-expand {
+.bsoneditor-modal select::-ms-expand {
     display: none;
 }
 
-.jsoneditor-modal .jsoneditor-button-group input {
+.bsoneditor-modal .bsoneditor-button-group input {
   padding: 4px 10px;
   margin: 0;
   border-radius: 0;
   border-left-style: none;
 }
 
-.jsoneditor-modal .jsoneditor-button-group input.jsoneditor-button-first {
+.bsoneditor-modal .bsoneditor-button-group input.bsoneditor-button-first {
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   border-left-style: solid;
 }
 
-.jsoneditor-modal .jsoneditor-button-group input.jsoneditor-button-last {
+.bsoneditor-modal .bsoneditor-button-group input.bsoneditor-button-last {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
 
-.jsoneditor-modal .jsoneditor-button-group.jsoneditor-button-group-value-asc input.jsoneditor-button-asc,
-.jsoneditor-modal .jsoneditor-button-group.jsoneditor-button-group-value-desc input.jsoneditor-button-desc {
+.bsoneditor-modal .bsoneditor-button-group.bsoneditor-button-group-value-asc input.bsoneditor-button-asc,
+.bsoneditor-modal .bsoneditor-button-group.bsoneditor-button-group-value-desc input.bsoneditor-button-desc {
   background: #3883fa;
   border-color: #3883fa;
   color: white;
 }
 
-.jsoneditor-modal #query,
-.jsoneditor-modal .jsoneditor-transform-preview {
+.bsoneditor-modal #query,
+.bsoneditor-modal .bsoneditor-transform-preview {
   width: 100%;
   box-sizing: border-box;
 }
 
-.jsoneditor-modal .jsoneditor-transform-preview {
+.bsoneditor-modal .bsoneditor-transform-preview {
   background: #f5f5f5;
   height: 200px;
 }
 
-.jsoneditor-modal .jsoneditor-transform-preview.jsoneditor-error {
+.bsoneditor-modal .bsoneditor-transform-preview.bsoneditor-error {
   color: #ee422e;
 }
 
-.jsoneditor-modal .jsoneditor-jmespath-wizard {
+.bsoneditor-modal .bsoneditor-jmespath-wizard {
   line-height: 1.2em;
   width: 100%;
   background: #ffffe0;
@@ -439,51 +439,51 @@ div.jsoneditor-contextmenu button.jsoneditor-type-modes > div.jsoneditor-icon {
   border-radius: 3px;
 }
 
-.jsoneditor-modal .jsoneditor-jmespath-wizard-label {
+.bsoneditor-modal .bsoneditor-jmespath-wizard-label {
   font-style: italic;
   margin: 4px 0 2px 0;
 }
 
-.jsoneditor-modal .jsoneditor-inline {
+.bsoneditor-modal .bsoneditor-inline {
   position: relative;
   display: inline-block;
   width: 100%;
   padding: 2px;
 }
 
-.jsoneditor-modal .jsoneditor-jmespath-filter {
+.bsoneditor-modal .bsoneditor-jmespath-filter {
   display: flex;
   flex-wrap: wrap;
 }
 
-.jsoneditor-modal .jsoneditor-jmespath-filter-field {
+.bsoneditor-modal .bsoneditor-jmespath-filter-field {
   width: 170px;
 }
-.jsoneditor-modal .jsoneditor-jmespath-filter-relation {
+.bsoneditor-modal .bsoneditor-jmespath-filter-relation {
   width: 100px;
 }
-.jsoneditor-modal .jsoneditor-jmespath-filter-value {
+.bsoneditor-modal .bsoneditor-jmespath-filter-value {
   min-width: 100px;
   flex: 1;
 }
 
-.jsoneditor-modal .jsoneditor-jmespath-sort-field {
+.bsoneditor-modal .bsoneditor-jmespath-sort-field {
   width: 170px;
 }
-.jsoneditor-modal .jsoneditor-jmespath-sort-order {
+.bsoneditor-modal .bsoneditor-jmespath-sort-order {
   width: 150px;
 }
 
-.jsoneditor-modal .jsoneditor-jmespath-select-fields {
+.bsoneditor-modal .bsoneditor-jmespath-select-fields {
   width: 100%;
 }
 
-.jsoneditor-modal .selectr-selected {
+.bsoneditor-modal .selectr-selected {
   border-color: #d3d3d3;
   padding: 4px 28px 4px 8px;
 }
 
-.jsoneditor-modal .selectr-selected .selectr-tag {
+.bsoneditor-modal .selectr-selected .selectr-tag {
   background-color: #3883fa;
   border-radius: 5px;
 }

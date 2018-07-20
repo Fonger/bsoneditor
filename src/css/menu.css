@@ -1,5 +1,5 @@
 
-div.jsoneditor-menu {
+div.bsoneditor-menu {
   width: 100%;
   height: 35px;
   padding: 2px;
@@ -13,15 +13,15 @@ div.jsoneditor-menu {
   border-bottom: 1px solid #3883fa;
 }
 
-div.jsoneditor-menu > button,
-div.jsoneditor-menu > div.jsoneditor-modes > button {
+div.bsoneditor-menu > button,
+div.bsoneditor-menu > div.bsoneditor-modes > button {
   width: 26px;
   height: 26px;
   margin: 2px;
   padding: 0;
   border-radius: 2px;
   border: 1px solid transparent;
-  background: transparent url('./img/jsoneditor-icons.svg');
+  background: transparent url('./img/bsoneditor-icons.svg');
   color: white;
   opacity: 0.8;
 
@@ -31,74 +31,86 @@ div.jsoneditor-menu > div.jsoneditor-modes > button {
   float: left;
 }
 
-div.jsoneditor-menu > button:hover,
-div.jsoneditor-menu > div.jsoneditor-modes > button:hover {
+div.bsoneditor-menu > button:hover,
+div.bsoneditor-menu > div.bsoneditor-modes > button:hover {
   background-color: rgba(255,255,255,0.2);
   border: 1px solid rgba(255,255,255,0.4);
 }
-div.jsoneditor-menu > button:focus,
-div.jsoneditor-menu > button:active,
-div.jsoneditor-menu > div.jsoneditor-modes > button:focus,
-div.jsoneditor-menu > div.jsoneditor-modes > button:active {
+div.bsoneditor-menu > button:focus,
+div.bsoneditor-menu > button:active,
+div.bsoneditor-menu > div.bsoneditor-modes > button:focus,
+div.bsoneditor-menu > div.bsoneditor-modes > button:active {
   background-color: rgba(255,255,255,0.3);
 }
-div.jsoneditor-menu > button:disabled,
-div.jsoneditor-menu > div.jsoneditor-modes > button:disabled {
+div.bsoneditor-menu > button:disabled,
+div.bsoneditor-menu > div.bsoneditor-modes > button:disabled {
   opacity: 0.5;
 }
 
-div.jsoneditor-menu > button.jsoneditor-collapse-all {
+div.bsoneditor-menu > button.bsoneditor-collapse-all {
   background-position: 0 -96px;
 }
-div.jsoneditor-menu > button.jsoneditor-expand-all {
+div.bsoneditor-menu > button.bsoneditor-expand-all {
   background-position: 0 -120px;
 }
-div.jsoneditor-menu > button.jsoneditor-sort {
+div.bsoneditor-menu > button.bsoneditor-sort {
   background-position: -120px -96px;
 }
-div.jsoneditor-menu > button.jsoneditor-transform {
+div.bsoneditor-menu > button.bsoneditor-transform {
   background-position: -144px -96px;
 }
-div.jsoneditor-menu > button.jsoneditor-undo {
+div.bsoneditor-menu > button.bsoneditor-save {
+  background: unset;
+  width: unset;
+  padding-left: 2px;
+  padding-right: 5px;
+}
+div.bsoneditor-menu > button.bsoneditor-cancel {
+  background: unset;
+  width: unset;
+  padding-left: 2px;
+  padding-right: 5px;
+}
+div.bsoneditor-menu > button.bsoneditor-undo {
   background-position: -24px -96px;
 }
-div.jsoneditor-menu > button.jsoneditor-undo:disabled {
+div.bsoneditor-menu > button.bsoneditor-undo:disabled {
   background-position: -24px -120px;
 }
-div.jsoneditor-menu > button.jsoneditor-redo {
+div.bsoneditor-menu > button.bsoneditor-redo {
   background-position: -48px -96px;
 }
-div.jsoneditor-menu > button.jsoneditor-redo:disabled {
+div.bsoneditor-menu > button.bsoneditor-redo:disabled {
   background-position: -48px -120px;
 }
-div.jsoneditor-menu > button.jsoneditor-compact {
+div.bsoneditor-menu > button.bsoneditor-compact {
   background-position: -72px -96px;
 }
-div.jsoneditor-menu > button.jsoneditor-format {
+div.bsoneditor-menu > button.bsoneditor-format {
   background-position: -72px -120px;
 }
-div.jsoneditor-menu > button.jsoneditor-repair {
+div.bsoneditor-menu > button.bsoneditor-repair {
   background-position: -96px -96px;
 }
 
-div.jsoneditor-menu > div.jsoneditor-modes {
+div.bsoneditor-menu > div.bsoneditor-modes {
   display: inline-block;
   float: left;
 }
 
-div.jsoneditor-menu > div.jsoneditor-modes > button {
+div.bsoneditor-menu > div.bsoneditor-modes > button {
   background-image: none;
   width: auto;
   padding-left: 6px;
   padding-right: 6px;
 }
 
-div.jsoneditor-menu > button.jsoneditor-separator,
-div.jsoneditor-menu > div.jsoneditor-modes > button.jsoneditor-separator {
-  margin-left: 10px;
+div.bsoneditor-menu > button.bsoneditor-separator,
+div.bsoneditor-menu > div.bsoneditor-modes > button.bsoneditor-separator {
+  margin-left: 0;
 }
 
-div.jsoneditor-menu a {
+div.bsoneditor-menu a {
   font-family: arial, sans-serif;
   font-size: 10pt;
   color: white;
@@ -106,11 +118,11 @@ div.jsoneditor-menu a {
   vertical-align: middle;
 }
 
-div.jsoneditor-menu a:hover {
+div.bsoneditor-menu a:hover {
   opacity: 1;
 }
 
-div.jsoneditor-menu a.jsoneditor-poweredBy {
+div.bsoneditor-menu a.bsoneditor-poweredBy {
   font-size: 8pt;
   position: absolute;
   right: 0;

@@ -1,27 +1,27 @@
 
-div.jsoneditor-treepath {
+div.bsoneditor-treepath {
   padding: 0 5px;
   overflow: hidden;
 }
 
-div.jsoneditor-treepath div.jsoneditor-contextmenu-root {
+div.bsoneditor-treepath div.bsoneditor-contextmenu-root {
   position: absolute;
   left: 0;
 }
 
-div.jsoneditor-treepath span.jsoneditor-treepath-element{
+div.bsoneditor-treepath span.bsoneditor-treepath-element{
   margin: 1px;
   font-family: arial, sans-serif;
   font-size: 10pt;
 }
 
-div.jsoneditor-treepath span.jsoneditor-treepath-seperator {
+div.bsoneditor-treepath span.bsoneditor-treepath-seperator {
   margin: 2px;
   font-size: 9pt;
   font-family: arial, sans-serif;
 }
 
-div.jsoneditor-treepath span.jsoneditor-treepath-element:hover, div.jsoneditor-treepath span.jsoneditor-treepath-seperator:hover {
+div.bsoneditor-treepath span.bsoneditor-treepath-element:hover, div.bsoneditor-treepath span.bsoneditor-treepath-seperator:hover {
   cursor:pointer;
   text-decoration:underline;
 }

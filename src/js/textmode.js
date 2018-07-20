@@ -9,7 +9,7 @@ var textmode = {};
 
 var MAX_ERRORS = 3; // maximum number of displayed errors at the bottom
 
-var DEFAULT_THEME = 'ace/theme/jsoneditor';
+var DEFAULT_THEME = 'ace/theme/bsoneditor';
 
 /**
  * Create a text editor
@@ -63,7 +63,7 @@ textmode.create = function (container, options) {
     // verify whether Ace editor is available and supported
     if (typeof _ace === 'undefined') {
       this.mode = 'text';
-      console.warn('Failed to load Ace editor, falling back to plain text mode. Please use a JSONEditor bundle including Ace, or pass Ace as via the configuration option `ace`.');
+      console.warn('Failed to load Ace editor, falling back to plain text mode. Please use a BSONEditor bundle including Ace, or pass Ace as via the configuration option `ace`.');
     }
   }
 
@@ -71,7 +71,7 @@ textmode.create = function (container, options) {
   this.theme = options.theme || DEFAULT_THEME;
   if (this.theme === DEFAULT_THEME && _ace) {
     try {
-      require('./ace/theme-jsoneditor');
+      require('./ace/theme-bsoneditor');
     }
     catch (err) {
       console.error(err);
@@ -96,7 +96,7 @@ textmode.create = function (container, options) {
   this.height = container.clientHeight;
 
   this.frame = document.createElement('div');
-  this.frame.className = 'jsoneditor jsoneditor-mode-' + this.options.mode;
+  this.frame.className = 'bsoneditor bsoneditor-mode-' + this.options.mode;
   this.frame.onclick = function (event) {
     // prevent default submit action when the editor is located inside a form
     event.preventDefault();
@@ -107,13 +107,13 @@ textmode.create = function (container, options) {
   
   // create menu
   this.menu = document.createElement('div');
-  this.menu.className = 'jsoneditor-menu';
+  this.menu.className = 'bsoneditor-menu';
   this.frame.appendChild(this.menu);
 
   // create format button
   var buttonFormat = document.createElement('button');
   buttonFormat.type = 'button';
-  buttonFormat.className = 'jsoneditor-format';
+  buttonFormat.className = 'bsoneditor-format';
   buttonFormat.title = 'Format JSON data, with proper indentation and line feeds (Ctrl+\\)';
   this.menu.appendChild(buttonFormat);
   buttonFormat.onclick = function () {
@@ -129,7 +129,7 @@ textmode.create = function (container, options) {
   // create compact button
   var buttonCompact = document.createElement('button');
   buttonCompact.type = 'button';
-  buttonCompact.className = 'jsoneditor-compact';
+  buttonCompact.className = 'bsoneditor-compact';
   buttonCompact.title = 'Compact JSON data, remove all whitespaces (Ctrl+Shift+\\)';
   this.menu.appendChild(buttonCompact);
   buttonCompact.onclick = function () {
@@ -145,7 +145,7 @@ textmode.create = function (container, options) {
   // create repair button
   var buttonRepair = document.createElement('button');
   buttonRepair.type = 'button';
-  buttonRepair.className = 'jsoneditor-repair';
+  buttonRepair.className = 'bsoneditor-repair';
   buttonRepair.title = 'Repair JSON: fix quotes and escape characters, remove comments and JSONP notation, turn JavaScript objects into JSON.';
   this.menu.appendChild(buttonRepair);
   buttonRepair.onclick = function () {
@@ -161,9 +161,15 @@ textmode.create = function (container, options) {
   // create mode box
   if (this.options && this.options.modes && this.options.modes.length) {
     this.modeSwitcher = new ModeSwitcher(this.menu, this.options.modes, this.options.mode, function onSwitch(mode) {
-      // switch mode and restore focus
-      me.setMode(mode);
-      me.modeSwitcher.focus();
+      if (mode === 'remove') {
+        if (editor.options.onRemove) {
+          editor.options.onRemove(editor.get())
+        }
+      } else {
+        // switch mode and restore focus
+        me.setMode(mode);
+        me.modeSwitcher.focus();
+      }
     });
   }
 
@@ -173,7 +179,7 @@ textmode.create = function (container, options) {
   && !this.options.onEditable(emptyNode));
 
   this.content = document.createElement('div');
-  this.content.className = 'jsoneditor-outer';
+  this.content.className = 'bsoneditor-outer';
   this.frame.appendChild(this.content);
 
   this.container.appendChild(this.frame);
@@ -190,7 +196,7 @@ textmode.create = function (container, options) {
     aceEditor.setOptions({ readOnly: isReadOnly });
     aceEditor.setShowPrintMargin(false);
     aceEditor.setFontSize(13);
-    aceEditor.getSession().setMode('ace/mode/json');
+    aceEditor.getSession().setMode('ace/mode/mongodb');
     aceEditor.getSession().setTabSize(this.indentation);
     aceEditor.getSession().setUseSoftTabs(true);
     aceEditor.getSession().setUseWrapMode(true);
@@ -216,7 +222,7 @@ textmode.create = function (container, options) {
     poweredBy.appendChild(document.createTextNode('powered by ace'));
     poweredBy.href = 'http://ace.ajax.org';
     poweredBy.target = '_blank';
-    poweredBy.className = 'jsoneditor-poweredBy';
+    poweredBy.className = 'bsoneditor-poweredBy';
     poweredBy.onclick = function () {
       // TODO: this anchor falls below the margin of the content,
       // therefore the normal a.href does not work. We use a click event
@@ -232,7 +238,7 @@ textmode.create = function (container, options) {
   else {
     // load a plain text textarea
     var textarea = document.createElement('textarea');
-    textarea.className = 'jsoneditor-text';
+    textarea.className = 'bsoneditor-text';
     textarea.spellcheck = false;
     this.content.appendChild(textarea);
     this.textarea = textarea;
@@ -263,26 +269,26 @@ textmode.create = function (container, options) {
     this.curserInfoElements = {};
     var statusBar = document.createElement('div');
     this.dom.statusBar = statusBar;
-    statusBar.className = 'jsoneditor-statusbar';
+    statusBar.className = 'bsoneditor-statusbar';
     this.frame.appendChild(statusBar);
 
     var lnLabel = document.createElement('span');
-    lnLabel.className = 'jsoneditor-curserinfo-label';
+    lnLabel.className = 'bsoneditor-curserinfo-label';
     lnLabel.innerText = 'Ln:';
 
     var lnVal = document.createElement('span');
-    lnVal.className = 'jsoneditor-curserinfo-val';
+    lnVal.className = 'bsoneditor-curserinfo-val';
     lnVal.innerText = '1';
 
     statusBar.appendChild(lnLabel);
     statusBar.appendChild(lnVal);
 
     var colLabel = document.createElement('span');
-    colLabel.className = 'jsoneditor-curserinfo-label';
+    colLabel.className = 'bsoneditor-curserinfo-label';
     colLabel.innerText = 'Col:';
 
     var colVal = document.createElement('span');
-    colVal.className = 'jsoneditor-curserinfo-val';
+    colVal.className = 'bsoneditor-curserinfo-val';
     colVal.innerText = '1';
 
     statusBar.appendChild(colLabel);
@@ -292,12 +298,12 @@ textmode.create = function (container, options) {
     this.curserInfoElements.lnVal = lnVal;
 
     var countLabel = document.createElement('span');
-    countLabel.className = 'jsoneditor-curserinfo-label';
+    countLabel.className = 'bsoneditor-curserinfo-label';
     countLabel.innerText = 'characters selected';
     countLabel.style.display = 'none';
 
     var countVal = document.createElement('span');
-    countVal.className = 'jsoneditor-curserinfo-count';
+    countVal.className = 'bsoneditor-curserinfo-count';
     countVal.innerText = '0';
     countVal.style.display = 'none';
 
@@ -558,14 +564,14 @@ textmode.get = function() {
   var json;
 
   try {
-    json = util.parse(text); // this can throw an error
+    json = JSON.parse(text); // this can throw an error
   }
   catch (err) {
     // try to sanitize json, replace JavaScript notation with JSON notation
     text = util.sanitize(text);
 
     // try to parse again
-    json = util.parse(text); // this can throw an error
+    json =  JSON.parse(text); // this can throw an error
   }
 
   return json;
@@ -660,7 +666,7 @@ textmode.validate = function () {
     }
 
     var validationErrors = document.createElement('div');
-    validationErrors.innerHTML = '<table class="jsoneditor-text-errors">' +
+    validationErrors.innerHTML = '<table class="bsoneditor-text-errors">' +
         '<tbody>' +
         errors.map(function (error) {
           var message;
@@ -672,7 +678,7 @@ textmode.validate = function () {
                 '<td>' + error.message + '</td>';
           }
 
-          return '<tr><td><button class="jsoneditor-schema-error"></button></td>' + message + '</tr>'
+          return '<tr><td><button class="bsoneditor-schema-error"></button></td>' + message + '</tr>'
         }).join('') +
         '</tbody>' +
         '</table>';

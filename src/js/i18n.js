@@ -13,6 +13,7 @@ var _defs = {
     'ascendingTitle': 'Sort the childs of this ${type} in ascending order',
     'actionsMenu': 'Click to open the actions menu (Ctrl+M)',
     'collapseAll': 'Collapse all fields',
+    'date': 'Date',
     'descending': 'Descending',
     'descendingTitle': 'Sort the childs of this ${type} in descending order',
     'drag': 'Drag to move this field (Alt+Shift+Arrows)',
@@ -27,7 +28,10 @@ var _defs = {
     'insert': 'Insert',
     'insertTitle': 'Insert a new field with type \'auto\' before this field (Ctrl+Ins)',
     'insertSub': 'Select the type of the field to be inserted',
+    'invalidDate': 'Invalid date',
+    'invalidObjectId': 'Invalid CompoundId',
     'object': 'Object',
+    'objectId': 'CompoundId',
     'ok': 'Ok',
     'redo': 'Redo (Ctrl+Shift+Z)',
     'removeText': 'Remove',
@@ -72,7 +76,11 @@ var _defs = {
     'An array contains an ordered collection of values.',
     'stringType': 'Field type "string". ' +
     'Field type is not determined from the value, ' +
-    'but always returned as string.'
+    'but always returned as string.',
+    'dateType': 'Field type "date". ' +
+    'Represent a date',
+    'objectIdType': 'Field type "CompoundId". ' +
+    'Represent a compound id'
   },
   'pt-BR': {
     'array': 'Lista',

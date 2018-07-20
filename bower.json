@@ -1,5 +1,5 @@
 {
-  "name": "jsoneditor",
+  "name": "bsoneditor",
   "description": "A web-based tool to view, edit and format JSON",
   "tags": [
     "json",
@@ -7,16 +7,16 @@
     "viewer",
     "formatter"
   ],
-  "homepage": "http://jsoneditoronline.org/",
+  "homepage": "http://bsoneditoronline.org/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/josdejong/jsoneditor.git"
+    "url": "https://github.com/Fonger/bsoneditor.git"
   },
   "main": [
-    "./dist/jsoneditor.min.js",
-    "./dist/jsoneditor.min.css"
+    "./dist/bsoneditor.min.js",
+    "./dist/bsoneditor.min.css"
   ],
-  "bugs": "https://github.com/josdejong/jsoneditor/issues",
+  "bugs": "https://github.com/Fonger/bsoneditor/issues",
   "ignore": [
     "misc",
     "node_modules",

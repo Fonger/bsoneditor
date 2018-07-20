@@ -1,6 +1,6 @@
 # JSON Editor - History
 
-https://github.com/josdejong/jsoneditor
+https://github.com/Fonger/bsoneditor
 
 
 ## 2018-07-11, version 5.19.0
@@ -50,7 +50,7 @@ https://github.com/josdejong/jsoneditor
 
 ## 2018-03-21, version 5.14.1
 
-- Fixed absolute path of css image `jsoneditor-icons.svg`, which could.
+- Fixed absolute path of css image `bsoneditor-icons.svg`, which could.
   give issues with webpack plugin "file-loader". Thanks @landru29.
 
 
@@ -171,9 +171,9 @@ https://github.com/josdejong/jsoneditor
 
 - Implemented support for JSON schema references `$ref`, see #302.
   Thanks @meirotstein.
-- Fixed #429: JSONEditor no longer accepting an empty array for option
+- Fixed #429: BSONEditor no longer accepting an empty array for option
   `modes`. Thanks @trystan2k.
-- Fixed JSONEditor picking the first entry of `modes` as initial mode
+- Fixed BSONEditor picking the first entry of `modes` as initial mode
   instead of option `mode`.
 
 
@@ -221,7 +221,7 @@ https://github.com/josdejong/jsoneditor
 - Fixed not being able to move focus to enum select box when clicking
   a JSON Schema warning.
 - Fixed #309: already loaded version of Ace being overwritten by the
-  embedded version of JSONEditor.
+  embedded version of BSONEditor.
 - Fixed #368: Mode selection drop down not fully visible on small screen.
 - Fixed #253: Optimize the input experience of Chinese IME.
   Thanks @chinesedfan.
@@ -229,7 +229,7 @@ https://github.com/josdejong/jsoneditor
 
 ## 2017-01-06, version 5.5.11
 
-- Fixed embedded version of jsoneditor ace theme not being loaded in
+- Fixed embedded version of bsoneditor ace theme not being loaded in
   minimalist version (see #55).
 - Fixed a styling issue in the SearchBox of Ace editor (mode `code`).
 - Fixed #347: CSS more robust against global settings of div position.
@@ -238,7 +238,7 @@ https://github.com/josdejong/jsoneditor
 
 ## 2016-11-02, version 5.5.10
 
-- Fixed #85: pressing enter in an input in a form containing a JSONEditor too
+- Fixed #85: pressing enter in an input in a form containing a BSONEditor too
   breaks submitting the form.
 
 
@@ -262,7 +262,7 @@ https://github.com/josdejong/jsoneditor
 
 ## 2016-06-15, version 5.5.6
 
-- Fixed #303: editor contents collapsed when the parent div of the JSONEditor
+- Fixed #303: editor contents collapsed when the parent div of the BSONEditor
   has no height set.
 - Improved example 04_load_and_save.html. Thanks @RDCH106.
 
@@ -271,7 +271,7 @@ https://github.com/josdejong/jsoneditor
 
 - Fixed #298: Switch mode button disappears when switching from text/code to
   tree/form/view mode when the JSON contained errors.
-- Fixed enum drop downs not working when the JSONEditor is configured with
+- Fixed enum drop downs not working when the BSONEditor is configured with
   a name.
 
 
@@ -328,7 +328,7 @@ https://github.com/josdejong/jsoneditor
 ## 2016-03-20, version 5.2.0
 
 - Implemented method `editor.destroy()` to properly cleanup the editor (#278).
-- Fixed #268: JSONEditor now trims text in fields and values.
+- Fixed #268: BSONEditor now trims text in fields and values.
 - Fixed #280: Some CSS issues when used in combination with bootstrap.
 
 
@@ -352,7 +352,7 @@ https://github.com/josdejong/jsoneditor
 - Improvements in sanitizing invalid JSON.
 - Updated dependencies to the latest version.
 - Fixed clicking format/compact not triggering an onChange event.
-- Fixed #259: when having a JSONEditor inside an HTML form, clicking an entry
+- Fixed #259: when having a BSONEditor inside an HTML form, clicking an entry
   in the context menu did submit the form.
 - Fixed browserify build, see #260. Thanks @onip.
 
@@ -400,13 +400,13 @@ https://github.com/josdejong/jsoneditor
 - Implemented #203: Objects and arrays in mode `form` and `view` are now
   expandable by clicking the field names too.
 - Replaced the PNG icon images with SVG. Thanks @1j01.
-- Renamed all CSS classes They now have prefixes `.jsoneditor-` to prevent
+- Renamed all CSS classes They now have prefixes `.bsoneditor-` to prevent
   name collisions with css frameworks like bootstrap.
 - Renamed options `change`, `editable`, `error` to respectively `onChange`,
   `onEditable`, and `onError`. Old options are still working and give a 
   deprecation warning.
 - Colors of values are now customizable using CSS. 
-- JSONEditor new throws a warning in the console in case of unknown options.
+- BSONEditor new throws a warning in the console in case of unknown options.
 - Fixed #93 and #227: html codes like `&amp;` not escaped.
 - Fixed #149: Memory leak when switching mode from/to `code` mode, web worker
   of Ace editor wasn't cleaned up.
@@ -449,7 +449,7 @@ https://github.com/josdejong/jsoneditor
 
 ## 2015-02-28, version 4.0.0
 
-- Ace editor and jsonlint are now packed with jsoneditor.js by default.
+- Ace editor and jsonlint are now packed with bsoneditor.js by default.
   This makes the library about 4 times larger. If Ace is not needed, a custom
   build of the library can be done.
 - The distribution files are now moved from the root to the `/dist` folder.
@@ -486,7 +486,7 @@ https://github.com/josdejong/jsoneditor
 
 ## 2014-07-28, version 3.1.0
 
-- JSONEditor now accepts JavaScript objects as input, and can turn them into
+- BSONEditor now accepts JavaScript objects as input, and can turn them into
   valid JSON. For example `{a:2,b:'str'}` can be turned into `{"a":2,"b":"str"}`.
 - Implemented an option `editable`, a callback function, which allows to set 
   individual nodes (their field and/or value) editable or read-only.
@@ -497,8 +497,8 @@ https://github.com/josdejong/jsoneditor
 ## 2014-05-31, version 3.0.0
 
 - Large code reorganization.
-- Editor must be loaded as `new JSONEditor(...)` instead of 
-  `new jsoneditor.JSONEditor(...)`.
+- Editor must be loaded as `new BSONEditor(...)` instead of 
+  `new bsoneditor.BSONEditor(...)`.
 - Css is not automatically loaded anymore when using AMD.
 - Web application has been moved to another project.
 
@@ -563,10 +563,10 @@ https://github.com/josdejong/jsoneditor
 
 ## 2013-05-04, version 2.2.0
 
-- Unified JSONFormatter and JSONEditor in one editor with a switchable mode.
+- Unified JSONFormatter and BSONEditor in one editor with a switchable mode.
 - Urls are navigable now.
 - Improved error and log handling.
-- Added jsoneditor to package managers npm and bower.
+- Added bsoneditor to package managers npm and bower.
 
 
 ## 2013-03-11, version 2.1.1
@@ -666,7 +666,7 @@ https://github.com/josdejong/jsoneditor
   App (without ads).
 - Changed: Chrome App is now configured to be available offline.
 - Fixed: When zooming your browser window, the fields/values did get wrapped
-  on Chrome (thanks Henri Gourvest), and on Firefox sometimes the jsoneditor
+  on Chrome (thanks Henri Gourvest), and on Firefox sometimes the bsoneditor
   disappeared due to wrapping of the interface contents.
 
 
@@ -730,7 +730,7 @@ https://github.com/josdejong/jsoneditor
 
 - Fixed a bug. Dragging an object down which has been expanded and collapsed
   again did not work.
-- Using a minified version of jsoneditor.js, to improve page load time and
+- Using a minified version of bsoneditor.js, to improve page load time and
   save bandwidth.
 
 

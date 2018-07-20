@@ -1,19 +1,19 @@
 
-table.jsoneditor-search input,
-table.jsoneditor-search div.jsoneditor-results {
+table.bsoneditor-search input,
+table.bsoneditor-search div.bsoneditor-results {
   font-family: arial, sans-serif;
   font-size: 10pt;
   color: #1A1A1A;
   background: transparent; /* For Firefox */
 }
 
-table.jsoneditor-search div.jsoneditor-results {
+table.bsoneditor-search div.bsoneditor-results {
   color: white;
   padding-right: 5px;
   line-height: 24px;
 }
 
-table.jsoneditor-search {
+table.bsoneditor-search {
   position: absolute;
   right: 4px;
   top: 4px;
@@ -21,18 +21,18 @@ table.jsoneditor-search {
   border-spacing: 0;
 }
 
-table.jsoneditor-search div.jsoneditor-frame {
+table.bsoneditor-search div.bsoneditor-frame {
   border: 1px solid transparent;
   background-color: white;
   padding: 0 2px;
   margin: 0;
 }
 
-table.jsoneditor-search div.jsoneditor-frame table {
+table.bsoneditor-search div.bsoneditor-frame table {
   border-collapse: collapse;
 }
 
-table.jsoneditor-search input {
+table.bsoneditor-search input {
   width: 120px;
   border: none;
   outline: none;
@@ -40,38 +40,38 @@ table.jsoneditor-search input {
   line-height: 20px;
 }
 
-table.jsoneditor-search button {
+table.bsoneditor-search button {
   width: 16px;
   height: 24px;
   padding: 0;
   margin: 0;
   border: none;
-  background: url('./img/jsoneditor-icons.svg');
+  background: url('./img/bsoneditor-icons.svg');
   vertical-align: top;
 }
 
-table.jsoneditor-search button:hover {
+table.bsoneditor-search button:hover {
   background-color: transparent;
 }
 
-table.jsoneditor-search button.jsoneditor-refresh {
+table.bsoneditor-search button.bsoneditor-refresh {
   width: 18px;
   background-position: -99px -73px;
 }
 
-table.jsoneditor-search button.jsoneditor-next {
+table.bsoneditor-search button.bsoneditor-next {
   cursor: pointer;
   background-position: -124px -73px;
 }
-table.jsoneditor-search button.jsoneditor-next:hover {
+table.bsoneditor-search button.bsoneditor-next:hover {
   background-position: -124px -49px;
 }
 
-table.jsoneditor-search button.jsoneditor-previous {
+table.bsoneditor-search button.bsoneditor-previous {
   cursor: pointer;
   background-position: -148px -73px;
   margin-right: 2px;
 }
-table.jsoneditor-search button.jsoneditor-previous:hover {
+table.bsoneditor-search button.bsoneditor-previous:hover {
   background-position: -148px -49px;
 }

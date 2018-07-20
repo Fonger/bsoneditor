@@ -8,12 +8,12 @@ catch (err) {
   // no problem... when we need Ajv we will throw a neat exception
 }
 
-var treemode = require('./treemode');
+var treemode = require('./treemode' );
 var textmode = require('./textmode');
 var util = require('./util');
 
 /**
- * @constructor JSONEditor
+ * @constructor BSONEditor
  * @param {Element} container    Container element
  * @param {Object}  [options]    Object with options. available options:
  *                               {String} mode        Editor mode. Available values:
@@ -57,9 +57,9 @@ var util = require('./util');
  *                                                                Defaults to document.body
  * @param {Object | undefined} json JSON object
  */
-function JSONEditor (container, options, json) {
-  if (!(this instanceof JSONEditor)) {
-    throw new Error('JSONEditor constructor called without "new".');
+function BSONEditor (container, options, json) {
+  if (!(this instanceof BSONEditor)) {
+    throw new Error('BSONEditor constructor called without "new".');
   }
 
   // check for unsupported browser (IE8 and older)
@@ -92,9 +92,10 @@ function JSONEditor (container, options, json) {
       var VALID_OPTIONS = [
         'ajv', 'schema', 'schemaRefs','templates',
         'ace', 'theme','autocomplete',
-        'onChange', 'onEditable', 'onError', 'onModeChange', 'onSelectionChange', 'onTextSelectionChange',
+        'onChange', 'onEditable', 'onError', 'onModeChange', 'onSelectionChange', 'onTextSelectionChange', 'onSave', 'onRemove', 'onCancelEdit',
         'escapeUnicode', 'history', 'search', 'mode', 'modes', 'name', 'indentation', 
-        'sortObjectKeys', 'navigationBar', 'statusBar', 'languages', 'language'
+        'sortObjectKeys', 'navigationBar', 'statusBar', 'languages', 'language',
+        'bson'
       ];
 
       Object.keys(options).forEach(function (option) {
@@ -125,19 +126,19 @@ function JSONEditor (container, options, json) {
  *
  * @type { Object.<String, {mixin: Object, data: String} > }
  */
-JSONEditor.modes = {};
+BSONEditor.modes = {};
 
 // debounce interval for JSON schema vaidation in milliseconds
-JSONEditor.prototype.DEBOUNCE_INTERVAL = 150;
+BSONEditor.prototype.DEBOUNCE_INTERVAL = 150;
 
 /**
- * Create the JSONEditor
+ * Create the BSONEditor
  * @param {Element} container    Container element
  * @param {Object}  [options]    See description in constructor
  * @param {Object | undefined} json JSON object
  * @private
  */
-JSONEditor.prototype._create = function (container, options, json) {
+BSONEditor.prototype._create = function (container, options, json) {
   this.container = container;
   this.options = options || {};
   this.json = json || {};
@@ -149,13 +150,13 @@ JSONEditor.prototype._create = function (container, options, json) {
 /**
  * Destroy the editor. Clean up DOM, event listeners, and web workers.
  */
-JSONEditor.prototype.destroy = function () {};
+BSONEditor.prototype.destroy = function () {};
 
 /**
  * Set JSON object in editor
  * @param {Object | undefined} json      JSON data
  */
-JSONEditor.prototype.set = function (json) {
+BSONEditor.prototype.set = function (json) {
   this.json = json;
 };
 
@@ -163,7 +164,7 @@ JSONEditor.prototype.set = function (json) {
  * Get JSON from the editor
  * @returns {Object} json
  */
-JSONEditor.prototype.get = function () {
+BSONEditor.prototype.get = function () {
   return this.json;
 };
 
@@ -171,7 +172,7 @@ JSONEditor.prototype.get = function () {
  * Set string containing JSON for the editor
  * @param {String | undefined} jsonText
  */
-JSONEditor.prototype.setText = function (jsonText) {
+BSONEditor.prototype.setText = function (jsonText) {
   this.json = util.parse(jsonText);
 };
 
@@ -179,7 +180,7 @@ JSONEditor.prototype.setText = function (jsonText) {
  * Get stringified JSON contents from the editor
  * @returns {String} jsonText
  */
-JSONEditor.prototype.getText = function () {
+BSONEditor.prototype.getText = function () {
   return JSON.stringify(this.json);
 };
 
@@ -187,7 +188,7 @@ JSONEditor.prototype.getText = function () {
  * Set a field name for the root node.
  * @param {String | undefined} name
  */
-JSONEditor.prototype.setName = function (name) {
+BSONEditor.prototype.setName = function (name) {
   if (!this.options) {
     this.options = {};
   }
@@ -198,17 +199,17 @@ JSONEditor.prototype.setName = function (name) {
  * Get the field name for the root node.
  * @return {String | undefined} name
  */
-JSONEditor.prototype.getName = function () {
+BSONEditor.prototype.getName = function () {
   return this.options && this.options.name;
 };
 
 /**
  * Change the mode of the editor.
- * JSONEditor will be extended with all methods needed for the chosen mode.
+ * BSONEditor will be extended with all methods needed for the chosen mode.
  * @param {String} mode     Available modes: 'tree' (default), 'view', 'form',
  *                          'text', and 'code'.
  */
-JSONEditor.prototype.setMode = function (mode) {
+BSONEditor.prototype.setMode = function (mode) {
   var container = this.container;
   var options = util.extend({}, this.options);
   var oldMode = options.mode;
@@ -216,13 +217,13 @@ JSONEditor.prototype.setMode = function (mode) {
   var name;
 
   options.mode = mode;
-  var config = JSONEditor.modes[mode];
+  var config = BSONEditor.modes[mode];
   if (config) {
     try {
       var asText = (config.data == 'text');
       name = this.getName();
-      data = this[asText ? 'getText' : 'get'](); // get text or json
 
+      data = this[asText ? 'getText' : 'get'](); // get text or json
       this.destroy();
       util.clear(this);
       util.extend(this, config.mixin);
@@ -262,7 +263,7 @@ JSONEditor.prototype.setMode = function (mode) {
  * Get the current mode
  * @return {string}
  */
-JSONEditor.prototype.getMode = function () {
+BSONEditor.prototype.getMode = function () {
   return this.options.mode;
 };
 
@@ -272,7 +273,7 @@ JSONEditor.prototype.getMode = function () {
  * @param {Error} err
  * @private
  */
-JSONEditor.prototype._onError = function(err) {
+BSONEditor.prototype._onError = function(err) {
   if (this.options && typeof this.options.onError === 'function') {
     this.options.onError(err);
   }
@@ -283,12 +284,12 @@ JSONEditor.prototype._onError = function(err) {
 
 /**
  * Set a JSON schema for validation of the JSON object.
- * To remove the schema, call JSONEditor.setSchema(null)
+ * To remove the schema, call BSONEditor.setSchema(null)
  * @param {Object | null} schema
  * @param {Object.<string, Object>=} schemaRefs Schemas that are referenced using the `$ref` property from the JSON schema that are set in the `schema` option,
  +  the object structure in the form of `{reference_key: schemaObject}`
  */
-JSONEditor.prototype.setSchema = function (schema, schemaRefs) {
+BSONEditor.prototype.setSchema = function (schema, schemaRefs) {
   // compile a JSON schema validator if a JSON schema is provided
   if (schema) {
     var ajv;
@@ -298,7 +299,7 @@ JSONEditor.prototype.setSchema = function (schema, schemaRefs) {
 
     }
     catch (err) {
-      console.warn('Failed to create an instance of Ajv, JSON Schema validation is not available. Please use a JSONEditor bundle including Ajv, or pass an instance of Ajv as via the configuration option `ajv`.');
+      console.warn('Failed to create an instance of Ajv, JSON Schema validation is not available. Please use a BSONEditor bundle including Ajv, or pass an instance of Ajv as via the configuration option `ajv`.');
     }
 
     if (ajv) {
@@ -337,14 +338,14 @@ JSONEditor.prototype.setSchema = function (schema, schemaRefs) {
  * Validate current JSON object against the configured JSON schema
  * Throws an exception when no JSON schema is configured
  */
-JSONEditor.prototype.validate = function () {
+BSONEditor.prototype.validate = function () {
   // must be implemented by treemode and textmode
 };
 
 /**
  * Refresh the rendered contents
  */
-JSONEditor.prototype.refresh = function () {
+BSONEditor.prototype.refresh = function () {
   // can be implemented by treemode and textmode
 };
 
@@ -355,11 +356,11 @@ JSONEditor.prototype.refresh = function () {
  *
  * - `mode: String`           The name of the mode.
  * - `mixin: Object`          An object containing the mixin functions which
- *                            will be added to the JSONEditor. Must contain functions
+ *                            will be added to the BSONEditor. Must contain functions
  *                            create, get, getText, set, and setText. May have
  *                            additional functions.
- *                            When the JSONEditor switches to a mixin, all mixin
- *                            functions are added to the JSONEditor, and then
+ *                            When the BSONEditor switches to a mixin, all mixin
+ *                            functions are added to the BSONEditor, and then
  *                            the function `create(container, options)` is executed.
  * - `data: 'text' | 'json'`  The type of data that will be used to load the mixin.
  * - `[load: function]`       An optional function called after the mixin
@@ -367,13 +368,13 @@ JSONEditor.prototype.refresh = function () {
  *
  * @param {Object | Array} mode  A mode object or an array with multiple mode objects.
  */
-JSONEditor.registerMode = function (mode) {
+BSONEditor.registerMode = function (mode) {
   var i, prop;
 
   if (util.isArray(mode)) {
     // multiple modes
     for (i = 0; i < mode.length; i++) {
-      JSONEditor.registerMode(mode[i]);
+      BSONEditor.registerMode(mode[i]);
     }
   }
   else {
@@ -382,7 +383,7 @@ JSONEditor.registerMode = function (mode) {
     if (!('mixin' in mode)) throw new Error('Property "mixin" missing');
     if (!('data' in mode)) throw new Error('Property "data" missing');
     var name = mode.mode;
-    if (name in JSONEditor.modes) {
+    if (name in BSONEditor.modes) {
       throw new Error('Mode "' + name + '" already registered');
     }
 
@@ -398,12 +399,12 @@ JSONEditor.registerMode = function (mode) {
       }
     }
 
-    JSONEditor.modes[name] = mode;
+    BSONEditor.modes[name] = mode;
   }
 };
 
 // register tree and text modes
-JSONEditor.registerMode(treemode);
-JSONEditor.registerMode(textmode);
+BSONEditor.registerMode(treemode);
+BSONEditor.registerMode(textmode);
 
-module.exports = JSONEditor;
+module.exports = BSONEditor;

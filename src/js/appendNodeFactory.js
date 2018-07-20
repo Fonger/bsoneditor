@@ -40,7 +40,7 @@ function appendNodeFactory(Node) {
 
     // a row for the append button
     var trAppend = document.createElement('tr');
-    trAppend.className = 'jsoneditor-append';
+    trAppend.className = 'bsoneditor-append';
     trAppend.node = this;
     dom.tr = trAppend;
 
@@ -55,7 +55,7 @@ function appendNodeFactory(Node) {
       dom.tdMenu = tdMenu;
       var menu = document.createElement('button');
       menu.type = 'button';
-      menu.className = 'jsoneditor-contextmenu';
+      menu.className = 'bsoneditor-contextmenu';
       menu.title = 'Click to open the actions menu (Ctrl+M)';
       dom.menu = menu;
       tdMenu.appendChild(dom.menu);
@@ -65,7 +65,7 @@ function appendNodeFactory(Node) {
     var tdAppend = document.createElement('td');
     var domText = document.createElement('div');
     domText.innerHTML = '(' + translate('empty') + ')';
-    domText.className = 'jsoneditor-readonly';
+    domText.className = 'bsoneditor-readonly';
     tdAppend.appendChild(domText);
     dom.td = tdAppend;
     dom.text = domText;
@@ -139,7 +139,7 @@ function appendNodeFactory(Node) {
     var appendSubmenu = [
         {
             text: translate('auto'),
-            className: 'jsoneditor-type-auto',
+            className: 'bsoneditor-type-auto',
             title: titles.auto,
             click: function () {
                 node._onAppend('', '', 'auto');
@@ -147,7 +147,7 @@ function appendNodeFactory(Node) {
         },
         {
             text: translate('array'),
-            className: 'jsoneditor-type-array',
+            className: 'bsoneditor-type-array',
             title: titles.array,
             click: function () {
                 node._onAppend('', []);
@@ -155,7 +155,7 @@ function appendNodeFactory(Node) {
         },
         {
             text: translate('object'),
-            className: 'jsoneditor-type-object',
+            className: 'bsoneditor-type-object',
             title: titles.object,
             click: function () {
                 node._onAppend('', {});
@@ -163,11 +163,29 @@ function appendNodeFactory(Node) {
         },
         {
             text: translate('string'),
-            className: 'jsoneditor-type-string',
+            className: 'bsoneditor-type-string',
             title: titles.string,
             click: function () {
                 node._onAppend('', '', 'string');
             }
+        },
+        {
+          text: translate('date'),
+          className: 'bsoneditor-type-date' +
+              (this.type == 'date' ? ' bsoneditor-selected' : ''),
+          title: titles.date,
+          click: function () {
+            node._onAppend('', new Date(), 'date');
+          }
+        },
+        {
+          text: translate('objectId'),
+          className: 'bsoneditor-type-objectId' +
+              (this.type == 'objectId' ? ' bsoneditor-selected' : ''),
+          title: titles.objectId,
+          click: function () {
+            node._onAppend('', ObjectId.createFromHexString('000000000000000000000000'), 'objectId');
+          }
         }
     ];
     node.addTemplates(appendSubmenu, true);
@@ -177,7 +195,7 @@ function appendNodeFactory(Node) {
         'text': translate('appendText'),
         'title': translate('appendTitleAuto'),
         'submenuTitle': translate('appendSubmenuTitle'),
-        'className': 'jsoneditor-insert',
+        'className': 'bsoneditor-insert',
         'click': function () {
           node._onAppend('', '', 'auto');
         },
@@ -214,9 +232,9 @@ function appendNodeFactory(Node) {
       var highlighter = this.editor.highlighter;
       highlighter.highlight(this.parent);
       highlighter.lock();
-      util.addClassName(dom.menu, 'jsoneditor-selected');
+      util.addClassName(dom.menu, 'bsoneditor-selected');
       this.showContextMenu(dom.menu, function () {
-        util.removeClassName(dom.menu, 'jsoneditor-selected');
+        util.removeClassName(dom.menu, 'bsoneditor-selected');
         highlighter.unlock();
         highlighter.unhighlight();
       });

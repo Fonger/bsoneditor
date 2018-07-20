@@ -234,14 +234,14 @@ treemode.getText = function() {
  */
 treemode.setText = function(jsonText) {
   try {
-    this.set(util.parse(jsonText)); // this can throw an error
+    this.set(JSON.parse(jsonText)); // this can throw an error
   }
   catch (err) {
     // try to sanitize json, replace JavaScript notation with JSON notation
     var sanitizedJsonText = util.sanitize(jsonText);
 
     // try to parse again
-    this.set(util.parse(sanitizedJsonText)); // this can throw an error
+    this.set(JSON.parse(sanitizedJsonText)); // this can throw an error
   }
 };
 
@@ -671,7 +671,7 @@ treemode.scrollTo = function (top, callback) {
 treemode._createFrame = function () {
   // create the frame
   this.frame = document.createElement('div');
-  this.frame.className = 'jsoneditor jsoneditor-mode-' + this.options.mode;
+  this.frame.className = 'bsoneditor bsoneditor-mode-' + this.options.mode;
   this.container.appendChild(this.frame);
 
   // create one global event listener to handle all events from all nodes
@@ -714,13 +714,13 @@ treemode._createFrame = function () {
 
   // create menu
   this.menu = document.createElement('div');
-  this.menu.className = 'jsoneditor-menu';
+  this.menu.className = 'bsoneditor-menu';
   this.frame.appendChild(this.menu);
 
   // create expand all button
   var expandAll = document.createElement('button');
   expandAll.type = 'button';
-  expandAll.className = 'jsoneditor-expand-all';
+  expandAll.className = 'bsoneditor-expand-all';
   expandAll.title = translate('expandAll');
   expandAll.onclick = function () {
     editor.expandAll();
@@ -731,40 +731,40 @@ treemode._createFrame = function () {
   var collapseAll = document.createElement('button');
   collapseAll.type = 'button';
   collapseAll.title = translate('collapseAll');
-  collapseAll.className = 'jsoneditor-collapse-all';
+  collapseAll.className = 'bsoneditor-collapse-all';
   collapseAll.onclick = function () {
     editor.collapseAll();
   };
   this.menu.appendChild(collapseAll);
 
   // create sort button
-  var sort = document.createElement('button');
+  /* var sort = document.createElement('button');
   sort.type = 'button';
-  sort.className = 'jsoneditor-sort';
+  sort.className = 'bsoneditor-sort';
   sort.title = translate('sortTitleShort');
   sort.onclick = function () {
     var anchor = editor.options.modalAnchor || DEFAULT_MODAL_ANCHOR;
     showSortModal(editor.node, anchor)
   };
-  this.menu.appendChild(sort);
+  this.menu.appendChild(sort); */
 
   // create transform button
-  var transform = document.createElement('button');
+  /* var transform = document.createElement('button');
   transform.type = 'button';
   transform.title = translate('transformTitleShort');
-  transform.className = 'jsoneditor-transform';
+  transform.className = 'bsoneditor-transform';
   transform.onclick = function () {
     var anchor = editor.options.modalAnchor || DEFAULT_MODAL_ANCHOR;
     showTransformModal(editor.node, anchor)
   };
-  this.menu.appendChild(transform);
+  this.menu.appendChild(transform); */
 
   // create undo/redo buttons
   if (this.history) {
     // create undo button
     var undo = document.createElement('button');
     undo.type = 'button';
-    undo.className = 'jsoneditor-undo jsoneditor-separator';
+    undo.className = 'bsoneditor-undo bsoneditor-separator';
     undo.title = translate('undo');
     undo.onclick = function () {
       editor._onUndo();
@@ -775,7 +775,7 @@ treemode._createFrame = function () {
     // create redo button
     var redo = document.createElement('button');
     redo.type = 'button';
-    redo.className = 'jsoneditor-redo';
+    redo.className = 'bsoneditor-redo';
     redo.title = translate('redo');
     redo.onclick = function () {
       editor._onRedo();
@@ -795,29 +795,64 @@ treemode._createFrame = function () {
   if (this.options && this.options.modes && this.options.modes.length) {
     var me = this;
     this.modeSwitcher = new ModeSwitcher(this.menu, this.options.modes, this.options.mode, function onSwitch(mode) {
-      me.modeSwitcher.destroy();
-
-      // switch mode and restore focus
-      me.setMode(mode);
-      me.modeSwitcher.focus();
+      if (mode === 'remove') {
+        if (editor.options.onRemove) {
+          editor.options.onRemove(editor.get())
+        }
+      } else {
+        if (mode === 'view' && editor.options.onCancelEdit) {
+          // set back original data
+          me.set(editor.options.onCancelEdit())
+        }
+        me.modeSwitcher.destroy();
+        // switch mode and restore focus
+        me.setMode(mode);
+        me.modeSwitcher.focus();
+      }
     });
   }
 
+  if (this.history) {
+    // create save button
+    if (editor.options.onSave) {
+      var save = document.createElement('button');
+      save.type = 'button';
+      save.className = 'bsoneditor-save bsoneditor-separator';
+      save.title = translate('save');
+      save.innerHTML = '✔ Save';
+      save.onclick = function () {
+        try {
+          editor.validate();
+          if (editor.errorNodes.length === 0) {
+            editor.options.onSave(null, editor.get());
+            editor.setMode('view');
+            return
+          }
+          throw new Error('has error');
+        } catch (err) {
+          editor.options.onSave(err);
+        }
+      };
+      this.menu.appendChild(save);
+      this.dom.save = save;
+    }
+  }
+
   // create search box
-  if (this.options.search) {
+  /*if (this.options.search) {
     this.searchBox = new SearchBox(this, this.menu);
   }
 
   if(this.options.navigationBar) {
     // create second menu row for treepath
     this.navBar = document.createElement('div');
-    this.navBar.className = 'jsoneditor-navigation-bar nav-bar-empty';
+    this.navBar.className = 'bsoneditor-navigation-bar nav-bar-empty';
     this.frame.appendChild(this.navBar);
 
     this.treePath = new TreePath(this.navBar);
     this.treePath.onSectionSelected(this._onTreePathSectionSelected.bind(this));
     this.treePath.onContextMenuItemSelected(this._onTreePathMenuItemSelected.bind(this));
-  }
+  }*/
 };
 
 /**
@@ -1277,8 +1312,8 @@ treemode._onKeyDown = function (event) {
       if (!ctrlKey && !altKey && !metaKey && (event.key.length == 1 || keynum == 8 || keynum == 46)) {
           handled = false;
           var jsonElementType = "";
-          if (event.target.className.indexOf("jsoneditor-value") >= 0) jsonElementType = "value";
-          if (event.target.className.indexOf("jsoneditor-field") >= 0) jsonElementType = "field";
+          if (event.target.className.indexOf("bsoneditor-value") >= 0) jsonElementType = "value";
+          if (event.target.className.indexOf("bsoneditor-field") >= 0) jsonElementType = "field";
 
           var node = Node.getNodeFromTarget(event.target);
           // Activate autocomplete
@@ -1325,18 +1360,18 @@ treemode._onKeyDown = function (event) {
  */
 treemode._createTable = function () {
   var contentOuter = document.createElement('div');
-  contentOuter.className = 'jsoneditor-outer';
+  contentOuter.className = 'bsoneditor-outer';
   if(this.options.navigationBar) {
     util.addClassName(contentOuter, 'has-nav-bar');
   }
   this.contentOuter = contentOuter;
 
   this.content = document.createElement('div');
-  this.content.className = 'jsoneditor-tree';
+  this.content.className = 'bsoneditor-tree';
   contentOuter.appendChild(this.content);
 
   this.table = document.createElement('table');
-  this.table.className = 'jsoneditor-tree';
+  this.table.className = 'bsoneditor-tree';
   this.content.appendChild(this.table);
 
   // create colgroup where the first two columns don't have a fixed
@@ -1376,7 +1411,7 @@ treemode.showContextMenu = function (anchor, onClose) {
   items.push({
     text: translate('duplicateText'),
     title: translate('duplicateTitle'),
-    className: 'jsoneditor-duplicate',
+    className: 'bsoneditor-duplicate',
     click: function () {
       Node.onDuplicate(editor.multiselection.nodes);
     }
@@ -1386,7 +1421,7 @@ treemode.showContextMenu = function (anchor, onClose) {
   items.push({
     text: translate('remove'),
     title: translate('removeTitle'),
-    className: 'jsoneditor-remove',
+    className: 'bsoneditor-remove',
     click: function () {
       Node.onRemove(editor.multiselection.nodes);
     }

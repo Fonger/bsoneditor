@@ -4,11 +4,11 @@
   <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <!--<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css" rel="stylesheet" type="text/css">-->
 
-  <link href="../dist/jsoneditor.css" rel="stylesheet" type="text/css">
-  <script src="../dist/jsoneditor.js"></script>
+  <link href="../dist/bsoneditor.css" rel="stylesheet" type="text/css">
+  <script src="../dist/bsoneditor.js"></script>
 
   <style type="text/css">
-    #jsoneditor {
+    #bsoneditor {
       width: 500px;
       height: 500px;
     }
@@ -20,10 +20,10 @@
   Test with bootstrap
 </p>
 
-<div id="jsoneditor"></div>
+<div id="bsoneditor"></div>
 
 <script>
-  var container = document.getElementById('jsoneditor');
+  var container = document.getElementById('bsoneditor');
   var options = {
     "mode": "tree",
     "modes": [
@@ -43,7 +43,7 @@
       }
     }
   };
-  var editor = new JSONEditor(container, options);
+  var editor = new BSONEditor(container, options);
 
   var text = "[{\"test\":\"test\"}]";
   var json = JSON.parse(text);

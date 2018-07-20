@@ -1,22 +1,22 @@
 /* reset styling (prevent conflicts with bootstrap, materialize.css, etc.) */
 
-div.jsoneditor .jsoneditor-search input {
+div.bsoneditor .bsoneditor-search input {
   height: auto;
   border: inherit;
 }
 
-div.jsoneditor .jsoneditor-search input:focus {
+div.bsoneditor .bsoneditor-search input:focus {
   border: none !important;
   box-shadow: none !important;
 }
 
-div.jsoneditor table {
+div.bsoneditor table {
   border-collapse: collapse;
   width: auto;
 }
 
-div.jsoneditor td,
-div.jsoneditor th {
+div.bsoneditor td,
+div.bsoneditor th {
   padding: 0;
   display: table-cell;
   text-align: left;
