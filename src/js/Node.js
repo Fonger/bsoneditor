@@ -1565,8 +1565,9 @@ Node.prototype._getDomField = function(silent) {
  */
 Node.prototype.validate = function () {
   var errors = [];
-  if (typeof this.field === 'string' && (this.field === "" || this.field.indexOf('$') === 0)) {
-    if (this.parent && this.parent.type !== 'array') {
+  if (typeof this.field === 'string') {
+    if ((this.field === "" && this.parent && this.parent.type !== 'array') ||
+    (this.field.indexOf('$') >= 0 || this.field.indexOf('.') >= 0) ) {
       errors.push({
         node: this,
         error: {
