@@ -61,7 +61,9 @@ div.bsoneditor-menu > button.bsoneditor-transform {
 }
 div.bsoneditor-menu > button.bsoneditor-save {
   background: unset;
+  background: transparent;
   width: unset;
+  width: auto;
   padding-left: 2px;
   padding-right: 5px;
 }

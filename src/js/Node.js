@@ -1686,7 +1686,7 @@ Node.prototype.getDom = function() {
     tdMenu.appendChild(dom.menu);
     dom.tr.appendChild(tdMenu);
     if (this.getPath().length === 0) {
-      dom.menu.style = "visibility: hidden"; // hide context menu for root
+      dom.menu.style.visibility = "hidden"; // hide context menu for root
     }
   }
 

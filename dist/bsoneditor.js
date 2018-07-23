@@ -25,7 +25,7 @@
  *
  * @author  Jos de Jong, <wjosdejong@gmail.com>
  * @version 5.19.0
- * @date    2018-07-20
+ * @date    2018-07-24
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -14269,7 +14269,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    tdMenu.appendChild(dom.menu);
 	    dom.tr.appendChild(tdMenu);
 	    if (this.getPath().length === 0) {
-	      dom.menu.style = "visibility: hidden"; // hide context menu for root
+	      dom.menu.style.visibility = "hidden"; // hide context menu for root
 	    }
 	  }
 
