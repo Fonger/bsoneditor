@@ -13,6 +13,7 @@ var NAME_MINIMALIST = 'bsoneditor-minimalist';
 var ENTRY   = './src/js/BSONEditor.js';
 var HEADER  = './src/js/header.js';
 var IMAGE   = './src/css/img/bsoneditor-icons.svg';
+var IMAGELIGHT   = './src/css/img/bsoneditor-icons-light.svg';
 var DOCS    = './src/docs/*';
 var DIST    = './dist';
 
@@ -154,6 +155,8 @@ gulp.task('bundle-css', ['mkdir'], function () {
 // create a folder img and copy the icons
 gulp.task('copy-img', ['mkdir'], function () {
   gulp.src(IMAGE)
+      .pipe(gulp.dest(DIST + '/img'));
+  gulp.src(IMAGELIGHT)
       .pipe(gulp.dest(DIST + '/img'));
   gutil.log('Copied images');
 });
